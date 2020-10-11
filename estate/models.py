@@ -16,6 +16,10 @@ class Condo(models.Model):
     #         message='Must be a valid GPS coordination.'),
     #     ])
 
+    def __str__(self):
+        """Return the name of the condo."""
+        return self.name
+
 
 class Room(models.Model): # Unit
     condo = models.ForeignKey(Condo, on_delete=models.CASCADE)
@@ -29,6 +33,9 @@ class Room(models.Model): # Unit
     number_of_bathroom = models.IntegerField(default=1)
     area = models.FloatField(default=0)  # in square meters?
 
+    def __str__(self):
+        """Return the title of the room."""
+        return self.title
 
 class RoomImages(models.Model):
     room = models.ForeignKey(Room, on_delete=models.CASCADE)
