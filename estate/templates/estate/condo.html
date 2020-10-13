@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ condo.condo_name }}</title>
+</head>
+<body>
+
+<h1>Condo</h1>
+
+<p>{{ condo.condo_name }}</p>
+<p>{{ condo.condo_description }}</p>
+<p>{{ condo.number_of_floors }}</p>
+
+<p>elevator = {{ condo.elevator }}</p>
+<p>parking_lot = {{ condo.parking_lot }}</p>
+<p>wifi = {{ condo.wifi }}</p>
+<p>swimming_pool = {{ condo.swimming_pool }}</p>
+<p>...</p>
+
+
+{% if find_room %}
+{% for room in condo.get_rooms %}
+    <p>
+        <a href="{% url 'estate:room' room.id %}"><button>{{ room.room_title }}</button></a>
+    </p>
+    {% endfor %}
+{% else %}
+    <p>No room are available.</p>
+{% endif %}
+
+</body>
+</html>

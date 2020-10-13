@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Index</title>
+</head>
+<body>
+
+<div>
+    {% if room_list %}
+        {% for room in room_list %}
+            <p>
+                <a href="{% url 'estate:room' room.id %}"><button>{{ room.room_title }}</button></a>
+            </p>
+        {% endfor %}
+    {% else %}
+        <p>No room are available.</p>
+    {% endif %}
+</div>
+
+</body>
+</html>
