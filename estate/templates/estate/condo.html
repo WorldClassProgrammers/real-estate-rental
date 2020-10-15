@@ -20,7 +20,7 @@
 <p>...</p>
 
 
-{% if find_room %}
+{% if condo.get_rooms %}
 {% for room in condo.get_rooms %}
     <p>
         <a href="{% url 'estate:room' room.id %}"><button>{{ room.room_title }}</button></a>

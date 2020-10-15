@@ -17,6 +17,12 @@ class CondoAdmin(admin.ModelAdmin):
                 'number_of_floors',
             ]
         }),
+        ('Admin only', {
+            'fields': [
+                'juristic_persons_number',
+                'common_fee_account',
+            ],
+        }),
         ('amenities information', {
             'fields': [
                 'elevator',
@@ -37,6 +43,8 @@ class CondoAdmin(admin.ModelAdmin):
     inlines = [RoomInline]
     list_display = (
         'condo_name',
+        'juristic_persons_number',
+        'common_fee_account',
     )
     search_fields = ['condo_name']
 
@@ -45,7 +53,7 @@ class RoomAdmin(admin.ModelAdmin):
     fieldsets = [
         (None, {
             'fields': [
-                'condo_name', # ???
+                'condo_name',
                 'owner_name',
                 'room_title',
                 'room_description',
@@ -69,6 +77,7 @@ class RoomAdmin(admin.ModelAdmin):
         'condo_name',
         'room_number',
         'still_on_contract',
+        # 'contract_over',
     )
     list_filter = ['still_on_contract']
     search_fields = ['condo_name',
@@ -92,6 +101,7 @@ class OwnerAdmin(admin.ModelAdmin):
     list_display = (
         'owner_name',
         'owner_email',
+        'owner_phone_number',
     )
     search_fields = ['owner_name']
 

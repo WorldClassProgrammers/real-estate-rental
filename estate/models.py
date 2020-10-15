@@ -7,6 +7,10 @@ class Condo(models.Model):
     # condo_image = models.ImageField()
     number_of_floors = models.IntegerField(default=1)
 
+    # admin only
+    juristic_persons_number = models.TextField(max_length=25)
+    common_fee_account = models.TextField(max_length=25)
+
     # amenities
     elevator = models.BooleanField(default=False)
     parking_lot = models.BooleanField(default=False)
@@ -33,12 +37,7 @@ class Condo(models.Model):
         return self.condo_name
 
     def get_rooms(self):
-        rooms = self.room_set.all() # still not work
-
-        # rooms = Room.objects.filter(
-        #     condo_name=self.condo_name
-        # )
-
+        rooms = self.room_set.all()
         return rooms
 
 
@@ -46,7 +45,7 @@ class Owner(models.Model):
     owner_name = models.CharField(max_length=100)
     owner_email = models.EmailField(max_length=100)
     owner_line_id = models.CharField(max_length=100)
-    owner_phone_number = models.IntegerField(default=0)
+    owner_phone_number = models.CharField(max_length=100)
 
     def __str__(self):
         """Return the name of the owner."""
@@ -60,7 +59,11 @@ class Room(models.Model):
     room_title = models.CharField(max_length=100)
     room_description = models.TextField(max_length=500)
     # room_image = models.ImageField()
+
+    # admin only
     still_on_contract = models.BooleanField(default=False)
+    # contract_over = models.DateTimeField('contract over')
+
     price_for_rent = models.FloatField(default=0)
     price_for_sell = models.FloatField(default=0)
     number_of_floor = models.CharField(max_length=10, default="1")

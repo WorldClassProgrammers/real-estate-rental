@@ -12,7 +12,7 @@ class IndexView(generic.ListView):
     def get_queryset(self):
         return Room.objects.filter(
             still_on_contract=False
-        )
+        ).order_by('condo_name', 'room_number')
 
 
 def condo(request, condo_id):
