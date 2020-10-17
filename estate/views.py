@@ -7,12 +7,16 @@ from estate.models import Room, Condo
 
 class IndexView(generic.ListView):
     template_name = 'estate/index.html'
-    room_list = 'room_list'
+    # room_list = 'room_list'
+    condo_list = 'condo_list'
 
+    # def get_queryset(self):
+    #     return Room.objects.filter(
+    #         still_on_contract=False
+    #     ).order_by('condo_name', 'room_number')
     def get_queryset(self):
-        return Room.objects.filter(
-            still_on_contract=False
-        ).order_by('condo_name', 'room_number')
+        return Condo.objects.order_by('condo_name')
+
 
 
 def condo(request, condo_id):

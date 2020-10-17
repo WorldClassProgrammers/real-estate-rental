@@ -1,0 +1,38 @@
+body {
+  margin-top: 0px;
+  margin-bottom: 0px;
+  margin-right: 0px;
+  margin-left: 0px;
+}
+
+#index_header {
+    background-image: url(https://upload.wikimedia.org/wikipedia/commons/e/e5/Bangkok_Panorama_%28211522205%29.jpeg);
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+#city {
+    max-width: 100%;
+    visibility: hidden;
+}
+
+#sub_header {
+    /* background-color: violet; */
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    font-size: xx-large;
+    margin-bottom: 16px;
+    padding-left: 64px;
+    padding-top: 8px;
+}
+
+hr {
+    border-bottom: 2px solid black;
+    border-radius: 5px;
+    margin-right: 256px;
+    margin-top: 0%;
+}
+
+#condo_display {
+    /* background-color: yellowgreen; */
+    width: 100%;
+}
