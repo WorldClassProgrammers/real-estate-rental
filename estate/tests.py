@@ -5,9 +5,14 @@ from estate.models import Condo, Owner, Room
 
 class TestIndexView(TestCase):
 
+    def test_condo_in_index(self):
+        condo = Condo.objects.create(condo_name="Condo", condo_description="This is not a real condo.", number_of_floors=17)
+        response = self.client.get(reverse('estate:index'))
+        self.assertContains(response, condo.condo_name)
+
     def test_no_condo(self):
         response = self.client.get(reverse('estate:index'))
-        self.assertContains(response, "No room are available.")
+        self.assertContains(response, "No condo available.")
 
 
 class TestCondoView(TestCase):
