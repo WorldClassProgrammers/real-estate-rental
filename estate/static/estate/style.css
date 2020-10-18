@@ -25,7 +25,7 @@ body {
     padding-top: 8px;
 }
 
-hr {
+#index_hr {
     border-bottom: 2px solid black;
     border-radius: 5px;
     margin-right: 256px;
@@ -35,4 +35,57 @@ hr {
 #condo_display {
     /* background-color: yellowgreen; */
     width: 100%;
+}
+
+#condo_image {
+    background-image: url(https://cf.bstatic.com/images/hotel/max1024x768/188/188168313.jpg);
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+.column {
+  float: left;
+  width: 50%;
+}
+
+.row:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+#condo_info {
+    /* padding: 10%; */
+    text-align: center;
+    height: calc(100%);
+    width: calc(100%);
+    padding-top: 16px;
+    /* display: flex; */
+    /* justify-content: center; */
+    /* align-items: center; */
+    font-family: 'Times New Roman', Times, serif;
+    background-color: rgb(225, 237, 243);
+}
+
+#condo_hr {
+    border-bottom: 2px solid black;
+    border-radius: 5px;
+    margin-left: 10%;
+    margin-right: 10%;
+}
+
+#display_box {
+    margin: auto;
+    margin-bottom: 4px;
+    padding: 2%;
+    height: 300px;
+    width: 350px;
+    border-radius: 5%;
+    background-color: black;
+}
+
+#box_title {
+    font-size: larger;
+    text-align: center;
+    padding-bottom: 15px;
 }

@@ -17,6 +17,12 @@ class IndexView(generic.ListView):
     def get_queryset(self):
         return Condo.objects.order_by('condo_name')
 
+# class CondoView(generic.ListView):
+#     template_name = 'estate/condo.html'
+#     room_list = 'room_list'
+
+#     def get_queryset(self):
+#         return Room.objects.order_by('room_number')
 
 
 def condo(request, condo_id):

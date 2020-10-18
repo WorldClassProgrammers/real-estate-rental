@@ -1,34 +1,82 @@
-<!DOCTYPE html>
+{% extends 'base.html' %}
 {% load static %}
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
     <title>{{ room.room_number }}</title>
 </head>
-<body>
 
-<h1>Room</h1>
 
-<p> about condo:
-    <a href="{% url 'estate:condo' condo.id %}"><button>{{ condo }}</button></a>
-</p>
+{% block content %}
 
-<p>{{ room.room_title }}</p>
-<p>{{ room.condo_name }}</p>
-<p>{{ room.room_description }}</p>
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <a class="navbar-brand" href="{% url 'estate:index' %}">Real Estate</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown"
+        aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNavDropdown">
+        <ul class="navbar-nav">
+            <li class="nav-item active">
+                <a class="nav-link" href="{% url 'estate:index' %}">Home <span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item active">
+                <a class="nav-link" href="{% url 'estate:condo' condo.id %}">{{ condo.condo_name }}</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">Pricing</a>
+            </li>
+            <li class="nav-item dropdown active">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button"
+                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Available rooms
+                </a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                    {% for room in condo.get_rooms %}
+                    {% if not room.still_on_contract %}
+                    <a class="dropdown-item" href="{% url 'estate:room' room.id %}">
+                        {{ room.room_title }}
+                    </a>
+                    {% endif %}
+                    {% endfor %}
+                </div>
+            </li>
+        </ul>
+    </div>
+</nav>
 
-<p>price_for_rent = {{ room.price_for_rent }}</p>
-<p>number_of_bedroom = {{ room.number_of_bedroom }}</p>
-<p>number_of_bathroom = {{ room.number_of_bathroom }}</p>
-<p>area = {{ room.area }}</p>
-<p>still_on_contract = {{ room.still_on_contract }}</p>
 
-<p>elevator = {{ condo.elevator }}</p>
-<p>parking_lot = {{ condo.parking_lot }}</p>
-<p>wifi = {{ condo.wifi }}</p>
-<p>swimming_pool = {{ condo.swimming_pool }}</p>
-<p>...</p>
+<div class="boxes">
+    <div class="container-fluid">
+        <div class="row">
+                <div class="boxes_container d-flex flex-lg-row flex-column align-items-start justify-content-start">
+                    <!-- Box -->
+                    <div class="box" id="condo_img">
+                        <img src="https://cf.bstatic.com/images/hotel/max1024x768/188/188168313.jpg" style="width: 100%;">
+                    </div>
+                    <div class="box" id="condo_info">
+                        <h3>{{ room.room_title }}</h3>
+                        <h5>{{ room.room_number }}</h5>
+                        <h5>{{ condo.condo_name }}</h5>
+                        <p style="text-align: left; padding-left: 10%;">Owner {{ room.owner_name }}</p>
+                        <hr id="condo_hr">
+                        ◍
+                        <p style="font-size: larger;">
+                            {{ room.room_description }}<br>
+                            ◍<br>
+                        </p>
+                        <p style="font-size: larger; text-align: left; padding-left: 15%;">
+                            ₿ {{ room.price_for_rent }} per month<br>
+                            🛏 {{ room.number_of_bedroom }}<br>
+                            🛁 {{ room.number_of_bathroom }}<br>
+                            {{ room.area }} square metre
+                        </p>
+                    </div>
+                </div> 
+        </div>
+    </div>
+</div>
 
-<p>owner_name = {{ room.owner_name }}</p>
-</body>
+
+{% endblock %}
+
 </html>
