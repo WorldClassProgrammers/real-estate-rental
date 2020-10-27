@@ -11,7 +11,7 @@
     {% if room_list %}
         {% for room in room_list %}
             <p>
-                <a href="{% url 'estate:room' room.id %}"><button>{{ room.room_title }}</button></a>
+                <a href="{% url 'estate:room' room.id %}"><button>{{ room.title }}</button></a>
             </p>
         {% endfor %}
     {% else %}

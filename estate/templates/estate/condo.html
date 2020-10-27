@@ -3,14 +3,14 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>{{ condo.condo_name }}</title>
+    <title>{{ condo.name }}</title>
 </head>
 <body>
 
 <h1>Condo</h1>
 
-<p>{{ condo.condo_name }}</p>
-<p>{{ condo.condo_description }}</p>
+<p>{{ condo.name }}</p>
+<p>{{ condo.description }}</p>
 <p>{{ condo.number_of_floors }}</p>
 
 <p>elevator = {{ condo.elevator }}</p>
@@ -23,7 +23,7 @@
 {% if condo.get_rooms %}
 {% for room in condo.get_rooms %}
     <p>
-        <a href="{% url 'estate:room' room.id %}"><button>{{ room.room_title }}</button></a>
+        <a href="{% url 'estate:room' room.id %}"><button>{{ room.title }}</button></a>
     </p>
     {% endfor %}
 {% else %}

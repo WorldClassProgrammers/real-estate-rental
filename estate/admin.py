@@ -12,8 +12,8 @@ class CondoAdmin(admin.ModelAdmin):
     fieldsets = [
         (None, {
             'fields': [
-                'condo_name',
-                'condo_description',
+                'name',
+                'description',
                 'number_of_floors',
             ]
         }),
@@ -42,21 +42,21 @@ class CondoAdmin(admin.ModelAdmin):
     ]
     inlines = [RoomInline]
     list_display = (
-        'condo_name',
+        'name',
         'juristic_persons_number',
         'common_fee_account',
     )
-    search_fields = ['condo_name']
+    search_fields = ['name']
 
 
 class RoomAdmin(admin.ModelAdmin):
     fieldsets = [
         (None, {
             'fields': [
-                'condo_name',
-                'owner_name',
-                'room_title',
-                'room_description',
+                'condo',
+                'owner',
+                'title',
+                'description',
                 'still_on_contract',
                 'price_for_rent',
                 'price_for_sell',
@@ -65,8 +65,8 @@ class RoomAdmin(admin.ModelAdmin):
         }),
         ('Room information', {
             'fields': [
-                'room_number',
-                'number_of_floor',
+                'number',
+                'floor_number',
                 'number_of_bedroom',
                 'number_of_bathroom',
                 'area',
@@ -74,15 +74,15 @@ class RoomAdmin(admin.ModelAdmin):
         }),
     ]
     list_display = (
-        'condo_name',
-        'room_number',
+        'condo',
+        'number',
         'still_on_contract',
         # 'contract_over',
     )
     list_filter = ['still_on_contract']
-    search_fields = ['condo_name',
-                     'room_title',
-                     'room_number',
+    search_fields = ['condo',
+                     'title',
+                     'number',
                      'area',
                      ]
 
@@ -91,19 +91,19 @@ class OwnerAdmin(admin.ModelAdmin):
     fieldsets = [
         (None, {
             'fields': [
-                'owner_name',
-                'owner_email',
-                'owner_line_id',
-                'owner_phone_number',
+                'name',
+                'email',
+                'line_id',
+                'phone_number',
             ]
         }),
     ]
     list_display = (
-        'owner_name',
-        'owner_email',
-        'owner_phone_number',
+        'name',
+        'email',
+        'phone_number',
     )
-    search_fields = ['owner_name']
+    search_fields = ['name']
 
 
 admin.site.register(Condo, CondoAdmin)
