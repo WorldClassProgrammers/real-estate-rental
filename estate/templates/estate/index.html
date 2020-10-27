@@ -9,13 +9,31 @@
 
 {% block content %}
 
-<div id="index_header">
-    <form class="form-inline" style="justify-content: center; padding-top: 32px;">
+<div id="index_header" style="text-align: center;">
+    <form class="form-inline" style="justify-content: center; padding-top: 32px; ">
         <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search"
-            style="width: 512px;">
+        style="width: 400px;">
         <button class="btn btn-outline-light my-2 my-sm-0" type="submit">Search</button>
     </form>
-    <img src="https://upload.wikimedia.org/wikipedia/commons/e/e5/Bangkok_Panorama_%28211522205%29.jpeg" id="city">
+    <div style="margin-top: 8px;">
+        <button id="btn_filters" class="btn btn-outline-light my-2 my-sm-0" onclick="openForm()">Select Filters</button>
+    </div>
+    <div class="form-popup" id="popup_filter">
+        <form action="/action_page.php" class="form-container">
+            <h1>Login</h1>
+    
+            <label for="email"><b>Email</b></label>
+            <input type="text" placeholder="Enter Email" name="email" required>
+    
+            <label for="psw"><b>Password</b></label>
+            <input type="password" placeholder="Enter Password" name="psw" required>
+    
+            <button type="submit" class="btn">Login</button>
+            <button type="button" class="btn cancel" onclick="closeForm()">Close</button>
+        </form>
+    </div>
+    <img src="../../static/estate/images/banner.jpg" id="city">
+
 </div>
 
 <section>
@@ -39,6 +57,16 @@
         {% endif %}
     </div>
 </section>
+
+<script>
+    function openForm() {
+        document.getElementById("popup_filter").style.display = "block";
+    }
+
+    function closeForm() {
+        document.getElementById("popup_filter").style.display = "none";
+    }
+</script>
 
 
 {% endblock %}
