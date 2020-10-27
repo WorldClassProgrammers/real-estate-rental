@@ -2,49 +2,17 @@
 {% load static %}
 
 <html lang="en">
+
 <head>
     <title>Index</title>
 </head>
 
 {% block content %}
 
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <a class="navbar-brand" href="#">Real Estate</a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown"
-        aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarNavDropdown">
-        <ul class="navbar-nav">
-            <li class="nav-item active">
-                <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="#">Features</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="#">Pricing</a>
-            </li>
-            <li class="nav-item dropdown active">
-                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button"
-                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    Condo
-                </a>
-                <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                    {% for condo in condo_list %}
-                        <a class="dropdown-item" href="{% url 'estate:condo' condo.id %}">
-                            {{ condo.condo_name }}
-                        </a>
-                    {% endfor %}
-                </div>
-            </li>
-        </ul>
-    </div>
-</nav>
-
 <div id="index_header">
     <form class="form-inline" style="justify-content: center; padding-top: 32px;">
-        <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" style="width: 512px;">
+        <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search"
+            style="width: 512px;">
         <button class="btn btn-outline-light my-2 my-sm-0" type="submit">Search</button>
     </form>
     <img src="https://upload.wikimedia.org/wikipedia/commons/e/e5/Bangkok_Panorama_%28211522205%29.jpeg" id="city">
@@ -57,17 +25,17 @@
     </div>
     <div class="row" id="condo_display">
         {% if condo_list %}
-            {% for condo in condo_list %}
-                <div class="block" style="margin: auto;">
-                    <p>
-                        <a href="{% url 'estate:condo' condo.id %}"
-                            <button type="button" class="btn btn-warning btn-lg">{{ condo.condo_name }}</button>
-                        </a>
-                    </p>
-                </div>
-            {% endfor %}
+        {% for condo in condo_list %}
+        <div class="block" style="margin: auto;">
+            <p>
+                <a href="{% url 'estate:condo' condo.id %}" <button type="button"
+                    class="btn btn-warning btn-lg">{{ condo.condo_name }}</button>
+                </a>
+            </p>
+        </div>
+        {% endfor %}
         {% else %}
-            <p>No condo available.</p>
+        <p>No condo available.</p>
         {% endif %}
     </div>
 </section>
