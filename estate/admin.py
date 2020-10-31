@@ -23,24 +23,29 @@ class CondoAdmin(admin.ModelAdmin):
                 'common_fee_account',
             ],
         }),
-        ('amenities information', {
+        # ('amenities information', {
+        #     'fields': [
+        #         'elevator',
+        #         'parking_lot',
+        #         'cctv',
+        #         'security',
+        #         'wifi',
+        #         'swimming_pool',
+        #         'sauna',
+        #         'garden',
+        #         'playground',
+        #         'gym',
+        #         'shop_on_premise',
+        #         'restaurant_on_premise',
+        #     ],
+        # }),
+        ('Amenity Information', {
             'fields': [
-                'elevator',
-                'parking_lot',
-                'cctv',
-                'security',
-                'wifi',
-                'swimming_pool',
-                'sauna',
-                'garden',
-                'playground',
-                'gym',
-                'shop_on_premise',
-                'restaurant_on_premise',
+                'amenities',
             ],
         }),
     ]
-    inlines = [RoomInline]
+    # inlines = [RoomInline]
     list_display = (
         'name',
         'juristic_persons_number',

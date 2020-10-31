@@ -1,4 +1,5 @@
 from django.db import models
+from multiselectfield import MultiSelectField
 
 class Condo(models.Model):
     name = models.CharField(max_length=100, unique=True)
@@ -30,6 +31,25 @@ class Condo(models.Model):
     #         RegexValidator(regex='^(-?\d+(\.\d+)?),\s*(-?\d+(\.\d+)?)$',
     #         message='Must be a valid GPS coordination.'),
     #     ])
+
+    AMENITY_TYPES = (
+        ('elevator', 'Elevator'),
+        ('parking_lot', 'Parking Lot'),
+        ('cctv', 'CCTV'),
+        ('security', 'Security'),
+        ('wifi', 'WiFi'),
+        ('swimming_pool', 'Swimming Pool'),
+        ('sauna', 'Sauna'),
+        ('garden', 'Garden'),
+        ('playground', 'Playground'),
+        ('gym', 'Gym'),
+        ('shop', 'Shop'),
+        ('restaurant', 'Restaurant'),
+    )
+
+    amenities = MultiSelectField(
+        choices=AMENITY_TYPES, default=None,
+        )
 
     def __str__(self):
         """Return the name of the condo."""
