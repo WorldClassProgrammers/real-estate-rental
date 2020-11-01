@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ room.number }}</title>
+</head>
+<body>
+
+<h1>Room</h1>
+
+<p> about condo:
+    <a href="{% url 'estate:condo' condo.id %}"><button>{{ condo }}</button></a>
+</p>
+
+<p>{{ room.title }}</p>
+<p>{{ room.condo }}</p>
+<p>{{ room.description }}</p>
+
+<p>price_for_rent = {{ room.price_for_rent }}</p>
+<p>number_of_bedroom = {{ room.number_of_bedroom }}</p>
+<p>number_of_bathroom = {{ room.number_of_bathroom }}</p>
+<p>area = {{ room.area }}</p>
+<p>still_on_contract = {{ room.still_on_contract }}</p>
+
+<!-- <p>elevator = {{ condo.elevator }}</p>
+<p>parking_lot = {{ condo.parking_lot }}</p>
+<p>wifi = {{ condo.wifi }}</p>
+<p>swimming_pool = {{ condo.swimming_pool }}</p>
+<p>...</p> -->
+
+<p>owner = {{ room.owner }}</p>
+</body>
+</html>

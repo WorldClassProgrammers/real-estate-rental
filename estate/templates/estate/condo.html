@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ condo.name }}</title>
+</head>
+<body>
+
+<h1>Condo</h1>
+
+<p>{{ condo.name }}</p>
+<p>{{ condo.description }}</p>
+<p>{{ condo.number_of_floors }}</p>
+
+<!-- <p>elevator = {{ condo.elevator }}</p>
+<p>parking_lot = {{ condo.parking_lot }}</p>
+<p>wifi = {{ condo.wifi }}</p>
+<p>swimming_pool = {{ condo.swimming_pool }}</p>
+<p>...</p> -->
+<p> amenities = {{ condo.amenities }} </p>
+
+{% for value, text in condo.AMENITY_TYPES %}
+  <div class="ui_checkbox">
+    <input id="id_amenity_{{ forloop.counter0 }}" 
+    name="{{ value }}" type="checkbox" 
+    value="{{ value }}"{% if value in condo.amenities %} checked="checked"{% endif %}>
+    <label>{{ text }}</label>
+  </div>
+{% endfor %}
+
+
+
+{% if condo.get_rooms %}
+{% for room in condo.get_rooms %}
+    <p>
+        <a href="{% url 'estate:room' room.id %}"><button>{{ room.title }}</button></a>
+    </p>
+    {% endfor %}
+{% else %}
+    <p>No room are available.</p>
+{% endif %}
+
+</body>
+</html>

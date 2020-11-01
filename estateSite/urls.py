@@ -16,7 +16,10 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 
+from estate import views
+
 urlpatterns = [
-    path('', include('estate.urls')),
+    path('', views.IndexView.as_view(), name='index'),
+    path('estate/', include('estate.urls')),
     path('admin/', admin.site.urls),
 ]
