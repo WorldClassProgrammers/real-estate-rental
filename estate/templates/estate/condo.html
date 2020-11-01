@@ -1,0 +1,120 @@
+{% extends 'base.html' %}
+{% load static %}
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<html lang="en">
+<head>
+    <title>{{ condo.condo_name }}</title>
+</head>
+
+{% block content %}
+
+<section>
+        <div class="row" style="background-color: aqua; height: 360px; width: 100%; margin: 0%;">
+            <div class="col-sm" style="min-height: 60%; background-image: url(https://d2ile4x3f22snf.cloudfront.net/wp-content/uploads/sites/282/2018/04/23070030/Room-1.jpg);">
+               
+            </div>
+            <div class="col-sm" style="text-align: center; color: white; background-image: url(https://i.pinimg.com/originals/97/42/6e/97426e87ed06da4ac76e704c74a5062b.jpg);">
+                <h2 style="font-family: 'Times New Roman', Times, serif; color: white;">{{ condo.name }}</h2>
+                <br>
+                <div class="col" style="font-family: 'Times New Roman', Times, serif;">
+                    <h4>Floors {{ condo.number_of_floors }}</h4></div>
+                <div class="col" style="font-family: 'Times New Roman', Times, serif;">
+                    <h4>Units {{ condo.get_all_register_unit }}</h4></div>
+            </div>
+        </div>
+</section>
+
+<section>
+    <div style="margin: 15px;">
+        <div class="row" style="display: flex; flex-direction: row; flex-wrap: wrap; width: 100%; margin: 0%;">
+            <div class="col" style="display: flex; flex-direction: column; flex-basis: 100%; flex: 1;">
+                <div style="height: auto; background-color: #7ba5d5; border-radius: 1em;">
+                    <p style="padding: 3%; font-family: 'Times New Roman', Times, serif;">
+                        {{ condo.description }}
+                    </p>
+                </div>
+                <div style="margin-top: 5%;">
+                    <div style="height: auto; background-color:#d1e5fe; border-radius: 1em;">
+                        <p style="padding: 3%; font-family: 'Times New Roman', Times, serif;">
+                            Contract <br>
+                            long list of contract <br>
+                            or form <br>
+                            for future use <br>
+                            in the next iteration <br>
+                            may contain picture and pop up
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div>
+                <div style="width: 300px; height: auto; background-color:#d1e5fe; border-radius: 1em;">
+                    <div style="padding: 2%; font-family: 'Times New Roman', Times, serif;">
+                        <h3 style="font-family: 'Times New Roman', Times, serif;">Amenities</h3>
+                        
+                        {% for value, text in condo.AMENITY_TYPES %}
+                        <div class="ui_checkbox">
+                            <input id="id_amenity_{{ forloop.counter0 }}" class="ui_checkbox custom" name="{{ value }}" type="checkbox" value="{{ value }}"
+                                {% if value in condo.amenities %} checked="checked" {% endif %} style="pointer-events: none;">
+                                <span></span>
+                            <label>{{ text }}</label>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<section id="listings" class="py-4">
+    <div class="container">
+        <div class="row">
+            {% if condo.get_rooms %}
+            {% for room in condo.get_rooms %}
+
+            <div id="condo_box" class="col-md-6 col-lg-4 mb-4">
+                <div class="card listing-preview shadow-lg">
+                    <img class="card-img-top"
+                        src="https://cdn.renthub.in.th/images/uploaded/201912/20191224/apartment_pictures/normal/7a6943eba16dccf704a9ad32b3c4c056.jpg?1577171939"
+                        alt="">
+                    <div class="card-img-overlay">
+                    </div>
+                    <div class="card-body">
+                        <div class="listing-heading text-center">
+                            <a href="{% url 'estate:condo' condo.id %}">
+                                <h4 class="mb-4 text-grey-darker">{{ room.title }}</h4>
+                            </a>
+                        </div>
+                        <hr>
+                        <div class="row py-2 text-secondary">
+                            <div class="col-6">
+                                 Room Number: {{ room.number }}</div>
+                            <div class="col-6">
+                                 Availability: {% if room.still_on_contract %} No {% else %} Yes {% endif %}</div>
+                        </div>
+                        <div class="row py-2 text-secondary">
+                            <div class="col-6">
+                                 Rent: {{ room.price_for_rent }} ฿</div>
+                            <div class="col-6">
+                                 Size: {{ room.area }} m²</div>
+                        </div>
+                    </div>
+                </div>
+                {% if not room.still_on_contract %}
+                <a href="{% url 'estate:room' condo.id %}">
+                    <div class="overlay">
+                    </div>
+                </a>
+                {% endif %}
+            </div>
+
+            {% endfor %}
+            {% else %}
+            <p>No condo available.</p>
+            {% endif %}
+        </div>
+    </div>
+</section>
+
+{% endblock %}
+
+</html>

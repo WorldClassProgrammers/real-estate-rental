@@ -1,0 +1,96 @@
+{% extends 'base.html' %}
+{% load static %}
+
+<html lang="en">
+
+<head>
+    <title>Index</title>
+</head>
+
+{% block content %}
+
+<div id="index_header" style="text-align: center;">
+    <form class="form-inline" style="justify-content: center; padding-top: 32px; ">
+        <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search"
+        style="width: 400px;">
+        <button class="btn btn-outline-light my-2 my-sm-0" type="submit">Search</button>
+    </form>
+    <div style="margin-top: 8px;">
+        <button id="btn_filters" class="btn btn-outline-light my-2 my-sm-0" onclick="openForm()">Select Filters</button>
+    </div>
+    <div class="form-popup" id="popup_filter">
+        <form action="/action_page.php" class="form-container">
+            <h1>Login</h1>
+    
+            <label for="email"><b>Email</b></label>
+            <input type="text" placeholder="Enter Email" name="email" required>
+    
+            <label for="psw"><b>Password</b></label>
+            <input type="password" placeholder="Enter Password" name="psw" required>
+    
+            <button type="submit" class="btn">Login</button>
+            <button type="button" class="btn cancel" onclick="closeForm()">Close</button>
+        </form>
+    </div>
+</div>
+
+<section id="listings" class="py-4">
+    <div class="container">
+        <div class="row">
+        {% if condo_list %}
+        {% for condo in condo_list %}
+        
+        <div id="condo_box" class="col-md-6 col-lg-4 mb-4">
+            <div class="card listing-preview shadow-lg">
+                <img class="card-img-top" src="https://cdn.renthub.in.th/images/uploaded/201912/20191224/apartment_pictures/normal/7a6943eba16dccf704a9ad32b3c4c056.jpg?1577171939" alt="">
+                <div class="card-img-overlay">
+                </div>
+                <div class="card-body">
+                    <div class="listing-heading text-center">
+                        <a href="{% url 'estate:condo' condo.id %}">
+                                <h4 class="mb-4 text-grey-darker">{{ condo.name }}</h4>
+                        </a>
+                        </div>
+                    <hr>
+                    <div class="row py-2 text-secondary">
+                        <div class="col-6">
+                            Floors: {{ condo.number_of_floors }} </div>
+                        <div class="col-6">
+                             Available Units: {{ condo.get_available_units }}</div>
+                    </div>
+                    <div class="row py-2 text-secondary">
+                        <div class="col-6">
+                            In case more info:</div>
+                        <div class="col-6">
+                            in the future:</div>
+                    </div>
+                </div>
+            </div>
+            <a href="{% url 'estate:condo' condo.id %}">
+            <div class="overlay">
+            </div>
+            </a>
+        </div>
+       
+        {% endfor %}
+        {% else %}
+        <p>No condo available.</p>
+        {% endif %}
+    </div>
+    </div>
+</section>
+
+<script>
+    function openForm() {
+        document.getElementById("popup_filter").style.display = "block";
+    }
+
+    function closeForm() {
+        document.getElementById("popup_filter").style.display = "none";
+    }
+</script>
+
+
+{% endblock %}
+
+</html>
