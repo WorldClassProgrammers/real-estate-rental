@@ -1,8 +1,9 @@
+
 from django.http import HttpResponse
 from django.shortcuts import render, get_object_or_404
 from django.views import generic
 
-from estate.models import Room, Condo
+from .models import Room, Condo
 
 
 class IndexView(generic.ListView):
@@ -10,12 +11,8 @@ class IndexView(generic.ListView):
     # room_list = 'room_list'
     condo_list = 'condo_list'
 
-    # def get_queryset(self):
-    #     return Room.objects.filter(
-    #         still_on_contract=False
-    #     ).order_by('condo_name', 'room_number')
     def get_queryset(self):
-        return Condo.objects.order_by('condo_name')
+        return Condo.objects.order_by('name')
 
 
 def condo(request, condo_id):
@@ -25,5 +22,5 @@ def condo(request, condo_id):
 
 def room(request, room_id):
     room = get_object_or_404(Room, pk=room_id)
-    condo = Condo.objects.filter(condo_name=room.condo_name)[0]
+    condo = Condo.objects.filter(name=room.condo)[0]
     return render(request, 'estate/room.html', {'condo': condo, 'room': room})

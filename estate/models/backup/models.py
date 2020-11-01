@@ -66,7 +66,7 @@ class Room(models.Model):
 
     price_for_rent = models.FloatField(default=0)
     price_for_sell = models.FloatField(default=0)
-    number_of_floor = models.CharField(max_length=10, default="1")
+    floor_number = models.CharField(max_length=10, default="1")
     number_of_bedroom = models.IntegerField(default=1)
     number_of_bathroom = models.IntegerField(default=1)
     area = models.FloatField(default=0)  # in square meters? -> sure

@@ -9,11 +9,7 @@ body {
     background-image: url("images/banner.jpg");
     background-size: cover;
     background-repeat: no-repeat;
-}
-
-#city {
-    max-width: 100%;
-    visibility: hidden;
+    height: 525px;
 }
 
 #sub_header {
@@ -43,6 +39,12 @@ body {
     background-repeat: no-repeat;
 }
 
+@media screen and (max-width: 600px) {
+  .column {
+    width: 100%;
+  }
+}
+
 .column {
   float: left;
   width: 50%;
@@ -54,6 +56,26 @@ body {
   clear: both;
 }
 
+.overlay {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 100%;
+  width: 100%;
+  opacity: 0;
+  transition: .5s ease;
+  background-color: rgb(82, 140, 161);
+  width: auto;
+  margin-right: 16px;
+  margin-left: 16px;
+}
+
+#condo_box:hover .overlay{
+  opacity: 0.2;
+}
+
 #condo_info {
     /* padding: 10%; */
     text-align: center;
@@ -63,8 +85,7 @@ body {
     /* display: flex; */
     /* justify-content: center; */
     /* align-items: center; */
-    font-family: 'Times New Roman', Times, serif;
-    background-color: rgb(225, 237, 243);
+    background-image: url(https://www.iizziistudio.com/wp-content/uploads/2013/10/bg-square-pastel-01-600x450.jpg);
 }
 
 #condo_hr {
@@ -104,18 +125,18 @@ body {
     position: relative;
     bottom: 0;
     width: 100%;
-    height: 250px;
-    line-height: 60px;
+    height: 80px;
+    line-height: 40px;
 }
 
 #upper_footer {
     background-color: #3574bd;
-    height: 75%;
+    height: 40%;
     width: 100%;
 }
 
 #lower_footer {
-    max-height: 25%;
+    max-height: 60%;
     width: 100%;
     display: flex;
     justify-content: center;
@@ -145,14 +166,14 @@ body {
 
 .form-popup {
   display: none;
-  position: absolute;
-  bottom: 0;
-  right: 15px;
+  width: 80%;
+  margin: auto;
+  margin-top: -45px;
 }
 
 /* Add styles to the form container */
 .form-container {
-  max-width: 300px;
+  max-width: 100%;  
   padding: 10px;
   background-color: white;
 }

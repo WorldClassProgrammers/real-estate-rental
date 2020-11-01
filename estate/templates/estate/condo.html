@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 {% load static %}
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 <html lang="en">
 <head>
     <title>{{ condo.condo_name }}</title>
@@ -7,220 +8,112 @@
 
 {% block content %}
 
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <a class="navbar-brand" href="{% url 'estate:index' %}">Real Estate</a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown"
-        aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarNavDropdown">
-        <ul class="navbar-nav">
-            <li class="nav-item active">
-                <a class="nav-link" href="{% url 'estate:index' %}">Home <span class="sr-only">(current)</span></a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="#">Features</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="#">Pricing</a>
-            </li>
-            <li class="nav-item dropdown active">
-                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button"
-                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    Available rooms
-                </a>
-                <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                    {% for room in condo.get_rooms %}
-                        {% if not room.still_on_contract %}
-                            <a class="dropdown-item" href="{% url 'estate:room' room.id %}">
-                                {{ room.room_title }}
-                            </a>
-                        {% endif %}
-                    {% endfor %}
-                </div>
-            </li>
-        </ul>
-    </div>
-</nav>
-
-<div class="boxes">
-    <!-- <div class="container" > -->
-        <!-- <div class="row"> -->
-        <div style="background-color: rgb(225, 237, 243);">
-            <div class="boxes_container d-flex flex-columnboxes_container d-flex flex-lg-row flex-column align-items-start justify-content-between">
-                <div class="box" id="condo_img">
-                    <img src="https://cf.bstatic.com/images/hotel/max1024x768/188/188168313.jpg"
-                    style="width: 100%;">
-                </div>
-                <div class="box" id="condo_info">
-                    <h3>{{ condo.condo_name }}</h3>
-                    <hr id="condo_hr">
-                    ◍
-                    <p style="font-size: larger;">
-                        {{ condo.condo_description }}<br>
-                        ◍<br>
-                        {{ condo.number_of_floors }} floors
-                    </p>
-                </div>
-            </div>
-        </div>
-        <!-- </div> -->
-    <!-- </div> -->
-</div>
-
-
-<div class="boxes">
-    <div class="container" style="margin-top: 8px;">
-        <div class="row">
-            <div class="col">
-                <div class="boxes_container d-flex flex-lg-row flex-column align-items-start justify-content-start">
-                    <!-- Box -->
-                    <div class="box bg-dark text-warning" id="display_box">
-                        <div class="box_title" id="box_title">Available facilities</div>
-                        <div class="box_text">
-                            <div class="container">
-                                <div class="row">
-                                    <div class="col-sm">
-                                        Elevator
-                                    </div>
-                                    <div class="col-sm" style="text-align: center;">
-                                        {% if condo.elevator %} ✓ {% else %} ✘ {% endif %}
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-sm">
-                                        Parking lot
-                                    </div>
-                                    <div class="col-sm" style="text-align: center;">
-                                        {% if condo.parking_lot %} ✓ {% else %} ✘ {% endif %}
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-sm">
-                                        CCTV
-                                    </div>
-                                    <div class="col-sm" style="text-align: center;">
-                                        {% if condo.cctv %} ✓ {% else %} ✘ {% endif %}
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-sm">
-                                        Security
-                                    </div>
-                                    <div class="col-sm" style="text-align: center;">
-                                        {% if condo.security %} ✓ {% else %} ✘ {% endif %}
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-sm">
-                                        WiFi
-                                    </div>
-                                    <div class="col-sm" style="text-align: center;">
-                                        {% if condo.wifi %} ✓ {% else %} ✘ {% endif %}
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Box -->
-                    <div class="box bg-dark text-warning" id="display_box">
-                        <div class="box_icon d-flex flex-column align-items-center justify-content-center"></div>
-                        <div class="box_title" id="box_title">Entertainments</div>
-                        <div class="box_text">
-                            <div class="container">
-                                <div class="row">
-                                    <div class="col-sm">
-                                        Swimming pool
-                                    </div>
-                                    <div class="col-sm" style="text-align: center;">
-                                        {% if condo.swimming_pool %} ✓ {% else %} ✘ {% endif %}
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-sm">
-                                        Sauna
-                                    </div>
-                                    <div class="col-sm" style="text-align: center;">
-                                        {% if condo.sauna %} ✓ {% else %} ✘ {% endif %}
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-sm">
-                                        Garden
-                                    </div>
-                                    <div class="col-sm" style="text-align: center;">
-                                        {% if condo.garden %} ✓ {% else %} ✘ {% endif %}
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-sm">
-                                        Playground
-                                    </div>
-                                    <div class="col-sm" style="text-align: center;">
-                                        {% if condo.playground %} ✓ {% else %} ✘ {% endif %}
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-sm">
-                                        Gym
-                                    </div>
-                                    <div class="col-sm" style="text-align: center;">
-                                        {% if condo.gym %} ✓ {% else %} ✘ {% endif %}
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-sm">
-                                        Shop
-                                    </div>
-                                    <div class="col-sm" style="text-align: center;">
-                                         {% if condo.shop_on_premise %} ✓ {% else %} ✘ {% endif %}
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-sm">
-                                        Restaurant
-                                    </div>
-                                    <div class="col-sm" style="text-align: center;">
-                                        {% if condo.restaurant_on_premise %} ✓ {% else %} ✘ {% endif %}
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-
-
 <section>
-    <div id="sub_header">
-        🆁ooms
-        <hr id="index_hr">
-    </div>
-    <div class="row" id="condo_display">
-        {% if condo.get_rooms %}
-            {% for room in condo.get_rooms %}
-                <div class="block" style="margin: auto;">
-                    <p>
-                        {% if not room.still_on_contract %}
-                            <a href="{% url 'estate:room' room.id %}" <button type="button"
-                                class="btn btn-warning btn-lg">{{ room.room_title }}</button>
-                            </a>
-                        {% else %}
-                            <button type="button" class="btn btn-warning btn-lg" disabled>{{ room.room_title }}</button>
-                        {% endif %}
-                    </p>
-                </div>
-            {% endfor %}
-        {% else %}
-            <p>No room available.</p>
-        {% endif %}
-    </div>
+        <div class="row" style="background-color: aqua; height: 360px; width: 100%; margin: 0%;">
+            <div class="col-sm" style="min-height: 60%; background-image: url(https://d2ile4x3f22snf.cloudfront.net/wp-content/uploads/sites/282/2018/04/23070030/Room-1.jpg);">
+               
+            </div>
+            <div class="col-sm" style="text-align: center; color: white; background-image: url(https://i.pinimg.com/originals/97/42/6e/97426e87ed06da4ac76e704c74a5062b.jpg);">
+                <h2 style="font-family: 'Times New Roman', Times, serif; color: white;">{{ condo.name }}</h2>
+                <br>
+                <div class="col" style="font-family: 'Times New Roman', Times, serif;">
+                    <h4>Floors {{ condo.number_of_floors }}</h4></div>
+                <div class="col" style="font-family: 'Times New Roman', Times, serif;">
+                    <h4>Units {{ condo.get_all_register_unit }}</h4></div>
+            </div>
+        </div>
 </section>
 
+<section>
+    <div style="margin: 15px;">
+        <div class="row" style="display: flex; flex-direction: row; flex-wrap: wrap; width: 100%; margin: 0%;">
+            <div class="col" style="display: flex; flex-direction: column; flex-basis: 100%; flex: 1;">
+                <div style="height: auto; background-color: #7ba5d5; border-radius: 1em;">
+                    <p style="padding: 3%; font-family: 'Times New Roman', Times, serif;">
+                        {{ condo.description }}
+                    </p>
+                </div>
+                <div style="margin-top: 5%;">
+                    <div style="height: auto; background-color:#d1e5fe; border-radius: 1em;">
+                        <p style="padding: 3%; font-family: 'Times New Roman', Times, serif;">
+                            Contract <br>
+                            long list of contract <br>
+                            or form <br>
+                            for future use <br>
+                            in the next iteration <br>
+                            may contain picture and pop up
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div>
+                <div style="width: 300px; height: auto; background-color:#d1e5fe; border-radius: 1em;">
+                    <div style="padding: 2%; font-family: 'Times New Roman', Times, serif;">
+                        <h3 style="font-family: 'Times New Roman', Times, serif;">Amenities</h3>
+                        
+                        {% for value, text in condo.AMENITY_TYPES %}
+                        <div class="ui_checkbox">
+                            <input id="id_amenity_{{ forloop.counter0 }}" class="ui_checkbox custom" name="{{ value }}" type="checkbox" value="{{ value }}"
+                                {% if value in condo.amenities %} checked="checked" {% endif %} style="pointer-events: none;">
+                                <span></span>
+                            <label>{{ text }}</label>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<section id="listings" class="py-4">
+    <div class="container">
+        <div class="row">
+            {% if condo.get_rooms %}
+            {% for room in condo.get_rooms %}
+
+            <div id="condo_box" class="col-md-6 col-lg-4 mb-4">
+                <div class="card listing-preview shadow-lg">
+                    <img class="card-img-top"
+                        src="https://cdn.renthub.in.th/images/uploaded/201912/20191224/apartment_pictures/normal/7a6943eba16dccf704a9ad32b3c4c056.jpg?1577171939"
+                        alt="">
+                    <div class="card-img-overlay">
+                    </div>
+                    <div class="card-body">
+                        <div class="listing-heading text-center">
+                            <a href="{% url 'estate:condo' condo.id %}">
+                                <h4 class="mb-4 text-grey-darker">{{ room.title }}</h4>
+                            </a>
+                        </div>
+                        <hr>
+                        <div class="row py-2 text-secondary">
+                            <div class="col-6">
+                                 Room Number: {{ room.number }}</div>
+                            <div class="col-6">
+                                 Availability: {% if room.still_on_contract %} No {% else %} Yes {% endif %}</div>
+                        </div>
+                        <div class="row py-2 text-secondary">
+                            <div class="col-6">
+                                 Rent: {{ room.price_for_rent }} ฿</div>
+                            <div class="col-6">
+                                 Size: {{ room.area }} m²</div>
+                        </div>
+                    </div>
+                </div>
+                {% if not room.still_on_contract %}
+                <a href="{% url 'estate:room' condo.id %}">
+                    <div class="overlay">
+                    </div>
+                </a>
+                {% endif %}
+            </div>
+
+            {% endfor %}
+            {% else %}
+            <p>No condo available.</p>
+            {% endif %}
+        </div>
+    </div>
+</section>
 
 {% endblock %}
 
