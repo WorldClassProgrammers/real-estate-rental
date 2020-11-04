@@ -1,3 +1,5 @@
+from django.conf import settings
+from django.conf.urls.static import static
 from django.urls import path
 
 from . import views
@@ -7,4 +9,8 @@ urlpatterns = [
     path('', views.IndexView.as_view(), name='index'),
     path('condo/<int:condo_id>/', views.condo, name='condo'),
     path('room/<int:room_id>/', views.room, name='room'),
+
+    path('upload/owner/', views.upload_owner, name='upload_owner')
 ]
+
+urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

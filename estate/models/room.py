@@ -9,7 +9,6 @@ class Room(models.Model):
     number = models.CharField(max_length=10, default="1")
     title = models.CharField(max_length=100)
     description = models.TextField(max_length=500)
-    # room_image = models.ImageField()
 
     # admin only
     still_on_contract = models.BooleanField(default=False)

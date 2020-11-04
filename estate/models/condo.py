@@ -5,7 +5,6 @@ from multiselectfield import MultiSelectField
 class Condo(models.Model):
     name = models.CharField(max_length=100, unique=True)
     description = models.TextField(max_length=500)
-    # condo_image = models.ImageField()
     number_of_floors = models.IntegerField(default=1)
 
     # admin only

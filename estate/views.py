@@ -1,9 +1,11 @@
-
-from django.http import HttpResponse
+from django.contrib.auth.decorators import login_required
+from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render, get_object_or_404
+from django.urls import reverse
 from django.views import generic
 
-from .models import Room, Condo
+from .forms import OwnerForm
+from .models import Room, Condo, Owner
 
 
 class IndexView(generic.ListView):
@@ -22,5 +24,16 @@ def condo(request, condo_id):
 
 def room(request, room_id):
     room = get_object_or_404(Room, pk=room_id)
-    condo = Condo.objects.filter(name=room.condo)[0]
+    condo = Condo.objects.get(name=room.condo.name)
     return render(request, 'estate/room.html', {'condo': condo, 'room': room})
+
+
+@login_required
+def upload_owner(request):
+    if request.method == 'POST':
+        form = OwnerForm(request.POST)
+        form.save()
+        return HttpResponseRedirect(reverse('estate:index'))
+    else:
+        form = OwnerForm()
+    return render(request, 'estate/upload_owner.html', {'form': form})
