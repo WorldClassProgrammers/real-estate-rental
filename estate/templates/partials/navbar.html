@@ -19,20 +19,37 @@
             </li>
         </ul>
         <ul class="navbar-nav ml-auto">
+            {% if user.username %}
             <li class="nav-item">
-                <a class="nav-link" href="#">
+                <a class="nav-link" href="###">
                     <button id="login_button" style="background-color: #e3e3e3;">
-                        btn1
+                        {{ user.username }}
                     </button>
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#">
+                <a class="nav-link" href="{% url 'logout' %}">
+                    <button id="login_button" style="background-color: #b7efd4;">
+                        logout
+                    </button>
+                </a>
+            </li>
+            {% else %}
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'login' %}">
+                    <button id="login_button" style="background-color: #e3e3e3;">
+                        login
+                    </button>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="###">
                     <button id="login_button" style="background-color: #b7efd4;">
                         btn2
                     </button>
                 </a>
             </li>
+            {% endif %}
             <li class="nav-item">
                 <a class="nav-link" href="#">
                     <button id="login_button" style="background-color: #cad8ff;">
