@@ -9,9 +9,8 @@
    </p>
    <input type="hidden" name="next" value="{{next}}"/>
  </form>
- {# If you have written a password_reset template, then add #}
- <p>
- <a href="{% url 'password_reset' %}">Forgot password?</a>
- </p>
+ <a href="{% url 'password_reset' %}"><button>Forgot password?</button></a>
+ <a href="{% url 'signup' %}"><button>Signup</button></a>
+ <a href="{% url 'estate:index' %}"><button>Back to Index</button></a>
  </body>
  </html>
