@@ -26,7 +26,10 @@ class Room(models.Model):
         """Return the title of the room."""
         return self.title
 
+    # def get_images(self):
+    #     return self.room_images_set.all()
 
-# class RoomImages(models.Model):
-#     room = models.ForeignKey(Room, on_delete=models.CASCADE)
-#     image = models.ImageField()  # needs to limit image size? -> no
+
+class RoomImages(models.Model):
+    room = models.ForeignKey(Room, on_delete=models.CASCADE)
+    image = models.ImageField(upload_to='estate/images/room/')

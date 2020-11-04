@@ -1,10 +1,17 @@
 from django.contrib import admin
 
 from .models import Condo, Room, Owner
+from .models.condo import CondoImages
+from .models.room import RoomImages
 
 
-class RoomInline(admin.TabularInline):
-    model = Room
+class CondoImagesInline(admin.TabularInline):
+    model = CondoImages
+    extra = 1
+
+
+class RoomImagesInline(admin.TabularInline):
+    model = RoomImages
     extra = 1
 
 
@@ -23,29 +30,13 @@ class CondoAdmin(admin.ModelAdmin):
                 'common_fee_account',
             ],
         }),
-        # ('amenities information', {
-        #     'fields': [
-        #         'elevator',
-        #         'parking_lot',
-        #         'cctv',
-        #         'security',
-        #         'wifi',
-        #         'swimming_pool',
-        #         'sauna',
-        #         'garden',
-        #         'playground',
-        #         'gym',
-        #         'shop_on_premise',
-        #         'restaurant_on_premise',
-        #     ],
-        # }),
         ('Amenity Information', {
             'fields': [
                 'amenities',
             ],
         }),
     ]
-    # inlines = [RoomInline]
+    inlines = [CondoImagesInline]
     list_display = (
         'name',
         'juristic_persons_number',
@@ -78,6 +69,7 @@ class RoomAdmin(admin.ModelAdmin):
             ],
         }),
     ]
+    inlines = [RoomImagesInline]
     list_display = (
         'condo',
         'number',

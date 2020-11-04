@@ -51,3 +51,11 @@ class Condo(models.Model):
         for unit in self.get_rooms():
             all_units += 1
         return all_units
+
+    # def get_images(self):
+    #     return self.condo_images_set.get(id=1)
+
+
+class CondoImages(models.Model):
+    condo = models.ForeignKey(Condo, on_delete=models.CASCADE)
+    image = models.ImageField(upload_to='estate/images/condo/')
