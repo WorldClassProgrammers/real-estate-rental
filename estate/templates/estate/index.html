@@ -10,8 +10,8 @@
 {% block content %}
 
 <div id="index_header" style="text-align: center;">
-    <form class="form-inline" style="justify-content: center; padding-top: 32px; ">
-        <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search"
+    <form class="form-inline" style="justify-content: center; padding-top: 32px; " action="{% url 'estate:search_results' %}">
+        <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" name="search"
         style="width: 400px;">
         <button class="btn btn-outline-light my-2 my-sm-0" type="submit">Search</button>
     </form>

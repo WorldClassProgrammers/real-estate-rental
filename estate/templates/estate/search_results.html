@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+{% load static %}
+<html lang="en">
+
+<head>
+    <title>Search results</title>
+</head>
+
+{% block content %}
+
+{% if condo_result %}
+    {% for condo in condo_result %}
+        <p>{{ condo.name }}</p>
+    {% endfor %}
+{% endif %}
+{% if room_result %}
+    {% for room in room_result %}
+        {% if not room.condo in condo_result %}
+            <p>{{ room.title }}</p>
+        {% endif %}
+    {% endfor %}
+{% endif %}
+
+{% endblock %}

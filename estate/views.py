@@ -13,7 +13,7 @@ class IndexView(generic.ListView):
 
     def get_queryset(self):
         return Condo.objects.order_by('name')
-
+    
 
 def condo(request, condo_id):
     condo = get_object_or_404(Condo, pk=condo_id)
@@ -24,3 +24,18 @@ def room(request, room_id):
     room = get_object_or_404(Room, pk=room_id)
     condo = Condo.objects.filter(name=room.condo)[0]
     return render(request, 'estate/room.html', {'condo': condo, 'room': room})
+
+
+def search(request):
+    condoSet_list = Condo.objects.order_by('-name')
+    roomSet_list = Room.objects.order_by('-title')
+
+    keywords = request.GET['search']
+    condoSet_list = Condo.objects.filter(name__icontains=keywords)
+    roomSet_list = Room.objects.filter(title__icontains=keywords)
+    context = {
+        'condo_result': condoSet_list,
+        'room_result': roomSet_list,
+    }
+
+    return render(request, 'estate/search_results.html', context)
