@@ -3,12 +3,13 @@ from django.contrib.auth.forms import UserCreationForm
 from django.http import HttpResponseRedirect
 from django.shortcuts import redirect, render
 from django.urls import reverse
+from estate.forms.custom_form import CustomUserCreationForm
 
 
 def signup(request):
     """Register a new user."""
     if request.method == 'POST':
-        form = UserCreationForm(request.POST)
+        form = CustomUserCreationForm(request.POST)
         if form.is_valid():
             form.save()
             # username = form.cleaned_data.get('username')
@@ -22,5 +23,5 @@ def signup(request):
             messages.error(request, msg)
             return HttpResponseRedirect(reverse('signup'))
     else:
-        form = UserCreationForm()
+        form = CustomUserCreationForm(request.POST)
     return render(request, 'registration/signup.html', {'form': form})
