@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from .models import Condo, Room, Owner
+from .models import Condo, Room, Owner, ContactInfo
 from .models.condo import CondoImages
 from .models.room import RoomImages
 
@@ -12,6 +12,11 @@ class CondoImagesInline(admin.TabularInline):
 
 class RoomImagesInline(admin.TabularInline):
     model = RoomImages
+    extra = 1
+
+
+class ContactInfoInline(admin.TabularInline):
+    model = ContactInfo
     extra = 1
 
 
@@ -89,20 +94,49 @@ class OwnerAdmin(admin.ModelAdmin):
         (None, {
             'fields': [
                 'name',
-                'email',
-                'line_id',
-                'phone_number',
-            ]
+                # 'email',
+                # 'line_id',
+                # 'phone_number',
+
+            ],
         }),
+        # ('Contact Information', {
+        #     'fields': [
+        #         'contact_type',
+        #         'information',
+        #     ],
+        # }),
     ]
+    inlines = [ContactInfoInline]
     list_display = (
         'name',
-        'email',
-        'phone_number',
+        # 'email',
+        # 'phone_number',
     )
     search_fields = ['name']
+
+
+class ContactInfoAdmin(admin.ModelAdmin):
+    fieldsets = [
+        # (None, {
+        #     'fields': [
+        #         'name',
+        #         # 'email',
+        #         # 'line_id',
+        #         # 'phone_number',
+        #
+        #     ],
+        # }),
+        ('None', {
+            'fields': [
+                'contact_type',
+                'information',
+            ],
+        }),
+    ]
 
 
 admin.site.register(Condo, CondoAdmin)
 admin.site.register(Room, RoomAdmin)
 admin.site.register(Owner, OwnerAdmin)
+# admin.site.register(ContactInfo, ContactInfoAdmin)

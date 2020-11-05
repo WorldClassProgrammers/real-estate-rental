@@ -7,7 +7,7 @@ class RoomForm(ModelForm):
         model = Room
         fields = [
             'condo',
-            'owner',
+            # 'owner',
             'title',
             'description',
             'still_on_contract',
