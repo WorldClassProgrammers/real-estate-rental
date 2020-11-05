@@ -25,10 +25,14 @@ class Room(models.Model):
         """Return the title of the room."""
         return self.title
 
-    # def get_images(self):
-    #     return self.room_images_set.all()
+    def get_images(self):
+        return self.condoimages_set.all()
+
+
+def conference_directory_path(instance, filename):
+    return 'estate/static/estate/images/user_upload/room/room_id_{0}/{1}'.format(instance.room.id, filename)
 
 
 class RoomImages(models.Model):
     room = models.ForeignKey(Room, on_delete=models.CASCADE)
-    image = models.ImageField(upload_to='estate/images/room/')
+    image = models.ImageField(upload_to=conference_directory_path)

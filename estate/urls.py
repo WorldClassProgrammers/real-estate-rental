@@ -13,4 +13,4 @@ urlpatterns = [
     path('upload/owner/', views.upload_owner, name='upload_owner')
 ]
 
-urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+# urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

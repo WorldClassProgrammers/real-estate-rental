@@ -30,6 +30,9 @@ class Condo(models.Model):
         choices=AMENITY_TYPES, default=None,
     )
 
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+
     def __str__(self):
         """Return the name of the condo."""
         return self.name
@@ -51,10 +54,15 @@ class Condo(models.Model):
             all_units += 1
         return all_units
 
-    # def get_images(self):
-    #     return self.condo_images_set.get(id=1)
+    def get_images(self):
+        return self.condoimages_set.all()
+        # first().image.url.replace('/estate', '..', 1)
+
+
+def conference_directory_path(instance, filename):
+    return 'estate/static/estate/images/user_upload/condo/condo_id_{0}/{1}'.format(instance.condo.id, filename)
 
 
 class CondoImages(models.Model):
     condo = models.ForeignKey(Condo, on_delete=models.CASCADE)
-    image = models.ImageField(upload_to='estate/images/condo/')
+    image = models.ImageField(upload_to=conference_directory_path)
