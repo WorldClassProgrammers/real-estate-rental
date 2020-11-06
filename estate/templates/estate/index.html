@@ -10,27 +10,48 @@
 {% block content %}
 
 <div id="index_header" style="text-align: center;">
-    <form class="form-inline" style="justify-content: center; padding-top: 32px; " action="{% url 'estate:search_results' %}">
+    <form class="form-inline" name="search_input" style="justify-content: center; padding-top: 32px; " action="{% url 'estate:search_results' %}">
         <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" name="search"
         style="width: 400px;">
         <button class="btn btn-outline-light my-2 my-sm-0" type="submit">Search</button>
     </form>
     <div style="margin-top: 8px;">
-        <button id="btn_filters" class="btn btn-outline-light my-2 my-sm-0" onclick="openForm()">Select Filters</button>
+        <button id="btn_filters" class="btn btn-outline-light my-2 my-sm-0">Select Filters</button>
     </div>
-    <div class="form-popup" id="popup_filter">
-        <form action="/action_page.php" class="form-container">
-            <h1>Login</h1>
-    
-            <label for="email"><b>Email</b></label>
-            <input type="text" placeholder="Enter Email" name="email" required>
-    
-            <label for="psw"><b>Password</b></label>
-            <input type="password" placeholder="Enter Password" name="psw" required>
-    
-            <button type="submit" class="btn">Login</button>
+    <div class="form-popup" id="popup_filter" style="transition: .6s ease opacity,.6s ease transform; max-width: 50%; margin: auto;">
+        <form action="{% url 'estate:search_results' %}" class="form-container" method="POST" name="selectfield">
+            {% csrf_token %}
+            <h3 style="font-family: 'Times New Roman', Times, serif;">Amenities</h3>
+            <div class="container">
+                <div class="row">
+                    {% for value, text in condo_list.first.AMENITY_TYPES %}
+                    <div class="col-md-6 col-lg-6 mb-6">
+                        <input id="id_amenity_{{ forloop.counter0 }}" class="select-multiple-field" name="selectedfield" type="checkbox"
+                            value="{{ value }}">
+                        <span></span>
+                        <label>{{ text }}</label>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+            <input type="submit">
+            <button type="button" onclick="select_all()">Select All</button>
+            <button type="button" onclick="deselect_all()">Clear</button>
             <button type="button" class="btn cancel" onclick="closeForm()">Close</button>
         </form>
+    </div>
+    <div class="box">
+        <a class="button" href="#popup1">Let me Pop up</a>
+    </div>
+    
+    <div id="popup1" class="overlay">
+        <div class="popup">
+            <h2>Here i am</h2>
+            <a class="close" href="#">&times;</a>
+            <div class="content">
+                Thank to pop me out of that button, but now i'm done so you can close this window.
+            </div>
+        </div>
     </div>
 </div>
 
@@ -81,12 +102,44 @@
 </section>
 
 <script>
+    var hint = document.getElementById('popup_filter');
+    var btn = document.getElementById('btn_filters');
+
+        btn.addEventListener('click', function () {
+            var ctr = 1;
+            hint.className = hint.className !== 'show' ? 'show' : 'hide';
+            if (hint.className === 'show') {
+                hint.style.display = 'block';
+                window.setTimeout(function () {
+                    hint.style.opacity = 1;
+                    hint.style.transform = 'scale(1)';
+                }, 0);
+            }
+            if (hint.className === 'hide') {
+                hint.style.opacity = 0;
+                hint.style.transform = 'scale(0)';
+                window.setTimeout(function () {
+                    hint.style.display = 'none';
+                }, 700); // timed to match animation-duration
+            }
+
+        });
+
     function openForm() {
+        document.getElementById("popup_filter").style.transition = "all 2s";
         document.getElementById("popup_filter").style.display = "block";
     }
 
     function closeForm() {
         document.getElementById("popup_filter").style.display = "none";
+    }
+
+    function select_all()  {
+        $('input[type=checkbox]').prop('checked', true);
+    }
+
+    function deselect_all()  {
+        $('input[type=checkbox]').prop('checked', false);
     }
 </script>
 

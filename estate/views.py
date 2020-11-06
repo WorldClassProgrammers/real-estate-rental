@@ -28,11 +28,19 @@ def room(request, room_id):
 
 def search(request):
     condoSet_list = Condo.objects.order_by('-name')
-    roomSet_list = Room.objects.order_by('-title')
+    roomSet_list = []
+    
+    if request.method == 'GET':
+        keywords = request.GET['search']
+        condoSet_list = Condo.objects.filter(name__icontains=keywords)
+        roomSet_list = Room.objects.filter(title__icontains=keywords)
+    print(condoSet_list)
 
-    keywords = request.GET['search']
-    condoSet_list = Condo.objects.filter(name__icontains=keywords)
-    roomSet_list = Room.objects.filter(title__icontains=keywords)
+    select = request.POST.getlist('selectedfield')
+    for amenity in select:
+        condoSet_list = condoSet_list.filter(amenities__icontains=amenity)
+        print(condoSet_list)
+
     context = {
         'condo_result': condoSet_list,
         'room_result': roomSet_list,
