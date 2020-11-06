@@ -1,5 +1,6 @@
 from django.forms import ModelForm
 from estate.models import Room
+from estate.models.room import RoomImages
 
 
 class RoomForm(ModelForm):
@@ -7,7 +8,6 @@ class RoomForm(ModelForm):
         model = Room
         fields = [
             'condo',
-            'owner',
             'title',
             'description',
             'still_on_contract',
@@ -19,3 +19,9 @@ class RoomForm(ModelForm):
             'number_of_bathroom',
             'area'
         ]
+
+
+class RoomImagesForm(ModelForm):
+    class Meta:
+        model = RoomImages
+        fields = ['image']
