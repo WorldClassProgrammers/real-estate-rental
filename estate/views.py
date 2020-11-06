@@ -56,26 +56,15 @@ def upload_index(request):
 
 
 def upload_condo(request):
-    # name = request.POST.get('name')
-    # description = request.POST.get('description')
-    # number_of_floors = request.POST.get('number_of_floors')
-    # amenities = request.POST.get('amenities')
-    # condo = Condo(
-    #     name=name,
-    #     description=description,
-    #     number_of_floors=number_of_floors,
-    #     amenities=amenities
-    # )
-    # condo.save()
 
     condo_form = CondoForm(request.POST)
     c = condo_form.save()
 
-    # for i in range(request.POST.get('number_of_images')):
-    condo_images_form = CondoImagesForm(request.POST)
-    condo_images_form.save(commit=False)
-    condo_images_form.condo = c
-    condo_images_form.save()
+    # # for i in range(request.POST.get('number_of_images')):
+    # condo_images_form = CondoImagesForm(request.POST)
+    # condo_images_form.save(commit=False)
+    # condo_images_form.condo = c
+    # condo_images_form.save()
     return HttpResponseRedirect(reverse('estate:index'))
 
 
