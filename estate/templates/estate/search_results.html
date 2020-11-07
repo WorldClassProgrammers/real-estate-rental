@@ -8,17 +8,149 @@
 
 {% block content %}
 
-{% if condo_result %}
-    {% for condo in condo_result %}
-        <p>{{ condo.name }}</p>
-    {% endfor %}
-{% endif %}
-{% if room_result %}
-    {% for room in room_result %}
-        {% if not room.condo in condo_result %}
-            <p>{{ room.title }}</p>
+<section>
+    <div class="row" style="width: 100%; margin: 0;">
+        <div class="container" id="search_container">
+            <h3>
+                {% if request.method == 'GET' %}
+                    Search result for "{{ keywords }}"
+                {% else %}
+                    Search by amenities
+                {% endif %}
+            </h3>
+            <p>
+                {{ page_obj.number }}-{{ page_obj.paginator.num_pages }} of {{ posts|length }} results.
+            </p>
+            <hr>
+        </div>
+    </div>
+</section>
+
+<section>
+
+<div class="container">
+    <div class="row">
+        {% for result in page_obj %}
+            {% if result.get_class_name == 'Condo' %}
+                <div id="condo_box" class="col-md-6 col-lg-4 mb-4">
+                    <div class="card listing-preview shadow-lg">
+                        <img class="card-img-top"
+                            src="https://cdn.renthub.in.th/images/uploaded/201912/20191224/apartment_pictures/normal/7a6943eba16dccf704a9ad32b3c4c056.jpg?1577171939"
+                            alt="">
+                        <div class="card-img-overlay">
+                        </div>
+                        <div class="card-body">
+                            <div class="listing-heading text-center">
+                                <h4 class="mb-4 text-grey-darker" style="font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;">{{ result.name }}</h4>
+                            </div>
+                            <hr>
+                            <div class="row py-2 text-secondary">
+                                <div class="col-6">
+                                    Floors: {{ result.number_of_floors }} </div>
+                                <div class="col-6">
+                                    Available Units: {{ result.get_available_units }}</div>
+                            </div>
+                            <div class="row py-2 text-secondary">
+                                <div class="col-6">
+                                    In case more info:</div>
+                                <div class="col-6">
+                                    in the future:</div>
+                            </div>
+                        </div>
+                    </div>
+                    <a href="{% url 'estate:condo' result.id %}">
+                        <div class="overlay">
+                        </div>
+                    </a>
+                </div>
+            {% elif result.get_class_name == 'Room' %}
+                {% if not result.condo in condo_result %}
+                    <div id="condo_box" class="col-md-6 col-lg-4 mb-4">
+                        <div class="card listing-preview shadow-lg">
+                            <img class="card-img-top"
+                                src="https://cdn.renthub.in.th/images/uploaded/201912/20191224/apartment_pictures/normal/7a6943eba16dccf704a9ad32b3c4c056.jpg?1577171939"
+                                alt="">
+                            <div class="card-img-overlay">
+                            </div>
+                            <div class="card-body">
+                                <div class="listing-heading text-center">
+                                    <h4 class="mb-4 text-grey-darker" style="font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;">{{ result.title }}</h4>
+                                </div>
+                                <hr>
+                                <div class="row py-2 text-secondary">
+                                    <div class="col-6">
+                                        Room Number: {{ result.number }}</div>
+                                    <div class="col-6">
+                                        Availability: {% if result.still_on_contract %} No {% else %} Yes {% endif %}</div>
+                                </div>
+                                <div class="row py-2 text-secondary">
+                                    <div class="col-6">
+                                        Rent: {{ result.price_for_rent }} ฿</div>
+                                    <div class="col-6">
+                                        Size: {{ result.area }} m²</div>
+                                </div>
+                            </div>
+                        </div>
+                        <a href="{% url 'estate:room' result.condo.id %}">
+                            <div class="overlay">
+                            </div>
+                        </a>
+                    </div>
+                {% endif %}
+            {% endif %}
+        {% endfor %}
+    </div>
+</div>
+<div class="row" style="margin: 0%;">
+    <div class="col-md-12">
+        {% if page_obj.has_other_pages %}
+        <ul class="pagination">
+            {% if page_obj.has_previous %}
+            <li class="page-item">
+                {% if method == 'GET' %}
+                    <a href="?page=1&search={{ keywords }}" class="page-link">&laquo;</a>
+                {% else %}
+                    <a href="?page=1&selectedfield={{ keywords }}" class="page-link">&laquo;</a>
+                {% endif %}
+             </li>
+            {% else %}
+            <li class="page-item disabled">
+                <a class="page-link">&laquo;</a>
+            </li>
+            {% endif %}
+            {% for i in page_obj.paginator.page_range %}
+                {% if page_obj.number == i %}
+                <li class="page-item active">
+                    <a class="page-link">{{i}}</a>
+                </li>
+                {% else %}
+                <li class="page-item">
+                    {% if method == 'GET' %}
+                        <a href="?page={{i}}&search={{ keywords }}" class="page-link">{{i}}</a>
+                    {% else %}
+                        <a href="?page={{i}}&selectedfield={{ keywords }}" class="page-link">{{i}}</a>
+                    {% endif %}
+                </li>
+                {% endif %}
+            {% endfor %}
+            {% if page_obj.has_next %}
+            <li class="page-item">
+                {% if method == 'GET' %}
+                    <a href="?page={{page_obj.paginator.num_pages}}&search={{ keywords }}" class="page-link">&raquo;</a>
+                {% else %}
+                    <a href="?page={{page_obj.paginator.num_pages}}&selectedfield={{ keywords }}" class="page-link">&raquo;</a>
+                {% endif %}
+            </li>
+            {% else %}
+            <li class="page-item disabled">
+                <a class="page-link">&raquo;</a>
+            </li>
+            {% endif %}
+        </ul>
         {% endif %}
-    {% endfor %}
-{% endif %}
+    </div>
+</div>
+
+</section>
 
 {% endblock %}

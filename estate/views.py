@@ -2,6 +2,8 @@
 from django.http import HttpResponse
 from django.shortcuts import render, get_object_or_404
 from django.views import generic
+from itertools import chain
+from django.core.paginator import Paginator
 
 from .models import Room, Condo
 
@@ -25,25 +27,59 @@ def room(request, room_id):
     condo = Condo.objects.filter(name=room.condo)[0]
     return render(request, 'estate/room.html', {'condo': condo, 'room': room})
 
+def search_by_amnities(request ):
+    condoSet_list = Condo.objects.order_by('-name')
+
+    if request.method == 'GET':        
+        res = request.GET['selectedfield']
+        keywords = res.strip('][').split(', ')
+        for index, amenity in enumerate(keywords):
+            # remove quotes at begin and end. Somehow strip doesnt work
+            # and update back to keywords.
+
+            amenity = amenity[1:-1]
+            keywords[index] = amenity
+            condoSet_list = condoSet_list.filter(amenities__icontains=amenity)
+    else:
+        keywords = request.POST.getlist('selectedfield')
+        for amenity in keywords:
+            condoSet_list = condoSet_list.filter(amenities__icontains=amenity)
+
+    return keywords , condoSet_list , 'POST'
+
+def search_by_keywords( request ):
+
+    keywords = request.GET['search']
+    condoSet_list = Condo.objects.filter(name__icontains=keywords)
+    roomSet_list = Room.objects.filter(title__icontains=keywords)
+    return keywords , condoSet_list , roomSet_list , request.method
 
 def search(request):
-    condoSet_list = Condo.objects.order_by('-name')
-    roomSet_list = []
-    
-    if request.method == 'GET':
-        keywords = request.GET['search']
-        condoSet_list = Condo.objects.filter(name__icontains=keywords)
-        roomSet_list = Room.objects.filter(title__icontains=keywords)
-    print(condoSet_list)
+    roomSet_list = Room.objects.order_by('-title')
 
-    select = request.POST.getlist('selectedfield')
-    for amenity in select:
-        condoSet_list = condoSet_list.filter(amenities__icontains=amenity)
-        print(condoSet_list)
+    if request.method == 'GET':
+        if 'search' in request.GET: # by keywords
+            keywords , condoSet_list , roomSet_list, method = search_by_keywords(request)
+        else: # by checkbox fields
+            keywords, condoSet_list,method = search_by_amnities(request )
+    else:
+        keywords, condoSet_list,method = search_by_amnities(request )
+
+    print(keywords)
+    roomSet_list = roomSet_list.filter(
+        still_on_contract=False).exclude(condo__in=condoSet_list)
+    posts = list(chain(condoSet_list, roomSet_list))
+    paginator = Paginator(posts, 1)
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
 
     context = {
+        'keywords': keywords,
         'condo_result': condoSet_list,
         'room_result': roomSet_list,
+        'page_obj': page_obj,
+        'posts': posts,
+        'method' : method,
     }
 
     return render(request, 'estate/search_results.html', context)

@@ -26,6 +26,9 @@ class Room(models.Model):
         """Return the title of the room."""
         return self.title
 
+    def get_class_name(self):
+        return 'Room'
+
 
 # class RoomImages(models.Model):
 #     room = models.ForeignKey(Room, on_delete=models.CASCADE)

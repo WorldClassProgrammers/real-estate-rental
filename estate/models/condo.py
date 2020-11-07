@@ -50,3 +50,6 @@ class Condo(models.Model):
         for unit in self.get_rooms():
             all_units += 1
         return all_units
+    
+    def get_class_name(self):
+        return 'Condo'
