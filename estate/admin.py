@@ -1,9 +1,15 @@
 from django.contrib import admin
-
-from .models import Condo, Room, Owner
+from estate.forms.custom_form import CustomUserCreationForm, CustomUserChangeForm
+from django.contrib.auth.admin import UserAdmin
+from .models import Condo, Room, Owner, CustomUser
 from .models.condo import CondoImages
 from .models.room import RoomImages
 
+class CustomUserAdmin(UserAdmin):
+    add_form = CustomUserCreationForm
+    form = CustomUserChangeForm
+    model = CustomUser
+    list_display = ['email', 'username',]
 
 class CondoImagesInline(admin.TabularInline):
     model = CondoImages
@@ -106,3 +112,4 @@ class OwnerAdmin(admin.ModelAdmin):
 admin.site.register(Condo, CondoAdmin)
 admin.site.register(Room, RoomAdmin)
 admin.site.register(Owner, OwnerAdmin)
+admin.site.register(CustomUser, CustomUserAdmin)
