@@ -65,9 +65,13 @@ def search(request):
     else:
         keywords, condoSet_list,method = search_by_amnities(request )
 
-    print(keywords)
-    roomSet_list = roomSet_list.filter(
-        still_on_contract=False).exclude(condo__in=condoSet_list)
+    # if no condo then room shouldnt be return
+    if condoSet_list:
+        roomSet_list = roomSet_list.filter(
+            still_on_contract=False).exclude(condo__in=condoSet_list)
+    else:
+        roomSet_list = Room.objects.none()
+
     posts = list(chain(condoSet_list, roomSet_list))
     paginator = Paginator(posts, 1)
     page_number = request.GET.get('page')
