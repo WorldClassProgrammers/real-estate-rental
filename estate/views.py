@@ -30,6 +30,44 @@ def room(request, room_id):
     return render(request, 'estate/room.html', {'condo': condo, 'room': room})
 
 
+def search_by_amnities(request ):
+    condoSet_list = Condo.objects.order_by('-name')
+
+    if request.method == 'GET':        
+        res = request.GET['selectedfield']
+        keywords = res.strip('][').split(', ')
+        for index, amenity in enumerate(keywords):
+            # remove quotes at begin and end. Somehow strip doesnt work
+            # and update back to keywords.
+
+            amenity = amenity[1:-1]
+            keywords[index] = amenity
+            condoSet_list = condoSet_list.filter(amenities__icontains=amenity)
+    else:
+        keywords = request.POST.getlist('selectedfield')
+        for amenity in keywords:
+            condoSet_list = condoSet_list.filter(amenities__icontains=amenity)
+
+    return keywords, condoSet_list, 'POST', Room.objects.none()
+
+def search_by_keywords( request ):
+
+    keywords = request.GET['search']
+    condoSet_list = Condo.objects.filter(name__icontains=keywords)
+    roomSet_list = Room.objects.filter(title__icontains=keywords)
+    return keywords , condoSet_list , roomSet_list , request.method
+
+def search(request):
+    roomSet_list = Room.objects.order_by('-title')
+
+    if request.method == 'GET':
+        if 'search' in request.GET: # by keywords
+            keywords , condoSet_list , roomSet_list, method = search_by_keywords(request)
+        else: # by checkbox fields
+            keywords, condoSet_list,method, roomSet_list = search_by_amnities(request )
+    else:
+        keywords, condoSet_list, method, roomSet_list = search_by_amnities( request)
+
 @login_required
 def upload_owner(request):
     if request.method == 'POST':
