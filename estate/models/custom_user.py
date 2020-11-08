@@ -1,4 +1,4 @@
-from django.contrib.auth.models import AbstractUser
+from django.contrib.auth.models import AbstractUser, BaseUserManager
 from django.db import models
 from .owner import Owner
 
@@ -9,5 +9,5 @@ class CustomUser(AbstractUser):
         (2, "owner"),
     )
 
-    role = models.PositiveSmallIntegerField(choices=USER_TYPE)
-    # owner = models.ForeignKey(Owner, default=None, on_delete=models.CASCADE)
+    role = models.PositiveSmallIntegerField(choices=USER_TYPE, default=2, null=True, blank=True)
+    owner = models.ForeignKey(Owner, default=None, null=True, blank=True, on_delete=models.CASCADE)
