@@ -27,6 +27,9 @@ class Room(models.Model):
 
     def get_images(self):
         return self.condoimages_set.all()
+    
+    def get_class_name(self):
+        return 'Room'
 
 
 def conference_directory_path(instance, filename):
