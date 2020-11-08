@@ -30,6 +30,9 @@ class Room(models.Model):
 
     def get_first_image(self):
         return self.roomimages_set.first().image.url.replace('/estate', '', 1)
+    
+    def get_class_name(self):
+        return 'Room'
 
 
 def conference_directory_path(instance, filename):
