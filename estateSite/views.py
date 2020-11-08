@@ -23,5 +23,5 @@ def signup(request):
             messages.error(request, msg)
             return HttpResponseRedirect(reverse('signup'))
     else:
-        form = CustomUserCreationForm(request.POST)
+        form = CustomUserCreationForm()
     return render(request, 'registration/signup.html', {'form': form})

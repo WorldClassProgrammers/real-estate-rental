@@ -10,7 +10,4 @@ class CustomUser(AbstractUser):
     )
 
     role = models.PositiveSmallIntegerField(choices=USER_TYPE)
-    owner = models.ForeignKey(Owner, default=None, on_delete=models.CASCADE)
-
-    class Meta:
-        db_table = 'auth_user'
+    # owner = models.ForeignKey(Owner, default=None, on_delete=models.CASCADE)
