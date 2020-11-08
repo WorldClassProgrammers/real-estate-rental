@@ -45,7 +45,7 @@ def search_by_amnities(request ):
         for amenity in keywords:
             condoSet_list = condoSet_list.filter(amenities__icontains=amenity)
 
-    return keywords , condoSet_list , 'POST'
+    return keywords, condoSet_list, 'POST', Room.objects.none()
 
 def search_by_keywords( request ):
 
@@ -61,9 +61,9 @@ def search(request):
         if 'search' in request.GET: # by keywords
             keywords , condoSet_list , roomSet_list, method = search_by_keywords(request)
         else: # by checkbox fields
-            keywords, condoSet_list,method = search_by_amnities(request )
+            keywords, condoSet_list,method, roomSet_list = search_by_amnities(request )
     else:
-        keywords, condoSet_list,method = search_by_amnities(request )
+        keywords, condoSet_list, method, roomSet_list = search_by_amnities( request)
 
     # if no condo then room shouldnt be return
     if condoSet_list:
