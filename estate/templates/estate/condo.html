@@ -10,8 +10,7 @@
 
 <section>
         <div class="row" style="background-color: aqua; height: 360px; width: 100%; margin: 0%;">
-            <div class="col-sm" style="min-height: 60%; background-image: url(https://d2ile4x3f22snf.cloudfront.net/wp-content/uploads/sites/282/2018/04/23070030/Room-1.jpg);">
-               
+            <div class="col-sm" style="min-height: 60%; background-image: url('{{ condo.get_first_image }}');">
             </div>
             <div class="col-sm" style="text-align: center; color: white; background-image: url(https://i.pinimg.com/originals/97/42/6e/97426e87ed06da4ac76e704c74a5062b.jpg);">
                 <h2 style="font-family: 'Times New Roman', Times, serif; color: white;">{{ condo.name }}</h2>
@@ -74,7 +73,7 @@
             <div id="condo_box" class="col-md-6 col-lg-4 mb-4">
                 <div class="card listing-preview shadow-lg">
                     <img class="card-img-top"
-                        src="https://cdn.renthub.in.th/images/uploaded/201912/20191224/apartment_pictures/normal/7a6943eba16dccf704a9ad32b3c4c056.jpg?1577171939"
+                        src="../../..{{ room.get_first_image }}"
                         alt="">
                     <div class="card-img-overlay">
                     </div>
@@ -100,7 +99,7 @@
                     </div>
                 </div>
                 {% if not room.still_on_contract %}
-                <a href="{% url 'estate:room' condo.id %}">
+                <a href="{% url 'estate:room' room.id %}">
                     <div class="overlay">
                     </div>
                 </a>

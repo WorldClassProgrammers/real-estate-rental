@@ -5,19 +5,16 @@ from .models import Condo, Room, Owner, CustomUser
 from .models.condo import CondoImages
 from .models.room import RoomImages
 
+
 class CustomUserAdmin(UserAdmin):
     add_form = CustomUserCreationForm
     form = CustomUserChangeForm
     model = CustomUser
-    list_display = ['email', 'username',]
+    list_display = ['email', 'username']
+
 
 class CondoImagesInline(admin.TabularInline):
     model = CondoImages
-    extra = 1
-
-
-class RoomImagesInline(admin.TabularInline):
-    model = RoomImages
     extra = 1
 
 
@@ -49,6 +46,11 @@ class CondoAdmin(admin.ModelAdmin):
         'common_fee_account',
     )
     search_fields = ['name']
+
+
+class RoomImagesInline(admin.TabularInline):
+    model = RoomImages
+    extra = 1
 
 
 class RoomAdmin(admin.ModelAdmin):

@@ -58,6 +58,9 @@ class Condo(models.Model):
         return self.condoimages_set.all()
         # first().image.url.replace('/estate', '..', 1)
 
+    def get_first_image(self):
+        return self.condoimages_set.first().image.url.replace('/estate', '', 1)
+
 
 def conference_directory_path(instance, filename):
     return 'estate/static/estate/images/user_upload/condo/condo_id_{0}/{1}'.format(instance.condo.id, filename)

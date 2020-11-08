@@ -26,7 +26,10 @@ class Room(models.Model):
         return self.title
 
     def get_images(self):
-        return self.condoimages_set.all()
+        return self.roomimages_set.all()
+
+    def get_first_image(self):
+        return self.roomimages_set.first().image.url.replace('/estate', '', 1)
 
 
 def conference_directory_path(instance, filename):
