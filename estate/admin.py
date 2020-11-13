@@ -10,7 +10,16 @@ class CustomUserAdmin(UserAdmin):
     add_form = CustomUserCreationForm
     form = CustomUserChangeForm
     model = CustomUser
-    list_display = ['email', 'username']
+    fieldsets = [
+        (None, {
+            'fields': [
+                'username',
+                'email',
+                'role',
+            ]
+        }),
+    ]
+    list_display = ['email', 'username','role']
 
 
 class CondoImagesInline(admin.TabularInline):

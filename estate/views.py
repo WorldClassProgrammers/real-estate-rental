@@ -111,7 +111,7 @@ def upload_owner(request):
 
 @login_required
 def upload_index(request):
-    if request.user.role != 'owner':
+    if request.user.role != 2:
         return HttpResponseRedirect(reverse('estate:index'))
     condo_form = CondoForm(prefix='condo')
     room_form = RoomForm(prefix='room')

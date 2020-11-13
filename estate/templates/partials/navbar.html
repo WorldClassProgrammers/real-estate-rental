@@ -37,23 +37,23 @@
             {% else %}
             <li class="nav-item">
                 <a class="nav-link" href="{% url 'login' %}">
-                    <button class="login_button" style="background-color: #e3e3e3;">
+                    <button id="login_button" style="background-color: #e3e3e3;">
                         login
                     </button>
                 </a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="{% url 'signup' %}">
-                    <button class="login_button" style="background-color: #b7efd4;">
+                    <button id="login_button" style="background-color: #b7efd4;">
                         signup
                     </button>
                 </a>
             </li>
             {% endif %}
-            {% if user.role == 'owner' %}
+            {% if user.role == 2 %}
             <li class="nav-item">
                 <a class="nav-link" href="{% url 'estate:upload_index' %}">
-                    <button class="login_button" style="background-color: #cad8ff;">
+                    <button id="login_button" style="background-color: #cad8ff;">
                         Post
                     </button>
                 </a>
