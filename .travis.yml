@@ -18,7 +18,7 @@ before_script:
   - python manage.py migrate
 
 script: 
-  - coverage run manage.py test estate
+  - coverage run manage.py test polls/tests
 
 after_script:
   - bash <(curl -s https://codecov.io/bash)
