@@ -52,6 +52,10 @@ Multilingual support: Thai, English, Chinese (or more)
 Property and promotion suggestions on the main page based on user preferences
 Mobile application supported
 
+### Project Documents
+
+[Code review](https://docs.google.com/document/d/1plSBYDK-mYTJ-u1JY7BV-esmCcP8XGtpmY4gUwgzB0g/edit?usp=sharing)
+
 ## Team Members
 
 - Nutta Sittipongpanich  
