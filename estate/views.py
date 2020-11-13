@@ -7,14 +7,13 @@ from itertools import chain
 from django.core.paginator import Paginator
 
 from .forms import OwnerForm, CondoForm, RoomForm
-from .forms.condo_form import CondoImagesForm
-from .forms.room_form import RoomImagesForm
 from .models import Room, Condo, Owner
+from .models.condo import CondoImages
+from .models.room import RoomImages
 
 
 class IndexView(generic.ListView):
     template_name = 'estate/index.html'
-    # room_list = 'room_list'
     condo_list = 'condo_list'
 
     def get_queryset(self):
@@ -112,34 +111,39 @@ def upload_owner(request):
 
 @login_required
 def upload_index(request):
-    condo_form = CondoForm()
-    room_form = RoomForm()
-    condo_images_form = CondoImagesForm()
-    room_images_form = RoomImagesForm()
+    condo_form = CondoForm(prefix='condo')
+    room_form = RoomForm(prefix='room')
     return render(request, 'estate/upload_index.html', {
         'condo_form': condo_form,
         'room_form': room_form,
-        'condo_images_form': condo_images_form,
-        'room_images_form': room_images_form,
     })
 
 
+@login_required
 def upload_condo(request):
+    condo_form = CondoForm(request.POST, prefix='condo')
+    # Bug - Amenities have to checked at least one to valid the form
+    if condo_form.is_valid():
+        this_condo = condo_form.save()
 
-    condo_form = CondoForm(request.POST)
-    c = condo_form.save()
+        for image in request.FILES.getlist('files'):
+            CondoImages.objects.create(condo=this_condo, image=image)
 
-    # # for i in range(request.POST.get('number_of_images')):
-    # condo_images_form = CondoImagesForm(request.POST)
-    # condo_images_form.save(commit=False)
-    # condo_images_form.condo = c
-    # condo_images_form.save()
     return HttpResponseRedirect(reverse('estate:index'))
 
 
+@login_required
 def upload_room(request):
-    room_form = RoomForm(request.POST)
-    # room_form.save(commit=False)
-    # room_form.owner = request.user.owner_set.first()
-    room_form.save()
+    room_form = RoomForm(request.POST, prefix='room')
+    if room_form.is_valid():
+        this_room = room_form.save(commit=False)
+        # if request.user.role == 'owner':
+        this_room.owner = Owner.objects.first()
+        this_room.save()
+
+        for image in request.FILES.getlist('files'):
+            RoomImages.objects.create(room=this_room, image=image)
+    else:
+        print("==========room_form_invalid===========", request.POST)
+
     return HttpResponseRedirect(reverse('estate:index'))

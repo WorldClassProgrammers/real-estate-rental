@@ -8,7 +8,10 @@
     <h2>ADD CONDO</h2>
     <form method="POST" enctype="multipart/form-data" action="{% url 'estate:upload_condo' %}">
         {% csrf_token %}
-        <table id="image_fields_condo">{{ condo_form.as_table }}</table>
+        <table id="image_fields_condo">
+            {{ condo_form.as_table }}
+            <th>Image:</th><td><input name="files" type="file" size="50" accept="image/*" multiple></td>
+        </table>
         <button id="btn_add_condo_image" type="button" name="number_of_images" value="0">Add Image</button>
         <button type="submit">Upload</button>
     </form>
@@ -20,7 +23,10 @@
     <h2>ADD ROOM</h2>
     <form method="POST" enctype="multipart/form-data" action="{% url 'estate:upload_room' %}">
         {% csrf_token %}
-        <table id="image_fields_room">{{ room_form.as_table }}</table>
+        <table id="image_fields_room">
+            {{ room_form.as_table }}
+            <th>Image:</th><td><input name="files" type="file" size="50" accept="image/*" multiple></td>
+        </table>
         <button id="btn_add_room_image" type="button" name="nunber_of_images" value="0">Add Image</button>
         <button type="submit">Upload</button>
     </form>
@@ -41,6 +47,7 @@
         condoFields.style.display = "block";
         roomFields.style.display = "none";
     })
+
     btnRoom = document.getElementById("btn_room")
     btnRoom.addEventListener('click', function () {
         condoFields.style.display = "none";
@@ -54,7 +61,7 @@
         nImage++
         btnAddCondoImage.value = nImage
         document.getElementById("pi").innerHTML = btnAddCondoImage.value
-        element = '{{ condo_images_form.as_table }}'
+        element = '<th></th><td><input name="files" type="file" size="50" accept="image/*" multiple></td>'
         imageFieldsCondo.innerHTML += element
     })
 
@@ -65,7 +72,7 @@
         nImage++
         btnAddCondoImage.value = nImage
         btnAddRoomImage += 1
-        element = '{{ room_images_form.as_table }}</tr>'
+        element = '<th></th><td><input name="files" type="file" size="50" accept="image/*" multiple></td>'
         imageFieldsRoom.innerHTML += element
     })
 
