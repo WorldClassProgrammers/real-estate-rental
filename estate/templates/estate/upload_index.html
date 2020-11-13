@@ -1,53 +1,96 @@
 {% extends 'base.html' %} {% load static %} {% block content %}
 <style>
 
+    #form {
+        background-color: aliceblue;
+        padding: 30px;
+        padding-left: 9%;
+        margin: 0px;
+    }
+
+    .btn-outline-light {
+        margin: 2px;
+        background-color: white;
+        color: #3574bd;
+        border-color: #3574bd;
+    }
+
+    .btn-outline-light:hover {
+        background-color: #3574bd;
+        color: aliceblue;
+    }
+
+    h2 {
+        margin: 12px;
+    }
+
+    input[type="file"] {
+        display: none;
+    }
+
+    th {
+        margin: 4px;
+    }
+
+    table {
+        margin-bottom: 12px;
+    }
 
 </style>
 
+<div>
+    <ul id="form">
+        <button id="btn_condo" class="btn btn-outline-light my-2 my-sm-0">
+            Add condo
+        </button>
+        <button id="btn_room" class="btn btn-outline-light my-2 my-sm-0">
+            Add room
+        </button>
+        <a href="{% url 'estate:index' %}"><button class="btn btn-outline-light my-2 my-sm-0">
+                Back to Index
+            </button></a>
 
-<ul>
-    <button id="btn_condo" class="btn btn-outline-light my-2 my-sm-0">
-        Add condo
-    </button>
-    <button id="btn_room" class="btn btn-outline-light my-2 my-sm-0">
-        Add room
-    </button>
-    <a href="{% url 'estate:index' %}"><button class="btn btn-outline-light my-2 my-sm-0">
-            Back to Index
-        </button></a>
+        <div id="condo_form_fields">
+            <h2>ADD CONDO</h2>
+            <form method="POST" enctype="multipart/form-data" action="{% url 'estate:upload_condo' %}">
+                {% csrf_token %}
+                <table id="image_fields_condo">
+                    {{ condo_form.as_table }}
+                    <th>Image:</th>
+                    <td>
+                        <label for="file-upload" class="btn btn-outline-light my-2 my-sm-0">
+                            <i class="fa fa-cloud-upload"></i> Browse
+                        </label>
+                        <input id="file-upload" name="files" type="file" size="50" accept="image/*" multiple />
+                    </td>
+                </table>
+                <button class="btn btn-outline-light my-2 my-sm-0" id="btn_add_condo_image" type="button">Add
+                    Image</button>
+                <button class="btn btn-outline-light my-2 my-sm-0" type="submit">Upload</button>
+            </form>
+        </div>
 
-    <div id="condo_form_fields">
-        <h2>ADD CONDO</h2>
-        <form method="POST" enctype="multipart/form-data" action="{% url 'estate:upload_condo' %}">
-            {% csrf_token %}
-            <table id="image_fields_condo">
-                {{ condo_form.as_table }}
-                <th>Image:</th>
-                <td>
-                    <input name="files" type="file" size="50" accept="image/*" multiple />
-                </td>
-            </table>
-            <button id="btn_add_condo_image" type="button">Add Image</button>
-            <button type="submit">Upload</button>
-        </form>
-    </div>
-
-    <div id="room_form_fields">
-        <h2>ADD ROOM</h2>
-        <form method="POST" enctype="multipart/form-data" action="{% url 'estate:upload_room' %}">
-            {% csrf_token %}
-            <table id="image_fields_room">
-                {{ room_form.as_table }}
-                <th>Image:</th>
-                <td>
-                    <input name="files" type="file" size="50" accept="image/*" multiple />
-                </td>
-            </table>
-            <button id="btn_add_room_image" type="button">Add Image</button>
-            <button type="submit">Upload</button>
-        </form>
-    </div>
-</ul>
+        <div id="room_form_fields">
+            <h2>ADD ROOM</h2>
+            <form method="POST" enctype="multipart/form-data" action="{% url 'estate:upload_room' %}">
+                {% csrf_token %}
+                <table id="image_fields_room">
+                    {{ room_form.as_table }}
+                    <th>Image:</th>
+                    <td>
+                        <label for="file-upload" class="btn btn-outline-light my-2 my-sm-0">
+                            <i class="fa fa-cloud-upload"></i> Browse
+                        </label>
+                        <input id="file-upload" name="files" type="file" size="50" accept="image/*" multiple />
+                    </td>
+                </table>
+                <button class="btn btn-outline-light my-2 my-sm-0" id="btn_add_room_image" type="button">Add
+                    Image</button>
+                <button class="btn btn-outline-light my-2 my-sm-0" type="submit">Upload</button>
+            </form>
+        </div>
+    </ul>
+</div>
 
 <script>
     condoFields = document.getElementById("condo_form_fields");
@@ -69,7 +112,7 @@
     });
 
     imageFields =
-        '<th></th><td><input name="files" type="file" size="50" accept="image/*" multiple></td>';
+        '<th></th><td><label for="file-upload" class="btn btn-outline-light my-2 my-sm-0"><i class="fa fa-cloud-upload"></i> Browse</label><input id="file-upload" name="files" type="file" size="50" accept="image/*" multiple /></td>';
 
     imageFieldsCondo = document.getElementById("image_fields_condo");
     btnAddCondoImage = document.getElementById("btn_add_condo_image");
