@@ -1,38 +1,52 @@
-{% load static %} {% block content %}
+{% extends 'base.html' %} {% load static %} {% block content %}
+<style>
+
+
+</style>
+
+
 <ul>
-    <button id="btn_condo">Add condo</button>
-    <button id="btn_room">Add room</button>
-    <a href="{% url 'estate:index' %}"><button>Back to Index</button></a>
+    <button id="btn_condo" class="btn btn-outline-light my-2 my-sm-0">
+        Add condo
+    </button>
+    <button id="btn_room" class="btn btn-outline-light my-2 my-sm-0">
+        Add room
+    </button>
+    <a href="{% url 'estate:index' %}"><button class="btn btn-outline-light my-2 my-sm-0">
+            Back to Index
+        </button></a>
 
-  <div id="condo_form_fields">
-    <h2>ADD CONDO</h2>
-    <form method="POST" enctype="multipart/form-data" action="{% url 'estate:upload_condo' %}">
-        {% csrf_token %}
-        <table id="image_fields_condo">
-            {{ condo_form.as_table }}
-            <th>Image:</th><td><input name="files" type="file" size="50" accept="image/*" multiple></td>
-        </table>
-        <button id="btn_add_condo_image" type="button" name="number_of_images" value="0">Add Image</button>
-        <button type="submit">Upload</button>
-    </form>
-    <div id="pi"></div>
-  </div>
+    <div id="condo_form_fields">
+        <h2>ADD CONDO</h2>
+        <form method="POST" enctype="multipart/form-data" action="{% url 'estate:upload_condo' %}">
+            {% csrf_token %}
+            <table id="image_fields_condo">
+                {{ condo_form.as_table }}
+                <th>Image:</th>
+                <td>
+                    <input name="files" type="file" size="50" accept="image/*" multiple />
+                </td>
+            </table>
+            <button id="btn_add_condo_image" type="button">Add Image</button>
+            <button type="submit">Upload</button>
+        </form>
+    </div>
 
-
-  <div id="room_form_fields">
-    <h2>ADD ROOM</h2>
-    <form method="POST" enctype="multipart/form-data" action="{% url 'estate:upload_room' %}">
-        {% csrf_token %}
-        <table id="image_fields_room">
-            {{ room_form.as_table }}
-            <th>Image:</th><td><input name="files" type="file" size="50" accept="image/*" multiple></td>
-        </table>
-        <button id="btn_add_room_image" type="button" name="nunber_of_images" value="0">Add Image</button>
-        <button type="submit">Upload</button>
-    </form>
-  </div>
-
-  {% endblock %}
+    <div id="room_form_fields">
+        <h2>ADD ROOM</h2>
+        <form method="POST" enctype="multipart/form-data" action="{% url 'estate:upload_room' %}">
+            {% csrf_token %}
+            <table id="image_fields_room">
+                {{ room_form.as_table }}
+                <th>Image:</th>
+                <td>
+                    <input name="files" type="file" size="50" accept="image/*" multiple />
+                </td>
+            </table>
+            <button id="btn_add_room_image" type="button">Add Image</button>
+            <button type="submit">Upload</button>
+        </form>
+    </div>
 </ul>
 
 <script>
@@ -42,38 +56,32 @@
     condoFields.style.display = "block";
     roomFields.style.display = "none";
 
-    btnCondo = document.getElementById("btn_condo")
-    btnCondo.addEventListener('click', function () {
+    btnCondo = document.getElementById("btn_condo");
+    btnCondo.addEventListener("click", function () {
         condoFields.style.display = "block";
         roomFields.style.display = "none";
-    })
+    });
 
-    btnRoom = document.getElementById("btn_room")
-    btnRoom.addEventListener('click', function () {
+    btnRoom = document.getElementById("btn_room");
+    btnRoom.addEventListener("click", function () {
         condoFields.style.display = "none";
         roomFields.style.display = "block";
-    })
+    });
 
-    imageFieldsCondo = document.getElementById("image_fields_condo")
-    btnAddCondoImage = document.getElementById("btn_add_condo_image")
-    var nImage = 0
-    btnAddCondoImage.addEventListener('click', function () {
-        nImage++
-        btnAddCondoImage.value = nImage
-        document.getElementById("pi").innerHTML = btnAddCondoImage.value
-        element = '<th></th><td><input name="files" type="file" size="50" accept="image/*" multiple></td>'
-        imageFieldsCondo.innerHTML += element
-    })
+    imageFields =
+        '<th></th><td><input name="files" type="file" size="50" accept="image/*" multiple></td>';
 
-    imageFieldsRoom = document.getElementById("image_fields_room")
-    btnAddRoomImage = document.getElementById("btn_add_room_image")
-    var nImage = 0
-    btnAddRoomImage.addEventListener('click', function () {
-        nImage++
-        btnAddCondoImage.value = nImage
-        btnAddRoomImage += 1
-        element = '<th></th><td><input name="files" type="file" size="50" accept="image/*" multiple></td>'
-        imageFieldsRoom.innerHTML += element
-    })
+    imageFieldsCondo = document.getElementById("image_fields_condo");
+    btnAddCondoImage = document.getElementById("btn_add_condo_image");
+    btnAddCondoImage.addEventListener("click", function () {
+        imageFieldsCondo.innerHTML += imageFields;
+    });
 
+    imageFieldsRoom = document.getElementById("image_fields_room");
+    btnAddRoomImage = document.getElementById("btn_add_room_image");
+    btnAddRoomImage.addEventListener("click", function () {
+        imageFieldsRoom.innerHTML += imageFields;
+    });
 </script>
+
+{% endblock %}
