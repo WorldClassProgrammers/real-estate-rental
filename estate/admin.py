@@ -5,11 +5,22 @@ from .models import Condo, Room, Owner, CustomUser
 from .models.condo import CondoImages
 from .models.room import RoomImages
 
+
 class CustomUserAdmin(UserAdmin):
     add_form = CustomUserCreationForm
     form = CustomUserChangeForm
     model = CustomUser
-    list_display = ['email', 'username',]
+    fieldsets = [
+        (None, {
+            'fields': [
+                'username',
+                'email',
+                'role',
+            ]
+        }),
+    ]
+    list_display = ['email', 'username', 'role']
+
 
 class CondoImagesInline(admin.TabularInline):
     model = CondoImages
