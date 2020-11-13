@@ -1,5 +1,7 @@
 # Real Estate Rental
 
+[![Build Status](https://travis-ci.com/ZEZAY/real-estate-rental.svg?branch=master)](https://travis-ci.com/ZEZAY/real-estate-rental)
+
 ## Description
 
 This project is a website that provides information about apartments and houses for rent. This is not an e\*commerce website. This project only serves as an information provider for rental services. There will be contact information provided, but the application neither performs any transactions nor accepts any sensitive information.
