@@ -111,6 +111,8 @@ def upload_owner(request):
 
 @login_required
 def upload_index(request):
+    if request.user.role != 'owner':
+        return HttpResponseRedirect(reverse('estate:index'))
     condo_form = CondoForm(prefix='condo')
     room_form = RoomForm(prefix='room')
     return render(request, 'estate/upload_index.html', {
@@ -137,7 +139,6 @@ def upload_room(request):
     room_form = RoomForm(request.POST, prefix='room')
     if room_form.is_valid():
         this_room = room_form.save(commit=False)
-        # if request.user.role == 'owner':
         this_room.owner = Owner.objects.first()
         this_room.save()
 
