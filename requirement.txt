@@ -2,3 +2,4 @@ Django
 Pillow
 django-multiselectfield
 coverage
+python-decouple
