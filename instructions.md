@@ -80,15 +80,21 @@ Create or edit the .env file in the ./estateSite directory.
 example of ./estateSite/.env file:
 
 ```python
-DEBUG=False # activate/deactivate debug mode
-ALLOWED_HOSTS=localhost,127.0.0.1 # your URLs
+DEBUG=False
+ALLOWED_HOSTS=localhost,127.0.0.1
 SECRET_KEY='Your-Secret-Key'
-DATABASE_ENGINE='django.db.backends.sqlite3' # Database engine ex. django.db.backends.mysql
+DATABASE_ENGINE='django.db.backends.sqlite3'
 DATABASE_NAME='db.sqlite3'
-DATABASE_USER='test1' # unused in sqlite3
-DATABASE_PWD='Noneatall' # unused in sqlite3
-DATABASE_HOST='localhost' # unused in sqlite3
+DATABASE_USER='test1'
+DATABASE_PWD='Noneatall'
+DATABASE_HOST='localhost'
 TIME_ZONE='Asia/Bangkok'
+```
+
+for MacOs run this command to add environment variable define in the .env file
+
+```python
+export $(grep -v '^#' ./.env | xargs)
 ```
 
 ### 7. Run the application
@@ -115,6 +121,6 @@ If the initial data is successfully load, there should be one condo in the index
 
 There is also one account provided for login:
 
-username: qwerty
+username: HarryPotter
 
-password: qwerty
+password: hogwarts1010
