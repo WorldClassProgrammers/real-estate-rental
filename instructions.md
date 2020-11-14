@@ -44,13 +44,13 @@ virtualenv env
 	
 #### 3. Activate the virtual environment.
 
-	On Linux or MacOs:
+On Linux or MacOs:
 	
 ```
 $ . env/bin/activate
 ```
 	
-	On Windows:
+On Windows:
 ```
 cmd> env\Scripts\activate
 ```
@@ -67,19 +67,19 @@ cmd> env\Scripts\activate
 	
 #### 5. Do database migrations (first time only).
 	
-	Make migrations.
+Make migrations.
 	
 ```
 (env)cmd> python manage.py makemigrations
 ```
 
-	Commit the migrations to the database.
+Commit the migrations to the database.
 
 ```
 (env)cmd> python manage.py migrate
 ```
 	
-	Load the initial data from the .json file.
+Load the initial data from the .json file.
 	
 ```
 (env)cmd> python manage.py loaddata initial_data.json
@@ -89,9 +89,9 @@ cmd> env\Scripts\activate
 
 #### 6. Create a configuration file (optional, first time only)
 
-	Create or edit the .env file in the ./estateSite directory.
+Create or edit the .env file in the ./estateSite directory.
 	
-	example of ./estateSite/.env file:
+example of ./estateSite/.env file:
 	
 ```
 DEBUG=False # activate/deactivate debug mode
@@ -113,9 +113,9 @@ TIME_ZONE='Asia/Bangkok'
 (env)cmd> python3 manage.py runserver [port number]
 ```
 	
-	The default port number is 8000.
+The default port number is 8000.
 	
-	Use `CTRL-Break` to exit the application.
+Use `CTRL-Break` to exit the application.
 	
 	
 	
@@ -128,7 +128,7 @@ TIME_ZONE='Asia/Bangkok'
 
 ## Test the Application
 
-Using a web browser to browse at http://<your url>[:port number] 
+Using a web browser to browse at http://\<server url\>[:port number] 
 
 If the initial data is successfully load, there should be one condo in the index page name the city condo. In the condo page there should be one room information titled 1240.
 
