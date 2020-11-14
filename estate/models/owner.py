@@ -1,5 +1,6 @@
 from django.db import models
 
+
 class Owner(models.Model):
     name = models.CharField(max_length=100)
     email = models.EmailField(max_length=100)
@@ -9,3 +10,5 @@ class Owner(models.Model):
     def __str__(self):
         """Return the name of the owner."""
         return self.name
+
+

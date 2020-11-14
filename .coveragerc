@@ -1,0 +1,12 @@
+[run]
+
+branch = True
+
+cover_pylib = False
+
+omit =
+    manage.py
+    */site-packages/*
+    estateSite/*
+    estate/migrations/*
+    estate\__init__.py

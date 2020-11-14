@@ -9,7 +9,6 @@ class Room(models.Model):
     number = models.CharField(max_length=10, default="1")
     title = models.CharField(max_length=100)
     description = models.TextField(max_length=500)
-    # room_image = models.ImageField()
 
     # admin only
     still_on_contract = models.BooleanField(default=False)
@@ -26,7 +25,20 @@ class Room(models.Model):
         """Return the title of the room."""
         return self.title
 
+    def get_images(self):
+        return self.roomimages_set.all()
 
-# class RoomImages(models.Model):
-#     room = models.ForeignKey(Room, on_delete=models.CASCADE)
-#     image = models.ImageField()  # needs to limit image size? -> no
+    def get_first_image(self):
+        return self.roomimages_set.first().image.url.replace('/estate', '', 1)
+    
+    def get_class_name(self):
+        return 'Room'
+
+
+def conference_directory_path(instance, filename):
+    return 'estate/static/estate/images/user_upload/room/room_id_{0}/{1}'.format(instance.room.id, filename)
+
+
+class RoomImages(models.Model):
+    room = models.ForeignKey(Room, on_delete=models.CASCADE)
+    image = models.ImageField(upload_to=conference_directory_path)

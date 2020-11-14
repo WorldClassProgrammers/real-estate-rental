@@ -9,27 +9,46 @@
 
 {% block content %}
 
-<div id="index_header" style="text-align: center;">
-    <form class="form-inline" style="justify-content: center; padding-top: 32px; ">
-        <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search"
-        style="width: 400px;">
+<div id="index_header">
+    <form class="form-inline" name="search_input" action="{% url 'estate:search_results' %}">
+        <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" name="search"
+            style="width: 400px;">
         <button class="btn btn-outline-light my-2 my-sm-0" type="submit">Search</button>
     </form>
     <div style="margin-top: 8px;">
         <button id="btn_filters" class="btn btn-outline-light my-2 my-sm-0" onclick="openForm()">Select Filters</button>
     </div>
     <div class="form-popup" id="popup_filter">
-        <form action="/action_page.php" class="form-container">
-            <h1>Login</h1>
-    
-            <label for="email"><b>Email</b></label>
-            <input type="text" placeholder="Enter Email" name="email" required>
-    
-            <label for="psw"><b>Password</b></label>
-            <input type="password" placeholder="Enter Password" name="psw" required>
-    
-            <button type="submit" class="btn">Login</button>
-            <button type="button" class="btn cancel" onclick="closeForm()">Close</button>
+        <form action="{% url 'estate:search_results' %}" class="form-container" method="POST" name="selectfield">
+            <div class="row" id="form_header">
+                <!-- do not move this style to css -->
+                <button type="button" onclick="closeForm()"
+                    style="margin-left: 93%; background-color: transparent; height: 25px; width: 25px; border-width: 0px; font-size: larger;">
+                    &times;
+                </button>
+            </div>
+            {% csrf_token %}
+            <h2 id="form_title"><i class="far fa-check-circle"></i> Amenities</h2>
+            <hr id="form_border">
+            <div class="container">
+                <div class="row">
+                    {% for value, text in condo_list.first.AMENITY_TYPES %}
+                    <div class="col-md-6 col-lg-6 mb-6" id="amenity_list">
+                        <input id="id_amenity_{{ forloop.counter0 }}" class="select-multiple-field" name="selectedfield"
+                            type="checkbox" value="{{ value }}">
+                        <span></span>
+                        <label
+                            style="font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;">{{ text }}</label>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+            <hr id="form_border">
+            <div class="row" style="margin-left: 10%;">
+                <button type="button" id="form_btn" onclick="select_all()">Select All</button>
+                <button type="button" id="form_btn" onclick="deselect_all()">Clear</button>
+                <button type="submit" id="submit_btn">Search</button>
+            </div>
         </form>
     </div>
 </div>
@@ -37,56 +56,69 @@
 <section id="listings" class="py-4">
     <div class="container">
         <div class="row">
-        {% if condo_list %}
-        {% for condo in condo_list %}
-        
-        <div id="condo_box" class="col-md-6 col-lg-4 mb-4">
-            <div class="card listing-preview shadow-lg">
-                <img class="card-img-top" src="https://cdn.renthub.in.th/images/uploaded/201912/20191224/apartment_pictures/normal/7a6943eba16dccf704a9ad32b3c4c056.jpg?1577171939" alt="">
-                <div class="card-img-overlay">
-                </div>
-                <div class="card-body">
-                    <div class="listing-heading text-center">
-                        <a href="{% url 'estate:condo' condo.id %}">
-                                <h4 class="mb-4 text-grey-darker">{{ condo.name }}</h4>
-                        </a>
+
+            {% if condo_list %}
+            {% for condo in condo_list %}
+
+            <div id="condo_box" class="col-md-6 col-lg-4 mb-4">
+                <div class="card listing-preview shadow-lg">
+                    <img class="card-img-top"
+                        src="{{ condo.get_first_image }}"
+                        alt="">
+                    <div class="card-img-overlay">
+                    </div>
+                    <div class="card-body">
+                        <div class="listing-heading text-center">
+                            <h4 class="mb-4 text-grey-darker"
+                                style="font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;">
+                                {{ condo.name }}</h4>
                         </div>
-                    <hr>
-                    <div class="row py-2 text-secondary">
-                        <div class="col-6">
-                            Floors: {{ condo.number_of_floors }} </div>
-                        <div class="col-6">
-                             Available Units: {{ condo.get_available_units }}</div>
-                    </div>
-                    <div class="row py-2 text-secondary">
-                        <div class="col-6">
-                            In case more info:</div>
-                        <div class="col-6">
-                            in the future:</div>
+                        <hr>
+                        <div class="row py-2 text-secondary">
+                            <div class="col-6">
+                                Floors: {{ condo.number_of_floors }} </div>
+                            <div class="col-6">
+                                Available Units: {{ condo.get_available_units }}</div>
+                        </div>
+                        <div class="row py-2 text-secondary">
+                            <div class="col-6">
+                                In case more info:</div>
+                            <div class="col-6">
+                                in the future:</div>
+                        </div>
                     </div>
                 </div>
+                <a href="{% url 'estate:condo' condo.id %}">
+                    <div class="overlay">
+                    </div>
+                </a>
             </div>
-            <a href="{% url 'estate:condo' condo.id %}">
-            <div class="overlay">
-            </div>
-            </a>
+
+            {% endfor %}
+            {% else %}
+            <p>No condo available.</p>
+            {% endif %}
         </div>
-       
-        {% endfor %}
-        {% else %}
-        <p>No condo available.</p>
-        {% endif %}
-    </div>
     </div>
 </section>
 
 <script>
+
     function openForm() {
+        document.getElementById("popup_filter").style.transition = "all 2s";
         document.getElementById("popup_filter").style.display = "block";
     }
 
     function closeForm() {
         document.getElementById("popup_filter").style.display = "none";
+    }
+
+    function select_all() {
+        $('input[type=checkbox]').prop('checked', true);
+    }
+
+    function deselect_all() {
+        $('input[type=checkbox]').prop('checked', false);
     }
 </script>
 

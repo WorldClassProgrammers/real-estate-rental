@@ -5,113 +5,14 @@ body {
   margin-left: 0px;
 }
 
-#index_header {
-    background-image: url("images/banner.jpg");
-    background-size: cover;
-    background-repeat: no-repeat;
-    height: 525px;
-}
-
-#sub_header {
-    /* background-color: violet; */
-    font-family: Georgia, 'Times New Roman', Times, serif;
-    font-size: xx-large;
-    margin-bottom: 16px;
-    padding-left: 64px;
-    padding-top: 8px;
-}
-
-#index_hr {
-    border-bottom: 2px solid black;
-    border-radius: 5px;
-    margin-right: 256px;
-    margin-top: 0%;
-}
-
-#condo_display {
-    /* background-color: yellowgreen; */
-    width: 100%;
-}
-
-#condo_image {
-    background-image: url(https://cf.bstatic.com/images/hotel/max1024x768/188/188168313.jpg);
-    background-size: cover;
-    background-repeat: no-repeat;
-}
-
-@media screen and (max-width: 600px) {
-  .column {
-    width: 100%;
-  }
-}
-
-.column {
-  float: left;
-  width: 50%;
-}
-
 .row:after {
   content: "";
   display: table;
   clear: both;
 }
 
-.overlay {
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  height: 100%;
-  width: 100%;
-  opacity: 0;
-  transition: .5s ease;
-  background-color: rgb(82, 140, 161);
-  width: auto;
-  margin-right: 16px;
-  margin-left: 16px;
-}
-
-#condo_box:hover .overlay{
-  opacity: 0.2;
-}
-
-#condo_info {
-    /* padding: 10%; */
-    text-align: center;
-    height: calc(100%);
-    width: calc(100%);
-    padding-top: 16px;
-    /* display: flex; */
-    /* justify-content: center; */
-    /* align-items: center; */
-    background-image: url(https://www.iizziistudio.com/wp-content/uploads/2013/10/bg-square-pastel-01-600x450.jpg);
-}
-
-#condo_hr {
-    border-bottom: 2px solid black;
-    border-radius: 5px;
-    margin-left: 10%;
-    margin-right: 10%;
-}
-
-#display_box {
-    margin: auto;
-    margin-bottom: 4px;
-    padding: 2%;
-    height: 300px;
-    width: 350px;
-    border-radius: 5%;
-    background-color: black;
-}
-
-#box_title {
-    font-size: larger;
-    text-align: center;
-    padding-bottom: 15px;
-}
-
-#login_button {
+/* Navbar */
+.login_button {
     border-radius: 50%;
     height: 45px;
     width: 45px;
@@ -120,7 +21,9 @@ body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     color: gray;
 }
+/**/
 
+/* Footer */
 .footer {
     position: relative;
     bottom: 0;
@@ -142,31 +45,63 @@ body {
     justify-content: center;
     background-color: white;
 }
+/**/
 
-#links {
-    text-decoration: none;
-    color: aliceblue;
-    font-family: 'Times New Roman', Times, serif;
-    font-weight: lighter;
+/* Index */
+#index_header {
+    background-image: url("images/banner.jpg");
+    background-size: cover;
+    background-repeat: no-repeat;
+    height: 525px;
+    text-align: center;
 }
 
-#links:hover {
-    color: rgb(196, 191, 191);
+#form_btn {
+  background-color: white;
+  color: black;
+  border: 2px solid black;
+  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+  transition-duration: 0.4s;
+  float: left;
+  margin-left: 5px;
 }
 
-#vertical_line {
-    border-left: solid rgb(181, 188, 194);
-    margin-left: 5%;
-    margin-right: 10%;
-    width: 1px;
-    height: 150px;
+#form_btn:hover {
+  background-color: rgb(53, 53, 53);
+  color: white;
 }
 
+#submit_btn {
+  margin-left: 35%;
+  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+  border: none;
+  background: #404040;
+  color: #ffffff !important;
+  font-weight: 100;
+  padding: 10px;
+  text-transform: uppercase;
+  /* border-radius: 6px; */
+  transition: all 0.3s ease 0s;
+}
 
+#submit_btn:hover {
+  color: #404040 !important;
+  font-weight: 700 !important;
+  letter-spacing: 3px;
+  background: none;
+  -webkit-box-shadow: 0px 5px 40px -10px rgba(0,0,0,0.57);
+  -moz-box-shadow: 0px 5px 40px -10px rgba(0,0,0,0.57);
+  transition: all 0.3s ease 0s;
+}
+
+.form-inline {
+  justify-content: center;
+  padding-top: 32px;
+}
 
 .form-popup {
   display: none;
-  width: 80%;
+  max-width: 500px;
   margin: auto;
   margin-top: -45px;
 }
@@ -214,3 +149,52 @@ body {
 .form-container .btn:hover, .open-button:hover {
   opacity: 1;
 }
+
+#form_header {
+  width: 100%;
+  margin: 0;
+}
+
+#form_title {
+  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}
+
+#form_border {
+  background-color: rgb(146, 159, 185);
+  max-width: 60%;
+}
+
+#amenity_list {
+  text-align: left;
+  width: 50%;
+  padding-left: 55px;
+}
+
+.overlay {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 100%;
+  width: 100%;
+  opacity: 0;
+  transition: .5s ease;
+  background-color: rgb(82, 140, 161);
+  width: auto;
+  margin-right: 16px;
+  margin-left: 16px;
+}
+
+#condo_box:hover .overlay{
+  opacity: 0.2;
+}
+/**/
+
+/* Search result */
+#search_container {
+  margin-top: 2%;
+  margin-bottom: 2%;
+  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}
+/**/

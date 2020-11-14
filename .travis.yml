@@ -1,0 +1,24 @@
+language: python
+
+python: "3.6"
+
+services: 
+  - mysql
+
+git:
+  depth: 1
+
+env:
+  -DJANGO=3.1.2 DB=mysql SECRET_KEY='secret_key' DEBUG=True
+
+install:
+  - pip install -r requirements.txt
+
+before_script:
+  - python manage.py migrate
+
+script: 
+  - coverage run manage.py test estate/tests
+
+after_script:
+  - bash <(curl -s https://codecov.io/bash)
