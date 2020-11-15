@@ -54,6 +54,16 @@ class Condo(models.Model):
             all_units += 1
         return all_units
 
+    # def get_number_images(self):
+    #     return self.condoimages_set.all().count()
+
+    def get_images_url(self): #id base 0
+        cond_images = self.condoimages_set.all()
+        img_list = []
+        for i in range(1, cond_images.count()):
+            img_list.append(cond_images[i].image.url.replace('/estate', '', 1))
+        return img_list
+
     def get_images(self):
         return self.condoimages_set.all()
         # first().image.url.replace('/estate', '..', 1)
@@ -62,8 +72,9 @@ class Condo(models.Model):
         return self.condoimages_set.first().image.url.replace('/estate', '', 1)
 
     def get_class_name(self):
-        return 'Condo'
+        return type(self).__name__
 
+        
 def conference_directory_path(instance, filename):
     return 'estate/static/estate/images/user_upload/condo/condo_id_{0}/{1}'.format(instance.condo.id, filename)
 
