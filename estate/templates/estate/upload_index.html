@@ -28,10 +28,6 @@
         display: none;
     }
 
-    th {
-        margin: 4px;
-    }
-
     table {
         margin-bottom: 12px;
     }
@@ -54,18 +50,22 @@
             <h2>ADD CONDO</h2>
             <form method="POST" enctype="multipart/form-data" action="{% url 'estate:upload_condo' %}">
                 {% csrf_token %}
+                {% for field in condo_form %}
+                <div class="form-group">
+                    {{ field.label_tag }} {{ field }}
+                </div>
+                {% endfor %}
                 <table id="image_fields_condo">
-                    {{ condo_form.as_table }}
-                    <th>Image:</th>
+                    <td>Image:</td>
                     <td>
-                        <label for="file-upload" class="btn btn-outline-light my-2 my-sm-0">
+                        <label id="upload_image_icon_0" style="color:red" for="file-upload" class="btn btn-outline-light my-2 my-sm-0">
                             <i class="fa fa-cloud-upload"></i> Browse
                         </label>
                         <input id="file-upload" name="files" type="file" size="50" accept="image/*" multiple />
                     </td>
                 </table>
-                <button class="btn btn-outline-light my-2 my-sm-0" id="btn_add_condo_image" type="button">Add
-                    Image</button>
+                <button class="btn btn-outline-light my-2 my-sm-0" id="btn_add_condo_image" type="button">
+                    Add Image</button>
                 <button class="btn btn-outline-light my-2 my-sm-0" type="submit">Upload</button>
             </form>
         </div>
@@ -74,18 +74,22 @@
             <h2>ADD ROOM</h2>
             <form method="POST" enctype="multipart/form-data" action="{% url 'estate:upload_room' %}">
                 {% csrf_token %}
+                {% for field in room_form %}
+                <div class="form-group">
+                    {{ field.label_tag }} {{ field }}
+                </div>
+                {% endfor %}
                 <table id="image_fields_room">
-                    {{ room_form.as_table }}
-                    <th>Image:</th>
+                    <td>Image:</td>
                     <td>
-                        <label for="file-upload" class="btn btn-outline-light my-2 my-sm-0">
+                        <label id="upload_image_icon_1" style="color:red" for="file-upload" class="btn btn-outline-light my-2 my-sm-0">
                             <i class="fa fa-cloud-upload"></i> Browse
                         </label>
                         <input id="file-upload" name="files" type="file" size="50" accept="image/*" multiple />
                     </td>
                 </table>
-                <button class="btn btn-outline-light my-2 my-sm-0" id="btn_add_room_image" type="button">Add
-                    Image</button>
+                <button class="btn btn-outline-light my-2 my-sm-0" id="btn_add_room_image" type="button">
+                    Add Image</button>
                 <button class="btn btn-outline-light my-2 my-sm-0" type="submit">Upload</button>
             </form>
         </div>
@@ -111,20 +115,41 @@
         roomFields.style.display = "block";
     });
 
-    imageFields =
-        '<th></th><td><label for="file-upload" class="btn btn-outline-light my-2 my-sm-0"><i class="fa fa-cloud-upload"></i> Browse</label><input id="file-upload" name="files" type="file" size="50" accept="image/*" multiple /></td>';
-
     imageFieldsCondo = document.getElementById("image_fields_condo");
     btnAddCondoImage = document.getElementById("btn_add_condo_image");
     btnAddCondoImage.addEventListener("click", function () {
-        imageFieldsCondo.innerHTML += imageFields;
+        addImageFields(imageFieldsCondo);
     });
 
     imageFieldsRoom = document.getElementById("image_fields_room");
     btnAddRoomImage = document.getElementById("btn_add_room_image");
     btnAddRoomImage.addEventListener("click", function () {
-        imageFieldsRoom.innerHTML += imageFields;
+        addImageFields(imageFieldsRoom);
     });
+
+    ImageIconIdList = [0, 1]
+    readListener();
+    var btnCounter = 1
+    function addImageFields(where) {
+        btnCounter += 1;
+        where.innerHTML += '<th></th><td><label id="upload_image_icon_'+btnCounter+'" style="color:red" for="file-upload" class="btn btn-outline-light my-2 my-sm-0"><i class="fa fa-cloud-upload"></i> Browse</label><input id="file-upload" name="files" type="file" size="50" accept="image/*" multiple /></td>';
+        ImageIconIdList.push(btnCounter);
+        readListener();
+    }
+
+    function readListener() {
+        ImageIconIdList.forEach(id => {
+            document.getElementById("upload_image_icon_"+id).style = 'color: red';
+            addNoneColorListener("upload_image_icon_"+id);
+        });
+    }
+
+    function addNoneColorListener(id_where) {
+        document.getElementById(id_where).addEventListener("click", function () {
+            document.getElementById(id_where).style = 'color: none';
+        });
+    }
+
 </script>
 
 {% endblock %}
