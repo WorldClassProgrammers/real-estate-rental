@@ -57,6 +57,7 @@ def search_by_keywords(request):
     keywords = request.GET['search']
     condoSet_list = Condo.objects.filter(name__icontains=keywords)
     roomSet_list = Room.objects.filter(title__icontains=keywords)
+    print(roomSet_list)
     return keywords, condoSet_list, roomSet_list, request.method
 
 
@@ -67,15 +68,15 @@ def search(request):
         if 'search' in request.GET:  # by keywords
             keywords, condoSet_list, roomSet_list, method = search_by_keywords(
                 request)
-        else:  # by checkbox fields
-            keywords, condoSet_list, method, roomSet_list = search_by_amnities(
-                request)
+        # else:  # by checkbox fields
+        #     keywords, condoSet_list, method, roomSet_list = search_by_amnities(
+        #         request)
     else:
         keywords, condoSet_list, method, roomSet_list = search_by_amnities(
             request)
 
     # if no condo then room shouldnt be return
-    if condoSet_list:
+    if condoSet_list or keywords not in (None, ''):
         roomSet_list = roomSet_list.filter(
             still_on_contract=False).exclude(condo__in=condoSet_list)
     else:
@@ -86,6 +87,7 @@ def search(request):
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
 
+    print(posts)
     context = {
         'keywords': keywords,
         'condo_result': condoSet_list,

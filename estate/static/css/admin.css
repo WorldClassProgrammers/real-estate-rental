@@ -1,0 +1,40 @@
+#header {
+    height: 60px;
+    background: #10284e;
+    color:  lightskyblue;
+    position: relative;
+}
+
+#branding h1 {
+    color : rgb(255, 255, 255);
+}
+
+a:link,
+a:vistited {
+  color: #10284e;
+}
+
+#nav-sidebar .current-app .section:link, #nav-sidebar .current-app .section:visited{
+    color: blueviolet;
+    font-weight: normal;
+}
+a.section:link, a.section:visited{
+    color: blueviolet;
+}
+
+div.breadcrumbs {
+    background: greenyellow;
+    color: purple;
+}
+div.breadcrumbs a {
+    background: greenyellow;
+    color: purple;
+}
+
+.module h2, .module caption, .inline-group h2 {
+    background: greenyellow;
+}
+.button, input[type=submit], input[type=button], .submit-row input, a.button {
+    background: darkblue;
+    color: whitesmoke;
+}

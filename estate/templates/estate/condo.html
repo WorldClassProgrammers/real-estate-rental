@@ -1,76 +1,89 @@
 {% extends 'base.html' %}
 {% load static %}
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+
 <html lang="en">
 
 <head>
     <title>{{ condo.condo_name }}</title>
+    <!-- <link rel="stylesheet" type="text/css" href="css/lightbox.min.css">
+    <script src="js/lightbox-plus-jquery.min.js"></script> -->
 </head>
 
 {% block content %}
 
-<section>
-        <div class="row" style="background-color: aqua; height: 360px; width: 100%; margin: 0%;">
-            <div class="col-sm" style="min-height: 60%; background-image: url('{{ condo.get_first_image }}');">
-        </div>
-        <div class="col-sm"
-            style="text-align: center; color: white; background-image: url(https://i.pinimg.com/originals/97/42/6e/97426e87ed06da4ac76e704c74a5062b.jpg);">
-            <h2 style="font-family: 'Times New Roman', Times, serif; color: white;">{{ condo.name }}</h2>
-            <br>
-            <div class="col" style="font-family: 'Times New Roman', Times, serif;">
-                <h4>Floors {{ condo.number_of_floors }}</h4>
-            </div>
-            <div class="col" style="font-family: 'Times New Roman', Times, serif;">
-                <h4>Units {{ condo.get_all_register_unit }}</h4>
-            </div>
-        </div>
-    </div>
-</section>
+<section id="listing" class="py-4">
+    <row>
+        <h2 style="margin-left: 15%; margin-bottom: 2%; font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;">
+            {{ condo.name }}</h2>
+        <hr style="margin-left: 10%; margin-right: 10%;">
+    </row>
+    <!-- Images used to open the lightbox -->
+    <div class="container">
+        <div class="row" style="margin-left: 1%;">
+            <div class="col-lg-9">
+                <!-- Home Main Image -->
+                <img src="{{ condo.get_first_image }}"" alt="" class="img-main img-fluid mb-3">
 
-<section>
-    <div style="margin: 15px;">
-        <div class="row" style="display: flex; flex-direction: row; flex-wrap: wrap; width: 100%; margin: 0%;">
-            <div class="col" style="display: flex; flex-direction: column; flex-basis: 100%; flex: 1;">
-                <div style="height: auto; background-color: #7ba5d5; border-radius: 1em;">
-                    <p style="padding: 3%; font-family: 'Times New Roman', Times, serif;">
-                        {{ condo.description }}
-                    </p>
-                </div>
-                <div style="margin-top: 5%;">
-                    <div style="height: auto; background-color:#d1e5fe; border-radius: 1em;">
-                        <p style="padding: 3%; font-family: 'Times New Roman', Times, serif;">
-                            Contract <br>
-                            long list of contract <br>
-                            or form <br>
-                            for future use <br>
-                            in the next iteration <br>
-                            may contain picture and pop up
-                        </p>
-                    </div>
-                </div>
-            </div>
-            <div>
-                <div style="width: 300px; height: auto; background-color:#d1e5fe; border-radius: 1em;">
-                    <div style="padding: 2%; font-family: 'Times New Roman', Times, serif;">
-                        <h3 style="font-family: 'Times New Roman', Times, serif;">Amenities</h3>
-
-                        {% for value, text in condo.AMENITY_TYPES %}
-                        <div class="ui_checkbox">
-                            <input id="id_amenity_{{ forloop.counter0 }}" class="ui_checkbox custom" name="{{ value }}"
-                                type="checkbox" value="{{ value }}" {% if value in condo.amenities %} checked="checked"
-                                {% endif %} style="pointer-events: none;">
-                            <span></span>
-                            <label>{{ text }}</label>
+                <div class="row mb-5 thumbs">
+                    {% for img_url in condo.get_images_url  %}
+                        <div class="col-md-2">
+                            <a href="{{ img_url }}" data-lightbox="condo-images">
+                                <img src="{{ img_url }}" class="img-fluid">
+                            </a>
                         </div>
-                        {% endfor %}
-                    </div>
+                    {% endfor %}
                 </div>
             </div>
+                <div class="col-md-3">
+                    <div class="card mb-3">
+                        <img class="card-img-top"
+                            src="https://upload-os-bbs.mihoyo.com/upload/2020/05/25/1011075/cbc30c247b04d68806f7c44b0837f27a_7762819667912258526.png" alt="">
+                        <div class="card-body">
+                            <h5 class="card-title">Property Realtor</h5>
+                            <h6 class="text-primary">P.A.I.M.O.N</h6>
+                        </div>
+                    </div>
+                    <button class="btn-primary btn-block btn-lg" data-toggle="modal" data-target="#inquiryModal">Make An
+                        Inquiry</button>
+                </div>
+        </div>
+    </div>
+    <div class="container shadow-sm">
+        <hr style="border-width: 2px;">
+        <div class="row" style="margin-right: 10%; padding-left: 4%; margin-top: 2%; margin-bottom: 2%; font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;">
+            <p>
+                {{ condo.description }}
+            </p>
+        </div>
+        <hr style="width: 30%; float: left; margin-left: 15%;">
+        <i class="fas fa-ellipsis-h" style="color:gray; padding-left: 4%;"></i>
+        <hr style="width: 30%; float: right; margin-right: 15%; margin-left: -10%;">
+        <div class="row" style="margin-top: 4%; padding-left: 10%;">
+            {% for value, text in condo.AMENITY_TYPES %}
+            <div class="ui_checkbox col-md-6 col-lg-4 mb-4 shadow-sm" style="max-width: 300px; margin-right: 5px; background-color: rgb(239, 248, 255); font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;">
+                <input id="id_amenity_{{ forloop.counter0 }}" class="ui_checkbox custom" name="{{ value }}" type="checkbox"
+                    value="{{ value }}" {% if value in condo.amenities %} checked="checked" {% endif %}
+                    style="pointer-events: none;">
+                <span></span>
+                <label>{{ text }}</label>
+            </div>
+            {% endfor %}
         </div>
     </div>
 </section>
+
+<!-- Modal lightbox -->
+<!--  -->
+
 <section id="listings" class="py-4">
     <div class="container">
+        <div class="row" style="margin-left: 5%; font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;">
+            <h4 class="text-primary">
+                <i class="fas fa-door-open" style="color: #3574bd;"></i>
+                Units
+            </h4>
+        </div>
+        <hr style="color: #3574bd; border-width: 10%;">
         <div class="row">
             {% if condo.get_rooms %}
             {% for room in condo.get_rooms %}
@@ -89,13 +102,13 @@
                                 {{ room.title }}</h4>
                         </div>
                         <hr>
-                        <div class="row py-2 text-secondary">
+                        <div class="row py-2 text-primary">
                             <div class="col-6">
                                 Room Number: {{ room.number }}</div>
                             <div class="col-6">
                                 Availability: {% if room.still_on_contract %} No {% else %} Yes {% endif %}</div>
                         </div>
-                        <div class="row py-2 text-secondary">
+                        <div class="row py-2 text-primary">
                             <div class="col-6">
                                 Rent: {{ room.price_for_rent }} ฿</div>
                             <div class="col-6">
