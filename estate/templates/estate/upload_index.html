@@ -1,6 +1,5 @@
 {% extends 'base.html' %} {% load static %} {% block content %}
 <style>
-
     #form {
         background-color: aliceblue;
         padding: 30px;
@@ -24,14 +23,13 @@
         margin: 12px;
     }
 
-    input[type="file"] {
+    /* input[type="file"] {
         display: none;
-    }
+    } */
 
     table {
         margin-bottom: 12px;
     }
-
 </style>
 
 <div class="container">
@@ -58,10 +56,11 @@
                 <table id="image_fields_condo">
                     <td>Image:</td>
                     <td>
-                        <label id="upload_image_icon_0" style="color:red" for="file-upload" class="btn btn-outline-light my-2 my-sm-0">
+                        <label id="upload_image_icon_0" style="color:red" for="file-upload-0"
+                            class="btn btn-outline-light my-2 my-sm-0">
                             <i class="fa fa-cloud-upload"></i> Browse
                         </label>
-                        <input id="file-upload" name="files" type="file" size="50" accept="image/*" multiple />
+                        <input id="file-upload-0" name="files" type="file" size="50" accept="image/*" multiple />
                     </td>
                 </table>
                 <button class="btn btn-outline-light my-2 my-sm-0" id="btn_add_condo_image" type="button">
@@ -82,10 +81,11 @@
                 <table id="image_fields_room">
                     <td>Image:</td>
                     <td>
-                        <label id="upload_image_icon_1" style="color:red" for="file-upload" class="btn btn-outline-light my-2 my-sm-0">
+                        <label id="upload_image_icon_1" style="color:red" for="file-upload-1"
+                            class="btn btn-outline-light my-2 my-sm-0">
                             <i class="fa fa-cloud-upload"></i> Browse
                         </label>
-                        <input id="file-upload" name="files" type="file" size="50" accept="image/*" multiple />
+                        <input id="file-upload-1" name="files" type="file" size="50" accept="image/*" multiple />
                     </td>
                 </table>
                 <button class="btn btn-outline-light my-2 my-sm-0" id="btn_add_room_image" type="button">
@@ -132,15 +132,15 @@
     var btnCounter = 1
     function addImageFields(where) {
         btnCounter += 1;
-        where.innerHTML += '<th></th><td><label id="upload_image_icon_'+btnCounter+'" style="color:red" for="file-upload" class="btn btn-outline-light my-2 my-sm-0"><i class="fa fa-cloud-upload"></i> Browse</label><input id="file-upload" name="files" type="file" size="50" accept="image/*" multiple /></td>';
+        where.innerHTML += '<th></th><td><label id="upload_image_icon_' + btnCounter + '" style="color:red" for="file-upload-' + btnCounter + '" class="btn btn-outline-light my-2 my-sm-0"><i class="fa fa-cloud-upload"></i> Browse</label><input id="file-upload-' + btnCounter + '" name="files" type="file" size="50" accept="image/*" multiple /></td>';
         ImageIconIdList.push(btnCounter);
         readListener();
     }
 
     function readListener() {
         ImageIconIdList.forEach(id => {
-            document.getElementById("upload_image_icon_"+id).style = 'color: red';
-            addNoneColorListener("upload_image_icon_"+id);
+            document.getElementById("upload_image_icon_" + id).style = 'color: red';
+            addNoneColorListener("upload_image_icon_" + id);
         });
     }
 

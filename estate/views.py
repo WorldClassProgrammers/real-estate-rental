@@ -146,7 +146,5 @@ def upload_room(request):
 
         for image in request.FILES.getlist('files'):
             RoomImages.objects.create(room=this_room, image=image)
-    else:
-        print("==========room_form_invalid===========", request.POST)
 
     return HttpResponseRedirect(reverse('estate:index'))
