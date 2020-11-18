@@ -2,6 +2,7 @@ from django.db import models
 from multiselectfield import MultiSelectField
 from django_google_maps import fields as map_fields
 
+
 class Condo(models.Model):
     name = models.CharField(max_length=100, unique=True)
     description = models.TextField(max_length=500)

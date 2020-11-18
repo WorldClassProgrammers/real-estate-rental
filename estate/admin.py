@@ -6,6 +6,7 @@ from .models.condo import CondoImages
 from .models.room import RoomImages
 from django_google_maps import widgets as map_widgets
 from django_google_maps import fields as map_fields
+import json
 
 class CustomUserAdmin(UserAdmin):
     add_form = CustomUserCreationForm
@@ -30,8 +31,14 @@ class CondoImagesInline(admin.TabularInline):
 
 class CondoAdmin(admin.ModelAdmin):
     formfield_overrides = {
-        map_fields.AddressField: {
-          'widget': map_widgets.GoogleMapsAddressWidget(attrs={'data-map-type': 'roadmap'})},
+        map_fields.AddressField: { 'widget':
+        map_widgets.GoogleMapsAddressWidget(attrs={
+          'data-autocomplete-options': json.dumps({ 'types': ['geocode',
+          'establishment'], 'componentRestrictions': {
+                  }
+              })
+          })
+        },
     }
     fieldsets = [
         (None, {

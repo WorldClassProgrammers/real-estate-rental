@@ -12,7 +12,7 @@ class TestRoomView(TestCase):
         owner.save()
         room = Room.objects.create(condo=condo, title='room 1', description='This is not a real room.', owner=owner)
         room.save()
-        response = self.client.get(reverse('estate:room', args=[room.id+1]))
+        response = self.client.get(reverse('estate:room', args=(room.id+1,)))
         self.assertEqual(response.status_code, 404)
 
     def test_add_room(self):
@@ -22,5 +22,5 @@ class TestRoomView(TestCase):
         owner.save()
         room = Room.objects.create(condo=condo, title='room 2', description='This is not a real room.', owner=owner)
         room.save()
-        response = self.client.get(reverse('estate:room', args=[room.id]))
+        response = self.client.get(reverse('estate:room', args=(room.id,)))
         self.assertContains(response, room.title)

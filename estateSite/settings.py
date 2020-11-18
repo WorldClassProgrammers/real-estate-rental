@@ -40,7 +40,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'django_google_maps'
+    'django_google_maps',
+    'easy_maps',
 ]
 
 MIDDLEWARE = [
@@ -136,4 +137,5 @@ STATIC_URL = '/static/'
 
 AUTH_USER_MODEL = 'estate.CustomUser'
 
-GOOGLE_MAPS_API_KEY = 'Your-api-key'
+GOOGLE_MAPS_API_KEY = config('GOOGLE_MAPS_API_KEY')
+EASY_MAPS_GOOGLE_KEY = config('GOOGLE_MAPS_API_KEY')
