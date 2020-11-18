@@ -3,3 +3,4 @@ django-multiselectfield>=0.1.12
 python-decouple>=3.3
 Pillow>=8.0.1
 coverage>=5.3
+django-google-maps>=0.12.2

@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django_google_maps'
 ]
 
 MIDDLEWARE = [
@@ -134,3 +135,5 @@ STATIC_URL = '/static/'
 # MEDIA_ROOT = os.path.join(BASE_DIR, 'images')
 
 AUTH_USER_MODEL = 'estate.CustomUser'
+
+GOOGLE_MAPS_API_KEY = 'Your-api-key'

@@ -1,6 +1,6 @@
 from django.db import models
 from multiselectfield import MultiSelectField
-
+from django_google_maps import fields as map_fields
 
 class Condo(models.Model):
     name = models.CharField(max_length=100, unique=True)
@@ -10,6 +10,9 @@ class Condo(models.Model):
     # admin only
     juristic_persons_number = models.TextField(max_length=25)
     common_fee_account = models.TextField(max_length=25)
+
+    address = map_fields.AddressField(default=None, null=True, max_length=200)
+    geolocation = map_fields.GeoLocationField(default=None, null=True, max_length=100)
 
     AMENITY_TYPES = (
         ('elevator', 'Elevator'),
@@ -63,6 +66,7 @@ class Condo(models.Model):
 
     def get_class_name(self):
         return 'Condo'
+
 
 def conference_directory_path(instance, filename):
     return 'estate/static/estate/images/user_upload/condo/condo_id_{0}/{1}'.format(instance.condo.id, filename)
