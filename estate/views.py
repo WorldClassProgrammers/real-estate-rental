@@ -31,6 +31,22 @@ def unit(request, unit_id):
     return render(request, 'estate/unit.html', {'condo': condo, 'unit': unit})
 
 
+def condo_listing(request):
+    condo_listing = Condo.objects.all()
+    paginator = Paginator(condo_listing, 1)
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
+    return render(request, 'estate/condo_listing.html', {'condo_listing': condo_listing, 'page_obj': page_obj})
+
+
+def unit_listing(request):
+    unit_listing = Unit.objects.all()
+    paginator = Paginator(unit_listing, 3)
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
+    return render(request, 'estate/unit_listing.html', {'unit_listing': unit_listing, 'page_obj': page_obj})
+
+
 def search_by_amnities(request):
     condoSet_list = Condo.objects.order_by('-name')
 
@@ -111,7 +127,7 @@ def upload_owner(request):
 
 @login_required
 def upload_index(request):
-    if request.user.role != 'owner':
+    if request.user.role != 2:
         return HttpResponseRedirect(reverse('estate:index'))
     condo_form = CondoForm(prefix='condo')
     unit_form = UnitForm(prefix='unit')

@@ -1,3 +1,102 @@
+<<<<<<< HEAD
+{% extends 'base.html' %} {% load static %} {% block content %}
+<style>
+    #form {
+        background-color: aliceblue;
+        padding: 30px;
+        padding-left: 9%;
+        margin: 0px;
+    }
+
+    .btn-outline-light {
+        margin: 2px;
+        background-color: white;
+        color: #3574bd;
+        border-color: #3574bd;
+    }
+
+    .btn-outline-light:hover {
+        background-color: #3574bd;
+        color: aliceblue;
+    }
+
+    h2 {
+        margin: 12px;
+    }
+
+    input[type="file"] {
+        display: none;
+    }
+
+    table {
+        margin-bottom: 12px;
+    }
+</style>
+
+<div class="container">
+    <ul id="form">
+        <button id="btn_condo" class="btn btn-outline-light my-2 my-sm-0">
+            Add condo
+        </button>
+        <button id="btn_room" class="btn btn-outline-light my-2 my-sm-0">
+            Add room
+        </button>
+        <a href="{% url 'estate:index' %}"><button class="btn btn-outline-light my-2 my-sm-0">
+                Back to Index
+            </button></a>
+
+        <div id="condo_form_fields">
+            <h2>ADD CONDO</h2>
+            <form method="POST" enctype="multipart/form-data" action="{% url 'estate:upload_condo' %}">
+                {% csrf_token %}
+                {% for field in condo_form %}
+                <div class="form-group">
+                    {{ field.label_tag }} {{ field }}
+                </div>
+                {% endfor %}
+                <table id="image_fields_condo">
+                    <td>Image:</td>
+                    <td>
+                        <label id="upload_image_icon_0" style="color:red" for="file-upload-0"
+                            class="btn btn-outline-light my-2 my-sm-0">
+                            <i class="fa fa-cloud-upload"></i> Browse
+                        </label>
+                        <input id="file-upload-0" name="files" type="file" size="50" accept="image/*" multiple />
+                    </td>
+                </table>
+                <button class="btn btn-outline-light my-2 my-sm-0" id="btn_add_condo_image" type="button">
+                    Add Image</button>
+                <button class="btn btn-outline-light my-2 my-sm-0" type="submit">Upload</button>
+            </form>
+        </div>
+
+        <div id="room_form_fields">
+            <h2>ADD ROOM</h2>
+            <form method="POST" enctype="multipart/form-data" action="{% url 'estate:upload_room' %}">
+                {% csrf_token %}
+                {% for field in room_form %}
+                <div class="form-group">
+                    {{ field.label_tag }} {{ field }}
+                </div>
+                {% endfor %}
+                <table id="image_fields_room">
+                    <td>Image:</td>
+                    <td>
+                        <label id="upload_image_icon_1" style="color:red" for="file-upload-1"
+                            class="btn btn-outline-light my-2 my-sm-0">
+                            <i class="fa fa-cloud-upload"></i> Browse
+                        </label>
+                        <input id="file-upload-1" name="files" type="file" size="50" accept="image/*" multiple />
+                    </td>
+                </table>
+                <button class="btn btn-outline-light my-2 my-sm-0" id="btn_add_room_image" type="button">
+                    Add Image</button>
+                <button class="btn btn-outline-light my-2 my-sm-0" type="submit">Upload</button>
+            </form>
+        </div>
+    </ul>
+</div>
+=======
 {% load static %} {% block content %}
 <ul>
     <button id="btn_condo">Add condo</button>
@@ -34,6 +133,7 @@
 
   {% endblock %}
 </ul>
+>>>>>>> iteration02
 
 <script>
     condoFields = document.getElementById("condo_form_fields");
@@ -42,9 +142,54 @@
     condoFields.style.display = "block";
     unitFields.style.display = "none";
 
-    btnCondo = document.getElementById("btn_condo")
-    btnCondo.addEventListener('click', function () {
+    btnCondo = document.getElementById("btn_condo");
+    btnCondo.addEventListener("click", function () {
         condoFields.style.display = "block";
+<<<<<<< HEAD
+        roomFields.style.display = "none";
+    });
+
+    btnRoom = document.getElementById("btn_room");
+    btnRoom.addEventListener("click", function () {
+        condoFields.style.display = "none";
+        roomFields.style.display = "block";
+    });
+
+    imageFieldsCondo = document.getElementById("image_fields_condo");
+    btnAddCondoImage = document.getElementById("btn_add_condo_image");
+    btnAddCondoImage.addEventListener("click", function () {
+        addImageFields(imageFieldsCondo);
+    });
+
+    imageFieldsRoom = document.getElementById("image_fields_room");
+    btnAddRoomImage = document.getElementById("btn_add_room_image");
+    btnAddRoomImage.addEventListener("click", function () {
+        addImageFields(imageFieldsRoom);
+    });
+
+    ImageIconIdList = [0, 1]
+    readListener();
+    var btnCounter = 1
+    function addImageFields(where) {
+        btnCounter += 1;
+        where.innerHTML += '<th></th><td><label id="upload_image_icon_' + btnCounter + '" style="color:red" for="file-upload-' + btnCounter + '" class="btn btn-outline-light my-2 my-sm-0"><i class="fa fa-cloud-upload"></i> Browse</label><input id="file-upload-' + btnCounter + '" name="files" type="file" size="50" accept="image/*" multiple /></td>';
+        ImageIconIdList.push(btnCounter);
+        readListener();
+    }
+
+    function readListener() {
+        ImageIconIdList.forEach(id => {
+            document.getElementById("upload_image_icon_" + id).style = 'color: red';
+            addNoneColorListener("upload_image_icon_" + id);
+        });
+    }
+
+    function addNoneColorListener(id_where) {
+        document.getElementById(id_where).addEventListener("click", function () {
+            document.getElementById(id_where).style = 'color: none';
+        });
+    }
+=======
         unitFields.style.display = "none";
     })
 
@@ -75,5 +220,8 @@
         element = '<th></th><td><input name="files" type="file" size="50" accept="image/*" multiple></td>'
         imageFieldsUnit.innerHTML += element
     })
+>>>>>>> iteration02
 
 </script>
+
+{% endblock %}

@@ -25,6 +25,13 @@ class Unit(models.Model):
         """Return the title of the unit."""
         return self.title
 
+    def get_images_url(self):  # id base 0
+        room_images = self.roomimages_set.all()
+        img_list = []
+        for i in range(1, room_images.count()):
+            img_list.append(room_images[i].image.url.replace('/estate', '', 1))
+        return img_list
+
     def get_images(self):
         return self.unitimages_set.all()
 
@@ -32,7 +39,11 @@ class Unit(models.Model):
         return self.unitimages_set.first().image.url.replace('/estate', '', 1)
     
     def get_class_name(self):
+<<<<<<< HEAD:estate/models/room.py
+        return type(self).__name__
+=======
         return 'Unit'
+>>>>>>> iteration02:estate/models/unit.py
 
 
 def conference_directory_path(instance, filename):
