@@ -31,6 +31,22 @@ def room(request, room_id):
     return render(request, 'estate/room.html', {'condo': condo, 'room': room})
 
 
+def condo_listing(request):
+    condo_listing = Condo.objects.all()
+    paginator = Paginator(condo_listing, 1)
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
+    return render(request, 'estate/condo_listing.html', {'condo_listing': condo_listing, 'page_obj': page_obj})
+
+
+def unit_listing(request):
+    unit_listing = Room.objects.all()
+    paginator = Paginator(unit_listing, 3)
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
+    return render(request, 'estate/unit_listing.html', {'unit_listing': unit_listing, 'page_obj': page_obj})
+
+
 def search_by_amnities(request):
     condoSet_list = Condo.objects.order_by('-name')
 
@@ -63,31 +79,32 @@ def search_by_keywords(request):
 
 def search(request):
     roomSet_list = Room.objects.order_by('-title')
+    condoSet_list = ''
+    keywords = ''
+    method = ''
 
     if request.method == 'GET':
         if 'search' in request.GET:  # by keywords
             keywords, condoSet_list, roomSet_list, method = search_by_keywords(
                 request)
-        # else:  # by checkbox fields
-        #     keywords, condoSet_list, method, roomSet_list = search_by_amnities(
-        #         request)
+        else:  # by checkbox fields
+            keywords, condoSet_list, method, roomSet_list = search_by_amnities(
+                request)
     else:
         keywords, condoSet_list, method, roomSet_list = search_by_amnities(
             request)
 
     # if no condo then room shouldnt be return
-    if condoSet_list or keywords not in (None, ''):
+    if condoSet_list:
         roomSet_list = roomSet_list.filter(
             still_on_contract=False).exclude(condo__in=condoSet_list)
-    else:
-        roomSet_list = Room.objects.none()
+
 
     posts = list(chain(condoSet_list, roomSet_list))
     paginator = Paginator(posts, 1)
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
 
-    print(posts)
     context = {
         'keywords': keywords,
         'condo_result': condoSet_list,

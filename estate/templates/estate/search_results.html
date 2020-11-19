@@ -84,13 +84,13 @@
                                     <h4 class="mb-4 text-grey-darker" style="font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;">{{ result.title }}</h4>
                                 </div>
                                 <hr>
-                                <div class="row py-2 text-secondary">
+                                <div class="row py-2 text-primary">
                                     <div class="col-6">
                                         Room Number: {{ result.number }}</div>
                                     <div class="col-6">
                                         Availability: {% if result.still_on_contract %} No {% else %} Yes {% endif %}</div>
                                 </div>
-                                <div class="row py-2 text-secondary">
+                                <div class="row py-2 text-primary">
                                     <div class="col-6">
                                         Rent: {{ result.price_for_rent }} ฿</div>
                                     <div class="col-6">
