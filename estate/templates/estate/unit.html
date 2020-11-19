@@ -2,7 +2,7 @@
 {% load static %}
 <html lang="en">
 <head>
-    <title>{{ room.room_number }}</title>
+    <title>{{ unit.unit_number }}</title>
 </head>
 
 
@@ -11,14 +11,14 @@
 <section>
     <div class="row" style="background-color: aqua; width: 100%; margin: 0%;">
         <div class="col-sm"
-            style="min-height: 360px; background-image: url('{{ room.get_first_image }}');">
+            style="min-height: 360px; background-image: url('{{ unit.get_first_image }}');">
 
         </div>
         <div class="col-sm"
             style="font-family: 'Times New Roman', Times, serif; text-align: center; color: white; background-image: url(https://i.pinimg.com/originals/97/42/6e/97426e87ed06da4ac76e704c74a5062b.jpg);">
-            <h2>{{ room.title }}</h2>
+            <h2>{{ unit.title }}</h2>
             <br>
-            <h4>Unit number: {{ room.number }}</h4>
+            <h4>Unit number: {{ unit.number }}</h4>
             <table class="table table-borderless" style="font-family: 'Times New Roman', Times, serif; color: white;">
                 <thead>
                     <tr>
@@ -31,21 +31,21 @@
                 <tbody>
                     <tr>
                         <td>Unit size:</td>
-                        <td>{{ room.area }} m²</td>
+                        <td>{{ unit.area }} m²</td>
                         <td>Floor level:</td>
-                        <td>{{ room.floor_number }}</td>
+                        <td>{{ unit.floor_number }}</td>
                     </tr>
                     <tr>
                         <td><i class="fas fa-bed"></i></td>
-                        <td>{{ room.number_of_bedroom }}</td>
+                        <td>{{ unit.number_of_bedroom }}</td>
                         <td><i class="fas fa-bath"></i></td>
-                        <td>{{ room.number_of_bathroom }}</td>
+                        <td>{{ unit.number_of_bathroom }}</td>
                     </tr>
                     <tr>
                         <td>For rent:</td>
-                        <td>{{ room.price_for_rent }} ฿</td>
+                        <td>{{ unit.price_for_rent }} ฿</td>
                         <td>For sale:</td>
-                        <td>{{ room.price_for_sell }} ฿</td>
+                        <td>{{ unit.price_for_sell }} ฿</td>
                     </tr>
                 </tbody>
                 </table>

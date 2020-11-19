@@ -70,7 +70,7 @@
                         </div>
                     </a>
                 </div>
-            {% elif result.get_class_name == 'Room' %}
+            {% elif result.get_class_name == 'Unit' %}
                 {% if not result.condo in condo_result %}
                     <div id="condo_box" class="col-md-6 col-lg-4 mb-4">
                         <div class="card listing-preview shadow-lg">
@@ -86,7 +86,7 @@
                                 <hr>
                                 <div class="row py-2 text-secondary">
                                     <div class="col-6">
-                                        Room Number: {{ result.number }}</div>
+                                        Unit Number: {{ result.number }}</div>
                                     <div class="col-6">
                                         Availability: {% if result.still_on_contract %} No {% else %} Yes {% endif %}</div>
                                 </div>
@@ -98,7 +98,7 @@
                                 </div>
                             </div>
                         </div>
-                        <a href="{% url 'estate:room' result.condo.id %}">
+                        <a href="{% url 'estate:unit' result.condo.id %}">
                             <div class="overlay">
                             </div>
                         </a>

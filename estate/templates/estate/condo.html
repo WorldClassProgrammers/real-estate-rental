@@ -72,13 +72,13 @@
 <section id="listings" class="py-4">
     <div class="container">
         <div class="row">
-            {% if condo.get_rooms %}
-            {% for room in condo.get_rooms %}
+            {% if condo.get_units %}
+            {% for unit in condo.get_units %}
 
             <div id="condo_box" class="col-md-6 col-lg-4 mb-4">
                 <div class="card listing-preview shadow-lg">
                     <img class="card-img-top"
-                        src="../../..{{ room.get_first_image }}"
+                        src="../../..{{ unit.get_first_image }}"
                         alt="">
                     <div class="card-img-overlay">
                     </div>
@@ -86,25 +86,25 @@
                         <div class="listing-heading text-center">
                             <h4 class="mb-4 text-grey-darker"
                                 style="font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;">
-                                {{ room.title }}</h4>
+                                {{ unit.title }}</h4>
                         </div>
                         <hr>
                         <div class="row py-2 text-secondary">
                             <div class="col-6">
-                                Room Number: {{ room.number }}</div>
+                                Unit Number: {{ unit.number }}</div>
                             <div class="col-6">
-                                Availability: {% if room.still_on_contract %} No {% else %} Yes {% endif %}</div>
+                                Availability: {% if unit.still_on_contract %} No {% else %} Yes {% endif %}</div>
                         </div>
                         <div class="row py-2 text-secondary">
                             <div class="col-6">
-                                Rent: {{ room.price_for_rent }} ฿</div>
+                                Rent: {{ unit.price_for_rent }} ฿</div>
                             <div class="col-6">
-                                Size: {{ room.area }} m²</div>
+                                Size: {{ unit.area }} m²</div>
                         </div>
                     </div>
                 </div>
-                {% if not room.still_on_contract %}
-                <a href="{% url 'estate:room' room.id %}">
+                {% if not unit.still_on_contract %}
+                <a href="{% url 'estate:unit' unit.id %}">
                     <div class="overlay">
                     </div>
                 </a>

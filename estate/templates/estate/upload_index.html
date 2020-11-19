@@ -1,7 +1,7 @@
 {% load static %} {% block content %}
 <ul>
     <button id="btn_condo">Add condo</button>
-    <button id="btn_room">Add room</button>
+    <button id="btn_unit">Add unit</button>
     <a href="{% url 'estate:index' %}"><button>Back to Index</button></a>
 
   <div id="condo_form_fields">
@@ -19,15 +19,15 @@
   </div>
 
 
-  <div id="room_form_fields">
-    <h2>ADD ROOM</h2>
-    <form method="POST" enctype="multipart/form-data" action="{% url 'estate:upload_room' %}">
+  <div id="unit_form_fields">
+    <h2>ADD UNIT</h2>
+    <form method="POST" enctype="multipart/form-data" action="{% url 'estate:upload_unit' %}">
         {% csrf_token %}
-        <table id="image_fields_room">
-            {{ room_form.as_table }}
+        <table id="image_fields_unit">
+            {{ unit_form.as_table }}
             <th>Image:</th><td><input name="files" type="file" size="50" accept="image/*" multiple></td>
         </table>
-        <button id="btn_add_room_image" type="button" name="nunber_of_images" value="0">Add Image</button>
+        <button id="btn_add_unit_image" type="button" name="nunber_of_images" value="0">Add Image</button>
         <button type="submit">Upload</button>
     </form>
   </div>
@@ -37,21 +37,21 @@
 
 <script>
     condoFields = document.getElementById("condo_form_fields");
-    roomFields = document.getElementById("room_form_fields");
+    unitFields = document.getElementById("unit_form_fields");
 
     condoFields.style.display = "block";
-    roomFields.style.display = "none";
+    unitFields.style.display = "none";
 
     btnCondo = document.getElementById("btn_condo")
     btnCondo.addEventListener('click', function () {
         condoFields.style.display = "block";
-        roomFields.style.display = "none";
+        unitFields.style.display = "none";
     })
 
-    btnRoom = document.getElementById("btn_room")
-    btnRoom.addEventListener('click', function () {
+    btnUnit = document.getElementById("btn_unit")
+    btnUnit.addEventListener('click', function () {
         condoFields.style.display = "none";
-        roomFields.style.display = "block";
+        unitFields.style.display = "block";
     })
 
     imageFieldsCondo = document.getElementById("image_fields_condo")
@@ -65,15 +65,15 @@
         imageFieldsCondo.innerHTML += element
     })
 
-    imageFieldsRoom = document.getElementById("image_fields_room")
-    btnAddRoomImage = document.getElementById("btn_add_room_image")
+    imageFieldsUnit = document.getElementById("image_fields_unit")
+    btnAddUnitImage = document.getElementById("btn_add_unit_image")
     var nImage = 0
-    btnAddRoomImage.addEventListener('click', function () {
+    btnAddUnitImage.addEventListener('click', function () {
         nImage++
         btnAddCondoImage.value = nImage
-        btnAddRoomImage += 1
+        btnAddUnitImage += 1
         element = '<th></th><td><input name="files" type="file" size="50" accept="image/*" multiple></td>'
-        imageFieldsRoom.innerHTML += element
+        imageFieldsUnit.innerHTML += element
     })
 
 </script>

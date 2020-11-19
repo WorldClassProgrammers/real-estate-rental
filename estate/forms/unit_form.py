@@ -1,10 +1,10 @@
 from django.forms import ModelForm
-from estate.models import Room
+from estate.models import Unit
 
 
-class RoomForm(ModelForm):
+class UnitForm(ModelForm):
     class Meta:
-        model = Room
+        model = Unit
         fields = [
             'condo',
             'title',
