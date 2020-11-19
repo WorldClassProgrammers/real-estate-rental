@@ -39,11 +39,7 @@ class Unit(models.Model):
         return self.unitimages_set.first().image.url.replace('/estate', '', 1)
     
     def get_class_name(self):
-<<<<<<< HEAD:estate/models/room.py
         return type(self).__name__
-=======
-        return 'Unit'
->>>>>>> iteration02:estate/models/unit.py
 
 
 def conference_directory_path(instance, filename):
