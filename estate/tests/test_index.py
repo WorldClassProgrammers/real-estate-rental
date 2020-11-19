@@ -1,6 +1,6 @@
 from django.test import TestCase
 from django.urls import reverse
-from estate.models import Condo, Owner, Room
+from estate.models import Condo, Owner, Unit
 
 
 class TestIndexView(TestCase):

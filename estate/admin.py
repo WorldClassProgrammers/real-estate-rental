@@ -1,9 +1,9 @@
 from django.contrib import admin
 from estate.forms.custom_form import CustomUserCreationForm, CustomUserChangeForm
 from django.contrib.auth.admin import UserAdmin
-from .models import Condo, Room, Owner, CustomUser
+from .models import Condo, Unit, Owner, CustomUser
 from .models.condo import CondoImages
-from .models.room import RoomImages
+from .models.unit import UnitImages
 
 
 class CustomUserAdmin(UserAdmin):
@@ -57,12 +57,12 @@ class CondoAdmin(admin.ModelAdmin):
     search_fields = ['name']
 
 
-class RoomImagesInline(admin.TabularInline):
-    model = RoomImages
+class UnitImagesInline(admin.TabularInline):
+    model = UnitImages
     extra = 1
 
 
-class RoomAdmin(admin.ModelAdmin):
+class UnitAdmin(admin.ModelAdmin):
     fieldsets = [
         (None, {
             'fields': [
@@ -76,7 +76,7 @@ class RoomAdmin(admin.ModelAdmin):
 
             ]
         }),
-        ('Room information', {
+        ('Unit information', {
             'fields': [
                 'number',
                 'floor_number',
@@ -86,7 +86,7 @@ class RoomAdmin(admin.ModelAdmin):
             ],
         }),
     ]
-    inlines = [RoomImagesInline]
+    inlines = [UnitImagesInline]
     list_display = (
         'condo',
         'number',
@@ -121,6 +121,6 @@ class OwnerAdmin(admin.ModelAdmin):
 
 
 admin.site.register(Condo, CondoAdmin)
-admin.site.register(Room, RoomAdmin)
+admin.site.register(Unit, UnitAdmin)
 admin.site.register(Owner, OwnerAdmin)
 admin.site.register(CustomUser, CustomUserAdmin)

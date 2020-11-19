@@ -37,22 +37,19 @@ class Condo(models.Model):
         """Return the name of the condo."""
         return self.name
 
-    def get_rooms(self):
-        rooms = self.room_set.all()
-        return rooms
+    def get_units(self):
+        units = self.unit_set.all()
+        return units
 
     def get_available_units(self):
         available_units = 0
-        for unit in self.get_rooms():
+        for unit in self.get_units():
             if not unit.still_on_contract:
                 available_units += 1
         return available_units
 
     def get_all_register_unit(self):
-        all_units = 0
-        for unit in self.get_rooms():
-            all_units += 1
-        return all_units
+        return len(self.get_units())
 
     # def get_number_images(self):
     #     return self.condoimages_set.all().count()

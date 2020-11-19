@@ -6,10 +6,10 @@ from django.views import generic
 from itertools import chain
 from django.core.paginator import Paginator
 
-from .forms import OwnerForm, CondoForm, RoomForm
-from .models import Room, Condo, Owner
+from .forms import OwnerForm, CondoForm, UnitForm
+from .models import Unit, Condo, Owner
 from .models.condo import CondoImages
-from .models.room import RoomImages
+from .models.unit import UnitImages
 
 
 class IndexView(generic.ListView):
@@ -25,10 +25,10 @@ def condo(request, condo_id):
     return render(request, 'estate/condo.html', {'condo': condo})
 
 
-def room(request, room_id):
-    room = get_object_or_404(Room, pk=room_id)
-    condo = Condo.objects.get(name=room.condo.name)
-    return render(request, 'estate/room.html', {'condo': condo, 'room': room})
+def unit(request, unit_id):
+    unit = get_object_or_404(Unit, pk=unit_id)
+    condo = Condo.objects.get(name=unit.condo.name)
+    return render(request, 'estate/unit.html', {'condo': condo, 'unit': unit})
 
 
 def condo_listing(request):
@@ -40,7 +40,7 @@ def condo_listing(request):
 
 
 def unit_listing(request):
-    unit_listing = Room.objects.all()
+    unit_listing = Unit.objects.all()
     paginator = Paginator(unit_listing, 3)
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
@@ -65,42 +65,39 @@ def search_by_amnities(request):
         for amenity in keywords:
             condoSet_list = condoSet_list.filter(amenities__icontains=amenity)
 
-    return keywords, condoSet_list, 'POST', Room.objects.none()
+    return keywords, condoSet_list, 'POST', Unit.objects.none()
 
 
 def search_by_keywords(request):
 
     keywords = request.GET['search']
     condoSet_list = Condo.objects.filter(name__icontains=keywords)
-    roomSet_list = Room.objects.filter(title__icontains=keywords)
-    print(roomSet_list)
-    return keywords, condoSet_list, roomSet_list, request.method
+    unitSet_list = Unit.objects.filter(title__icontains=keywords)
+    return keywords, condoSet_list, unitSet_list, request.method
 
 
 def search(request):
-    roomSet_list = Room.objects.order_by('-title')
-    condoSet_list = ''
-    keywords = ''
-    method = ''
+    unitSet_list = Unit.objects.order_by('-title')
 
     if request.method == 'GET':
         if 'search' in request.GET:  # by keywords
-            keywords, condoSet_list, roomSet_list, method = search_by_keywords(
+            keywords, condoSet_list, unitSet_list, method = search_by_keywords(
                 request)
         else:  # by checkbox fields
-            keywords, condoSet_list, method, roomSet_list = search_by_amnities(
+            keywords, condoSet_list, method, unitSet_list = search_by_amnities(
                 request)
     else:
-        keywords, condoSet_list, method, roomSet_list = search_by_amnities(
+        keywords, condoSet_list, method, unitSet_list = search_by_amnities(
             request)
 
-    # if no condo then room shouldnt be return
+    # if no condo then unit shouldnt be return
     if condoSet_list:
-        roomSet_list = roomSet_list.filter(
+        unitSet_list = unitSet_list.filter(
             still_on_contract=False).exclude(condo__in=condoSet_list)
+    else:
+        unitSet_list = Unit.objects.none()
 
-
-    posts = list(chain(condoSet_list, roomSet_list))
+    posts = list(chain(condoSet_list, unitSet_list))
     paginator = Paginator(posts, 1)
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
@@ -108,7 +105,7 @@ def search(request):
     context = {
         'keywords': keywords,
         'condo_result': condoSet_list,
-        'room_result': roomSet_list,
+        'unit_result': unitSet_list,
         'page_obj': page_obj,
         'posts': posts,
         'method': method,
@@ -133,10 +130,10 @@ def upload_index(request):
     if request.user.role != 2:
         return HttpResponseRedirect(reverse('estate:index'))
     condo_form = CondoForm(prefix='condo')
-    room_form = RoomForm(prefix='room')
+    unit_form = UnitForm(prefix='unit')
     return render(request, 'estate/upload_index.html', {
         'condo_form': condo_form,
-        'room_form': room_form,
+        'unit_form': unit_form,
     })
 
 
@@ -154,14 +151,16 @@ def upload_condo(request):
 
 
 @login_required
-def upload_room(request):
-    room_form = RoomForm(request.POST, prefix='room')
-    if room_form.is_valid():
-        this_room = room_form.save(commit=False)
-        this_room.owner = Owner.objects.first()
-        this_room.save()
+def upload_unit(request):
+    unit_form = UnitForm(request.POST, prefix='unit')
+    if unit_form.is_valid():
+        this_unit = unit_form.save(commit=False)
+        this_unit.owner = Owner.objects.first()
+        this_unit.save()
 
         for image in request.FILES.getlist('files'):
-            RoomImages.objects.create(room=this_room, image=image)
+            UnitImages.objects.create(unit=this_unit, image=image)
+    else:
+        print("==========unit_form_invalid===========", request.POST)
 
     return HttpResponseRedirect(reverse('estate:index'))

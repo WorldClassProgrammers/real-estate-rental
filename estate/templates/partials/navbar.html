@@ -25,14 +25,14 @@
             {% if user.username %}
             <li class="nav-item">
                 <a class="nav-link" href="###">
-                    <button id="login_button" style="background-color: #e3e3e3;">
+                    <button class="login_button" style="background-color: #e3e3e3;">
                         {{ user.username }}
                     </button>
                 </a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="{% url 'logout' %}">
-                    <button id="login_button" style="background-color: #b7efd4;">
+                    <button class="login_button" style="background-color: #b7efd4;">
                         logout
                     </button>
                 </a>

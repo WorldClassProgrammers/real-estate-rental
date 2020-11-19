@@ -1,10 +1,16 @@
 # Real Estate Rental
 
+[![Build Status](https://travis-ci.com/ZEZAY/real-estate-rental.svg?branch=master)](https://travis-ci.com/ZEZAY/real-estate-rental)
+
 ## Description
 
 This project is a website that provides information about apartments and houses for rent. This is not an e\*commerce website. This project only serves as an information provider for rental services. There will be contact information provided, but the application neither performs any transactions nor accepts any sensitive information.
 Background
 One of our member family businesses is an apartment rental broker that also wants their own business website. All the data for each house and apartment are also provided for us by our member’s family, so we think it would be an interesting project.
+
+## How to Setup/Install
+[Instructions](instructions.md)
+
 
 ## Features
 
@@ -51,6 +57,10 @@ Use Cookies to save user preferences (such as previous query search, bookmarks, 
 Multilingual support: Thai, English, Chinese (or more)
 Property and promotion suggestions on the main page based on user preferences
 Mobile application supported
+
+### Project Documents
+
+[Code review](https://docs.google.com/document/d/1plSBYDK-mYTJ-u1JY7BV-esmCcP8XGtpmY4gUwgzB0g/edit?usp=sharing)
 
 ## Team Members
 

@@ -1,10 +1,15 @@
+<<<<<<< HEAD:estate/forms/room_form.py
 from django.forms import ModelForm, TextInput, Textarea, NumberInput, Select
 from estate.models import Room
+=======
+from django.forms import ModelForm
+from estate.models import Unit
+>>>>>>> iteration02:estate/forms/unit_form.py
 
 
-class RoomForm(ModelForm):
+class UnitForm(ModelForm):
     class Meta:
-        model = Room
+        model = Unit
         fields = [
             'condo',
             'title',

@@ -147,3 +147,6 @@ classpath
 .project
 .nbproject
 .vscode
+
+# ignore any django migrations
+*/migrations/*
