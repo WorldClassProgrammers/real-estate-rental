@@ -1,5 +1,4 @@
 {% extends 'base.html' %}
-{% load easy_maps_tags %}
 {% load static %}
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 <html lang="en">
@@ -121,7 +120,43 @@
     </div>
 </section>
 
-{% easy_map "Russia, Ekaterinburg, Mira 32" 300 400 %}
+  <head>
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
+    <script
+      src="https://maps.googleapis.com/maps/api/js?key={{api_key}}&callback=initMap&libraries=&v=weekly"
+      defer
+    ></script>
+    <style type="text/css">
+      #map {
+        height: 100%;
+      }
+
+      html,
+      body {
+        height: 100%;
+        margin: 0;
+        padding: 0;
+      }
+    </style>
+    <script>
+      let map;
+
+      function initMap() {
+        map = new google.maps.Map(document.getElementById("map"), {
+          center: { lat: {{condo.geolocation.lat}}, lng: {{condo.geolocation.lon}} },
+          zoom: 20,
+        });
+        var point = new google.maps.LatLng({{condo.geolocation.lat}},{{condo.geolocation.lon}});
+        var marker = new google.maps.Marker({
+        position: point,
+        map: map
+       });
+      }
+    </script>
+  </head>
+  <body>
+    <div id="map"></div>
+  </body>
 
 {% endblock %}
 

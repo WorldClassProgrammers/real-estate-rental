@@ -5,6 +5,7 @@ from django.urls import reverse
 from django.views import generic
 from itertools import chain
 from django.core.paginator import Paginator
+from django.conf import settings
 
 from .forms import OwnerForm, CondoForm, RoomForm
 from .models import Room, Condo, Owner
@@ -22,7 +23,7 @@ class IndexView(generic.ListView):
 
 def condo(request, condo_id):
     condo = get_object_or_404(Condo, pk=condo_id)
-    return render(request, 'estate/condo.html', {'condo': condo})
+    return render(request, 'estate/condo.html', {'condo': condo, 'api_key': settings.GOOGLE_MAPS_API_KEY})
 
 
 def room(request, room_id):

@@ -76,6 +76,7 @@ Load the initial data from the .json file.
 ### 6. Create a configuration file (optional, first time only)
 
 Create or edit the .env file in the ./estateSite directory.
+You have to put your own api-key in .env file.
 
 example of ./estateSite/.env file:
 
@@ -89,6 +90,7 @@ DATABASE_USER='test1'
 DATABASE_PWD='Noneatall'
 DATABASE_HOST='localhost'
 TIME_ZONE='Asia/Bangkok'
+GOOGLE_MAPS_API_KEY = 'Your-api-key'
 ```
 
 for MacOs run this command to add environment variable define in the .env file
