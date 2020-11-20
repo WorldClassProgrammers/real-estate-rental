@@ -16,6 +16,7 @@ install:
 
 before_script:
   - cp .env.example .env
+  - python manage.py makemigrations
   - python manage.py migrate
 
 script: 
