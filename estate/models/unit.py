@@ -26,10 +26,10 @@ class Unit(models.Model):
         return self.title
 
     def get_images_url(self):  # id base 0
-        room_images = self.roomimages_set.all()
+        unit_images = self.unitimages_set.all()
         img_list = []
-        for i in range(1, room_images.count()):
-            img_list.append(room_images[i].image.url.replace('/estate', '', 1))
+        for i in range(1, unit_images.count()):
+            img_list.append(unit_images[i].image.url.replace('/estate', '', 1))
         return img_list
 
     def get_images(self):

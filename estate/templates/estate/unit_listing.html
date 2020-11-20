@@ -4,7 +4,7 @@
 <html lang="en">
 
 <head>
-    <title>Condo Listing</title>
+    <title>Unit Listing</title>
 </head>
 
 {% block content %}
@@ -37,7 +37,7 @@
                         <hr>
                         <div class="row py-2 text-primary">
                             <div class="col-6">
-                                Room Number: {{ result.number }}</div>
+                                Unit Number: {{ result.number }}</div>
                             <div class="col-6">
                                 Availability: {% if result.still_on_contract %} No {% else %} Yes {% endif %}</div>
                         </div>
@@ -49,7 +49,7 @@
                         </div>
                     </div>
                 </div>
-                <a href="{% url 'estate:room' result.condo.id %}">
+                <a href="{% url 'estate:unit' result.id %}">
                     <div class="overlay">
                     </div>
                 </a>
