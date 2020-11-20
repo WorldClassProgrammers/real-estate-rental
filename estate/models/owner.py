@@ -10,3 +10,5 @@ class Owner(models.Model):
     def __str__(self):
         """Return the name of the owner."""
         return self.name
+
+

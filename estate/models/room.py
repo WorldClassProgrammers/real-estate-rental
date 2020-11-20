@@ -1,10 +1,10 @@
 from django.db import models
 from .condo import Condo
-from .owner import Owner
 from .custom_user import CustomUser
+from .owner import Owner
 
 
-class Unit(models.Model):
+class Room(models.Model):
     condo = models.ForeignKey(Condo, on_delete=models.CASCADE)
     # owner = models.ForeignKey(Owner, on_delete=models.RESTRICT)
     owner = models.ForeignKey(CustomUser, on_delete=models.RESTRICT)
@@ -24,30 +24,23 @@ class Unit(models.Model):
     area = models.FloatField(default=0)  # in square meters? -> sure
 
     def __str__(self):
-        """Return the title of the unit."""
+        """Return the title of the room."""
         return self.title
 
-    def get_images_url(self):  # id base 0
-        unit_images = self.unitimages_set.all()
-        img_list = []
-        for i in range(1, unit_images.count()):
-            img_list.append(unit_images[i].image.url.replace('/estate', '', 1))
-        return img_list
-
     def get_images(self):
-        return self.unitimages_set.all()
+        return self.roomimages_set.all()
 
     def get_first_image(self):
-        return self.unitimages_set.first().image.url.replace('/estate', '', 1)
+        return self.roomimages_set.first().image.url.replace('/estate', '', 1)
     
     def get_class_name(self):
-        return type(self).__name__
+        return 'Room'
 
 
 def conference_directory_path(instance, filename):
-    return 'estate/static/estate/images/user_upload/unit/unit_id_{0}/{1}'.format(instance.unit.id, filename)
+    return 'estate/static/estate/images/user_upload/room/room_id_{0}/{1}'.format(instance.room.id, filename)
 
 
-class UnitImages(models.Model):
-    unit = models.ForeignKey(Unit, on_delete=models.CASCADE)
+class RoomImages(models.Model):
+    room = models.ForeignKey(Room, on_delete=models.CASCADE)
     image = models.ImageField(upload_to=conference_directory_path)

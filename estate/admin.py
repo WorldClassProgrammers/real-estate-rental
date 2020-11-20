@@ -1,9 +1,14 @@
 from django.contrib import admin
 from estate.forms.custom_form import CustomUserCreationForm, CustomUserChangeForm
 from django.contrib.auth.admin import UserAdmin
-from .models import Condo, Unit, Owner, CustomUser
+from .models import Condo, Room, Owner, CustomUser, ContactInfo
 from .models.condo import CondoImages
-from .models.unit import UnitImages
+from .models.room import RoomImages
+
+
+class ContactInfoInline(admin.TabularInline):
+    model = ContactInfo
+    extra = 1
 
 
 class CustomUserAdmin(UserAdmin):
@@ -19,7 +24,9 @@ class CustomUserAdmin(UserAdmin):
             ]
         }),
     ]
-    list_display = ['email', 'username','role']
+    search_fields = ['username']
+    inlines = [ContactInfoInline]
+    list_display = ['username', 'email','role']
 
 
 class CondoImagesInline(admin.TabularInline):
@@ -57,12 +64,12 @@ class CondoAdmin(admin.ModelAdmin):
     search_fields = ['name']
 
 
-class UnitImagesInline(admin.TabularInline):
-    model = UnitImages
+class RoomImagesInline(admin.TabularInline):
+    model = RoomImages
     extra = 1
 
 
-class UnitAdmin(admin.ModelAdmin):
+class RoomAdmin(admin.ModelAdmin):
     fieldsets = [
         (None, {
             'fields': [
@@ -76,7 +83,7 @@ class UnitAdmin(admin.ModelAdmin):
 
             ]
         }),
-        ('Unit information', {
+        ('Room information', {
             'fields': [
                 'number',
                 'floor_number',
@@ -86,7 +93,7 @@ class UnitAdmin(admin.ModelAdmin):
             ],
         }),
     ]
-    inlines = [UnitImagesInline]
+    inlines = [RoomImagesInline]
     list_display = (
         'condo',
         'number',
@@ -120,7 +127,19 @@ class OwnerAdmin(admin.ModelAdmin):
     search_fields = ['name']
 
 
+# class ContactInfoAdmin(admin.ModelAdmin):
+#     fieldsets = [
+#         (None, {
+#             'fields': [
+#             'contact_type',
+#             'information',
+#             ]
+#         }),
+#     ]
+
+
 admin.site.register(Condo, CondoAdmin)
-admin.site.register(Unit, UnitAdmin)
+admin.site.register(Room, RoomAdmin)
 admin.site.register(Owner, OwnerAdmin)
 admin.site.register(CustomUser, CustomUserAdmin)
+# admin.site.register(ContactInfo, ContactInfoAdmin)

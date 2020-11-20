@@ -40,6 +40,12 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django.contrib.sites',  #new
+
+    'allauth',  #new
+    'allauth.account',  #new
+    'allauth.socialaccount',  #new
+    'allauth.socialaccount.providers.github',  #new
 ]
 
 MIDDLEWARE = [
@@ -81,10 +87,10 @@ WSGI_APPLICATION = 'estateSite.wsgi.application'
 
 DATABASES = {
     'default': {
-        # 'ENGINE': 'django.db.backends.sqlite3',
-        'ENGINE': config('DATABASE_ENGINE',default='django.db.backends.sqlite3'),
-        # 'NAME': BASE_DIR / 'db.sqlite3',
-        'NAME': config('DATABASE_NAME',default='db.sqlite3'),
+        'ENGINE': 'django.db.backends.sqlite3',
+        # 'ENGINE': config('DATABASE_ENGINE',default='django.db.backends.sqlite3'),
+        'NAME': BASE_DIR / 'db.sqlite3',
+        # 'NAME': config('DATABASE_NAME',default='db.sqlite3'),
         'USER': config('DATABASE_USER',default='user'),
         'PASSWORD': config('DATABASE_PWD',default='password'),
         'HOST': config('DATABASE_HOST',default='localhost'),
@@ -134,3 +140,14 @@ STATIC_URL = '/static/'
 # MEDIA_ROOT = os.path.join(BASE_DIR, 'images')
 
 AUTH_USER_MODEL = 'estate.CustomUser'
+
+AUTHENTICATION_BACKENDS = (
+    "django.contrib.auth.backends.ModelBackend",
+    "allauth.account.auth_backends.AuthenticationBackend",
+)
+
+SITE_ID = 1
+
+ACCOUNT_EMAIL_VERIFICATION = 'none'
+
+LOGIN_REDIRECT_URL = 'estate:index'

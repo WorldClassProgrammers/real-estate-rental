@@ -19,49 +19,29 @@
             </li>
         </ul>
         <ul class="navbar-nav ml-auto">
-            {% if user.username %}
             <li class="nav-item">
-                <a class="nav-link" href="###">
-                    <button class="login_button" style="background-color: #e3e3e3;">
-                        {{ user.username }}
+                <a class="nav-link" href="#">
+                    <button id="login_button" style="background-color: #e3e3e3;">
+                        btn1
                     </button>
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="{% url 'account_logout' %}">
-                    <button class="login_button" style="background-color: #b7efd4;">
-                        logout
-                    </button>
-                </a>
-            </li>
-            {% else %}
-            <li class="nav-item">
-                <a class="nav-link" href="{% url 'account_login' %}">
-                    <button class="login_button" style="background-color: #e3e3e3;">
-                        login
+                <a class="nav-link" href="#">
+                    <button id="login_button" style="background-color: #b7efd4;">
+                        btn2
                     </button>
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="{% url 'account_signup' %}">
-                    <button class="login_button" style="background-color: #b7efd4;">
-                        signup
+                <a class="nav-link" href="#">
+                    <button id="login_button" style="background-color: #cad8ff;">
+                        btn3
                     </button>
                 </a>
             </li>
-            {% endif %}
-            {% if user.role == 'owner' %}
-            <li class="nav-item">
-                <a class="nav-link" href="{% url 'estate:upload_index' %}">
-                    <button class="login_button" style="background-color: #cad8ff;">
-                        Post
-                    </button>
-                </a>
-            </li>
-            {% endif %}
         </ul>
     </div>
 </nav>
-
 <div style="background-color: #3574bd; height: 25px; width: 100%;">
 </div>

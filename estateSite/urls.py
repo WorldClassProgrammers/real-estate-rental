@@ -23,6 +23,7 @@ urlpatterns = [
     path('', views.IndexView.as_view(), name='index'),
     path('estate/', include('estate.urls')),
     path('admin/', admin.site.urls),
-    path('accounts/', include('django.contrib.auth.urls')),
-    path('signup/', ev.signup, name='signup'),
+    # path('accounts/', include('django.contrib.auth.urls')),
+    # path('signup/', ev.signup, name='signup'),
+    path('accounts/', include('allauth.urls')), # new
 ]

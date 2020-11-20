@@ -37,29 +37,22 @@ class Condo(models.Model):
         """Return the name of the condo."""
         return self.name
 
-    def get_units(self):
-        units = self.unit_set.all()
-        return units
+    def get_rooms(self):
+        rooms = self.room_set.all()
+        return rooms
 
     def get_available_units(self):
         available_units = 0
-        for unit in self.get_units():
+        for unit in self.get_rooms():
             if not unit.still_on_contract:
                 available_units += 1
         return available_units
 
     def get_all_register_unit(self):
-        return len(self.get_units())
-
-    # def get_number_images(self):
-    #     return self.condoimages_set.all().count()
-
-    def get_images_url(self): #id base 0
-        cond_images = self.condoimages_set.all()
-        img_list = []
-        for i in range(1, cond_images.count()):
-            img_list.append(cond_images[i].image.url.replace('/estate', '', 1))
-        return img_list
+        all_units = 0
+        for unit in self.get_rooms():
+            all_units += 1
+        return all_units
 
     def get_images(self):
         return self.condoimages_set.all()
@@ -69,9 +62,8 @@ class Condo(models.Model):
         return self.condoimages_set.first().image.url.replace('/estate', '', 1)
 
     def get_class_name(self):
-        return type(self).__name__
+        return 'Condo'
 
-        
 def conference_directory_path(instance, filename):
     return 'estate/static/estate/images/user_upload/condo/condo_id_{0}/{1}'.format(instance.condo.id, filename)
 
