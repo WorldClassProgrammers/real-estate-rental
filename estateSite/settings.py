@@ -40,12 +40,16 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'django.contrib.sites',  #new
+    'django.contrib.sites',  
+    # "sslserver",
 
-    'allauth',  #new
-    'allauth.account',  #new
-    'allauth.socialaccount',  #new
-    'allauth.socialaccount.providers.github',  #new
+    'allauth',  
+    'allauth.account',  
+    'allauth.socialaccount',  
+    'allauth.socialaccount.providers.github',
+    # 'allauth.socialaccount.providers.facebook',
+    # 'allauth.socialaccount.providers.openid',
+    'allauth.socialaccount.providers.google',
 ]
 
 MIDDLEWARE = [
@@ -78,6 +82,8 @@ TEMPLATES = [
 ]
 
 LOGIN_REDIRECT_URL = 'estate:index'
+# LOGIN_REDIRECT_URL = '/'
+
 
 WSGI_APPLICATION = 'estateSite.wsgi.application'
 
@@ -151,3 +157,17 @@ SITE_ID = 1
 ACCOUNT_EMAIL_VERIFICATION = 'none'
 
 LOGIN_REDIRECT_URL = 'estate:index'
+
+SOCIALACCOUNT_PROVIDERS =  { 
+                            #     'facebook':
+                            #    {'METHOD': 'oauth2',
+                            #     'SCOPE': ['email'],
+                            #     'AUTH_PARAMS': {'auth_type': 'reauthenticate'},
+                            #     'LOCALE_FUNC': lambda request: 'en_US',
+                            #     'VERSION': 'v2.4'
+                            #     },
+                                'google': 
+                                { 'SCOPE': ['email'],
+                                'AUTH_PARAMS': { 'access_type': 'online' }
+                                },
+                            }
