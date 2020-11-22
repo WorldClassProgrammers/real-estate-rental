@@ -11,7 +11,7 @@ from .forms import OwnerForm, CondoForm, RoomForm
 from .models import Room, Condo, Owner
 from .models.condo import CondoImages
 from .models.room import RoomImages
-
+from .models.transit_data import BTS_data
 
 class IndexView(generic.ListView):
     template_name = 'estate/index.html'
@@ -23,7 +23,8 @@ class IndexView(generic.ListView):
 
 def condo(request, condo_id):
     condo = get_object_or_404(Condo, pk=condo_id)
-    return render(request, 'estate/condo.html', {'condo': condo, 'api_key': settings.GOOGLE_MAPS_API_KEY})
+    print(settings.GOOGLE_MAPS_API_KEY)
+    return render(request, 'estate/condo.html', {'condo': condo, 'api_key': settings.GOOGLE_MAPS_API_KEY, 'BTS_data': BTS_data})
 
 
 def room(request, room_id):
@@ -149,3 +150,5 @@ def upload_room(request):
         print("==========room_form_invalid===========", request.POST)
 
     return HttpResponseRedirect(reverse('estate:index'))
+
+

@@ -120,44 +120,96 @@
     </div>
 </section>
 
-  <head>
+<head>
     <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
-    <script
-      src="https://maps.googleapis.com/maps/api/js?key={{api_key}}&callback=initMap&libraries=&v=weekly"
-      defer
-    ></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key={{api_key}}&callback=initMap&libraries=&v=weekly"
+        defer></script>
     <style type="text/css">
-      #map {
-        height: 100%;
-      }
+        #map {
+            height: 100%;
+        }
 
-      html,
-      body {
-        height: 100%;
-        margin: 0;
-        padding: 0;
-      }
+        html,
+        body {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+        }
     </style>
     <script>
-      let map;
+        let map;
 
-      function initMap() {
-        map = new google.maps.Map(document.getElementById("map"), {
-          center: { lat: {{condo.geolocation.lat}}, lng: {{condo.geolocation.lon}} },
-          zoom: 20,
-        });
-        var point = new google.maps.LatLng({{condo.geolocation.lat}},{{condo.geolocation.lon}});
-        var marker = new google.maps.Marker({
-        position: point,
-        map: map
-       });
-      }
+        function initMap() {
+            const directionsService = new google.maps.DirectionsService();
+            const directionsRenderer = new google.maps.DirectionsRenderer();
+            let mapOptions =
+            {
+                center: new google.maps.LatLng({{ condo.geolocation.lat }},{{ condo.geolocation.lon }}),
+                zoom: 20,
+//                mapTypeId: google.maps.MapTypeId.ROADMAP
+            } 
+            map = new google.maps.Map(document.getElementById("map"), mapOptions);
+
+            var point = new google.maps.LatLng({{ condo.geolocation.lat }}, {{ condo.geolocation.lon }});
+            var marker = new google.maps.Marker({
+                position: point,
+                map: map
+            });
+            directionsRenderer.setMap(map);
+            const onChangeHandler = function () {
+                calculateAndDisplayRoute(directionsService, directionsRenderer);
+            };
+            document
+                .getElementById("mode")
+                .addEventListener("change", onChangeHandler);
+            document
+                .getElementById("end")
+                .addEventListener("change", onChangeHandler);            
+
+      } // initmap
+      function calculateAndDisplayRoute(directionsService, directionsRenderer) {
+            const selectedMode = document.getElementById("mode").value;
+            directionsService.route(
+                {
+                    origin: {
+                        // query: document.getElementById("start").value,
+                        query: "{{ condo.address }}",
+                    },
+                    destination: {
+                        query: document.getElementById("end").value,
+                    },
+                    travelMode: google.maps.TravelMode[selectedMode],
+                },
+                (response, status) => {
+                    if (status === "OK") {
+                        directionsRenderer.setDirections(response);
+                    } else {
+                        window.alert("Directions request failed due to " + status);
+                    }
+                }
+            );
+       } // Cal...Display.
     </script>
-  </head>
-  <body>
-    <div id="map"></div>
-  </body>
+</head>
 
+<body>
+    <div class="container" id="floating-panel">
+        <b>Search for BTS</b><br>
+        <b>Address: {{ condo.address }} </b><br>
+        <b>Destination BTS: </b>
+        <select id="end">
+            {% for key, value in BTS_data.items %}
+                <option value="{{value}}">{{key}}</option>
+            {% endfor %}
+        </select><br>
+        <b>Mode of Travel: </b>
+        <select id="mode">
+            <option value="DRIVING">Driving</option>
+            <option value="WALKING">Walking</option>
+            <option value="TRANSIT">Transit</option>
+        </select>
+    </div>
+    <div class="container" id="map"></div>
+</body>
 {% endblock %}
-
 </html>
