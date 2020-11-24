@@ -4,6 +4,9 @@ from django.contrib.auth.admin import UserAdmin
 from .models import Condo, Unit, Owner, CustomUser
 from .models.condo import CondoImages
 from .models.unit import UnitImages
+from django_google_maps import widgets as map_widgets
+from django_google_maps import fields as map_fields
+import json
 
 
 class CustomUserAdmin(UserAdmin):
@@ -28,12 +31,24 @@ class CondoImagesInline(admin.TabularInline):
 
 
 class CondoAdmin(admin.ModelAdmin):
+    formfield_overrides = {
+        map_fields.AddressField: { 'widget':
+        map_widgets.GoogleMapsAddressWidget(attrs={
+          'data-autocomplete-options': json.dumps({ 'types': ['geocode',
+          'establishment'], 'componentRestrictions': {
+                  }
+              })
+          })
+        },
+    }
     fieldsets = [
         (None, {
             'fields': [
                 'name',
                 'description',
                 'number_of_floors',
+                'address',
+                'geolocation'
             ]
         }),
         ('Admin only', {

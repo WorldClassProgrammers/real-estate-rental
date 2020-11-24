@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django_google_maps',
 ]
 
 MIDDLEWARE = [
@@ -116,8 +117,8 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'en-us'
 
-# TIME_ZONE = 'Asia/Bangkok'
-TIME_ZONE = config('TIME_ZONE',default='Asia/Bangkok')
+TIME_ZONE = 'Asia/Bangkok'
+# TIME_ZONE = config('TIME_ZONE',default='Asia/Bangkok')
 
 USE_I18N = True
 
@@ -134,3 +135,5 @@ STATIC_URL = '/static/'
 # MEDIA_ROOT = os.path.join(BASE_DIR, 'images')
 
 AUTH_USER_MODEL = 'estate.CustomUser'
+
+GOOGLE_MAPS_API_KEY = config('GOOGLE_MAPS_API_KEY', default='AIzaSyCO5k3BaMnHoLBabkndpqf2LFUFHOfTP5Q')
