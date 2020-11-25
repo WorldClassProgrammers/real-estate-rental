@@ -25,29 +25,29 @@
             {% if user.username %}
             <li class="nav-item">
                 <a class="nav-link" href="###">
-                    <button class="login_button" style="background-color: #e3e3e3;">
+                    <button id="login_button" style="background-color: #e3e3e3;">
                         {{ user.username }}
                     </button>
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="{% url 'logout' %}">
-                    <button class="login_button" style="background-color: #b7efd4;">
+                <a class="nav-link" href="{% url 'account_logout' %}">
+                    <button id="login_button" style="background-color: #b7efd4;">
                         logout
                     </button>
                 </a>
             </li>
             {% else %}
             <li class="nav-item">
-                <a class="nav-link" href="{% url 'login' %}">
-                    <button class="login_button" style="background-color: #e3e3e3;">
+                <a class="nav-link" href="{% url 'account_login' %}">
+                    <button id="login_button" style="background-color: #e3e3e3;">
                         login
                     </button>
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="{% url 'signup' %}">
-                    <button class="login_button" style="background-color: #b7efd4;">
+                <a class="nav-link" href="{% url 'account_signup' %}">
+                    <button id="login_button" style="background-color: #b7efd4;">
                         signup
                     </button>
                 </a>
@@ -56,7 +56,7 @@
             {% if user.role == 2 %}
             <li class="nav-item">
                 <a class="nav-link" href="{% url 'estate:upload_index' %}">
-                    <button class="login_button" style="background-color: #cad8ff;">
+                    <button id="login_button" style="background-color: #cad8ff;">
                         Post
                     </button>
                 </a>

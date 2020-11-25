@@ -7,11 +7,11 @@ from itertools import chain
 from django.core.paginator import Paginator
 from django.conf import settings
 
-from .forms import OwnerForm, CondoForm, UnitForm
-from .models import Unit, Condo, Owner
+from .forms import CondoForm, UnitForm
+from .models import Unit, Condo
 from .models.condo import CondoImages
 from .models.unit import UnitImages
-from .models.transit_data import BTS_data
+from .models.transit_data import BTS_data, MRT_blue_data, MRT_purple_data  
 
 
 class IndexView(generic.ListView):
@@ -24,7 +24,12 @@ class IndexView(generic.ListView):
 
 def condo(request, condo_id):
     condo = get_object_or_404(Condo, pk=condo_id)
-    return render(request, 'estate/condo.html', {'condo': condo, 'api_key': settings.GOOGLE_MAPS_API_KEY, 'BTS_data': BTS_data})
+    return render(request, 'estate/condo.html', {'condo': condo,
+                                                 'api_key': settings.GOOGLE_MAPS_API_KEY,
+                                                 'BTS_data': BTS_data,
+                                                 'MRT_blue_data' : MRT_blue_data,
+                                                 'MRT_purple_data' : MRT_purple_data,
+                                                })
 
 
 def unit(request, unit_id):
