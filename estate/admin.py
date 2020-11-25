@@ -1,10 +1,17 @@
 from django.contrib import admin
 from estate.forms.custom_form import CustomUserCreationForm, CustomUserChangeForm
 from django.contrib.auth.admin import UserAdmin
-from .models import Condo, Room, Owner, CustomUser
+from .models import Condo, Unit, CustomUser, ContactInfo
 from .models.condo import CondoImages
-from .models.room import RoomImages
+from .models.unit import UnitImages
+from django_google_maps import widgets as map_widgets
+from django_google_maps import fields as map_fields
+import json
 
+
+class ContactInfoInline(admin.TabularInline):
+    model = ContactInfo
+    extra = 1
 
 class CustomUserAdmin(UserAdmin):
     add_form = CustomUserCreationForm
@@ -14,12 +21,29 @@ class CustomUserAdmin(UserAdmin):
         (None, {
             'fields': [
                 'username',
+                'first_name',
+                'last_name',
                 'email',
                 'role',
             ]
         }),
     ]
-    list_display = ['email', 'username','role']
+    # add_fieldsets = [
+    #     (None, {
+    #         'fields': [
+    #             'username',
+    #             'first_name',
+    #             'last_name',
+    #             'email',
+    #             'role',
+    #         ]
+    #     }),
+    # ]
+    add_fieldsets = fieldsets
+
+    search_fields = ['username']
+    inlines = [ContactInfoInline]
+    list_display = ['username', 'email', 'role']
 
 
 class CondoImagesInline(admin.TabularInline):
@@ -28,12 +52,24 @@ class CondoImagesInline(admin.TabularInline):
 
 
 class CondoAdmin(admin.ModelAdmin):
+    formfield_overrides = {
+        map_fields.AddressField: { 'widget':
+        map_widgets.GoogleMapsAddressWidget(attrs={
+          'data-autocomplete-options': json.dumps({ 'types': ['geocode',
+          'establishment'], 'componentRestrictions': {
+                  }
+              })
+          })
+        },
+    }
     fieldsets = [
         (None, {
             'fields': [
                 'name',
                 'description',
                 'number_of_floors',
+                'address',
+                'geolocation'
             ]
         }),
         ('Admin only', {
@@ -57,12 +93,12 @@ class CondoAdmin(admin.ModelAdmin):
     search_fields = ['name']
 
 
-class RoomImagesInline(admin.TabularInline):
-    model = RoomImages
+class UnitImagesInline(admin.TabularInline):
+    model = UnitImages
     extra = 1
 
 
-class RoomAdmin(admin.ModelAdmin):
+class UnitAdmin(admin.ModelAdmin):
     fieldsets = [
         (None, {
             'fields': [
@@ -76,7 +112,7 @@ class RoomAdmin(admin.ModelAdmin):
 
             ]
         }),
-        ('Room information', {
+        ('Unit information', {
             'fields': [
                 'number',
                 'floor_number',
@@ -86,7 +122,7 @@ class RoomAdmin(admin.ModelAdmin):
             ],
         }),
     ]
-    inlines = [RoomImagesInline]
+    inlines = [UnitImagesInline]
     list_display = (
         'condo',
         'number',
@@ -101,26 +137,26 @@ class RoomAdmin(admin.ModelAdmin):
                      ]
 
 
-class OwnerAdmin(admin.ModelAdmin):
-    fieldsets = [
-        (None, {
-            'fields': [
-                'name',
-                'email',
-                'line_id',
-                'phone_number',
-            ]
-        }),
-    ]
-    list_display = (
-        'name',
-        'email',
-        'phone_number',
-    )
-    search_fields = ['name']
+# class OwnerAdmin(admin.ModelAdmin):
+#     fieldsets = [
+#         (None, {
+#             'fields': [
+#                 'name',
+#                 'email',
+#                 'line_id',
+#                 'phone_number',
+#             ]
+#         }),
+#     ]
+#     list_display = (
+#         'name',
+#         'email',
+#         'phone_number',
+#     )
+#     search_fields = ['name']
 
 
 admin.site.register(Condo, CondoAdmin)
-admin.site.register(Room, RoomAdmin)
-admin.site.register(Owner, OwnerAdmin)
+admin.site.register(Unit, UnitAdmin)
+# admin.site.register(Owner, OwnerAdmin)
 admin.site.register(CustomUser, CustomUserAdmin)
