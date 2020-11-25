@@ -5,11 +5,13 @@ from django.urls import reverse
 from django.views import generic
 from itertools import chain
 from django.core.paginator import Paginator
+from django.conf import settings
 
-from .forms import OwnerForm, CondoForm, UnitForm
-from .models import Unit, Condo, Owner
+from .forms import CondoForm, UnitForm
+from .models import Unit, Condo
 from .models.condo import CondoImages
 from .models.unit import UnitImages
+from .models.transit_data import BTS_data, MRT_blue_data, MRT_purple_data  
 
 
 class IndexView(generic.ListView):
@@ -22,7 +24,12 @@ class IndexView(generic.ListView):
 
 def condo(request, condo_id):
     condo = get_object_or_404(Condo, pk=condo_id)
-    return render(request, 'estate/condo.html', {'condo': condo})
+    return render(request, 'estate/condo.html', {'condo': condo,
+                                                 'api_key': settings.GOOGLE_MAPS_API_KEY,
+                                                 'BTS_data': BTS_data,
+                                                 'MRT_blue_data' : MRT_blue_data,
+                                                 'MRT_purple_data' : MRT_purple_data,
+                                                })
 
 
 def unit(request, unit_id):
@@ -94,8 +101,7 @@ def search(request):
     if condoSet_list:
         unitSet_list = unitSet_list.filter(
             still_on_contract=False).exclude(condo__in=condoSet_list)
-    else:
-        unitSet_list = Unit.objects.none()
+
 
     posts = list(chain(condoSet_list, unitSet_list))
     paginator = Paginator(posts, 1)

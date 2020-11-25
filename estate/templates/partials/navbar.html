@@ -31,7 +31,7 @@
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="{% url 'logout' %}">
+                <a class="nav-link" href="{% url 'account_logout' %}">
                     <button id="login_button" style="background-color: #b7efd4;">
                         logout
                     </button>
@@ -39,14 +39,14 @@
             </li>
             {% else %}
             <li class="nav-item">
-                <a class="nav-link" href="{% url 'login' %}">
+                <a class="nav-link" href="{% url 'account_login' %}">
                     <button id="login_button" style="background-color: #e3e3e3;">
                         login
                     </button>
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="{% url 'signup' %}">
+                <a class="nav-link" href="{% url 'account_signup' %}">
                     <button id="login_button" style="background-color: #b7efd4;">
                         signup
                     </button>

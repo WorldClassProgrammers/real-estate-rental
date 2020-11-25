@@ -1,5 +1,6 @@
 from django.db import models
 from multiselectfield import MultiSelectField
+from django_google_maps import fields as map_fields
 
 
 class Condo(models.Model):
@@ -10,6 +11,9 @@ class Condo(models.Model):
     # admin only
     juristic_persons_number = models.TextField(max_length=25)
     common_fee_account = models.TextField(max_length=25)
+
+    address = map_fields.AddressField(default=None, null=True, max_length=200)
+    geolocation = map_fields.GeoLocationField(default=None, null=True, max_length=100)
 
     AMENITY_TYPES = (
         ('elevator', 'Elevator'),

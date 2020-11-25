@@ -1,11 +1,13 @@
 from django.db import models
 from .condo import Condo
-from .owner import Owner
+# from .owner import Owner
+from .custom_user import CustomUser
 
 
 class Unit(models.Model):
     condo = models.ForeignKey(Condo, on_delete=models.CASCADE)
-    owner = models.ForeignKey(Owner, on_delete=models.RESTRICT)
+    # owner = models.ForeignKey(Owner, on_delete=models.RESTRICT)
+    owner = models.ForeignKey(CustomUser, on_delete=models.RESTRICT)
     number = models.CharField(max_length=10, default="1")
     title = models.CharField(max_length=100)
     description = models.TextField(max_length=500)
