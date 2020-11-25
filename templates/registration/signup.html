@@ -1,18 +1,61 @@
-{% load static %}
-{% block content %}
-   <ul>
-        <form method="POST">
+{% extends 'base.html' %} {% load static %} {% block content %}
+<style>
+    .oath-container {
+        background: url("https://lh3.googleusercontent.com/9OBtg9pITMV89-pkpExeyGIQFmFuYWpeGRnltBdfEvWDfobKB-UxQsZxWHxtlRoN_T_Xr_FT50R4fsX6Iv83=w2880-h726");
+        background-size: cover;
+        background-repeat: no-repeat;
+        text-align: center;
+        padding: 12px;
+        padding-top: 10%;
+        height: 100%;
+        width: 600px;
+    }
+
+    .bottom-nav {
+        margin-top: 50%;
+    }
+
+    .btn-outline-light {
+        margin: 2px;
+        background-color: white;
+        color: #3574bd;
+        border-color: #3574bd;
+    }
+
+    .btn-outline-light:hover {
+        background-color: #3574bd;
+        color: aliceblue;
+    }
+
+    h1 {
+        margin-bottom: 60px;
+    }
+
+    table {
+        margin: auto;
+        margin-bottom: 24px;
+    }
+</style>
+
+<div class="container oath-container shadow">
+    <h1>Sign Up</h1>
+    <form method="POST">
         {% csrf_token %}
-            <table>
-                {{ form.as_table }}
-                <tr>
-                    <td colspan="2">
-                        <button type="submit">Register</button>
-                    </td>
-                </tr>
-            </table>
-        </form>
-        {% endblock %}
-       <a href="{% url 'login' %}"><button>Login</button></a>
-       <a href="{% url 'estate:index' %}"><button>Back to Index</button></a>
-   </ul>
+        <table>
+            {% for field in form %}
+            <tr>
+                <td>{{ field.label_tag }}</td>
+                <td>{{ field }}</td>
+            </tr>
+            {% endfor %}
+        </table>
+        <button class="btn btn-outline-light my-2 my-sm-0" type="submit">Register</button>
+    </form>
+    <div class="bottom-nav">
+        <a href="{% url 'login' %}" style="float:left;"><button
+                class="btn btn-outline-light my-2 my-sm-0">Login</button></a>
+        <a href="{% url 'estate:index' %}" style="float:right;"><button class="btn btn-outline-light my-2 my-sm-0">Back
+                to Index</button></a>
+    </div>
+</div>
+{% endblock %}
