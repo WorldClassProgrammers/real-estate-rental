@@ -13,6 +13,7 @@ class ContactInfoInline(admin.TabularInline):
     model = ContactInfo
     extra = 1
 
+
 class CustomUserAdmin(UserAdmin):
     add_form = CustomUserCreationForm
     form = CustomUserChangeForm

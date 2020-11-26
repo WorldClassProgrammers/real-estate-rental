@@ -8,7 +8,7 @@ from django.core.paginator import Paginator
 from django.conf import settings
 
 from .forms import CondoForm, UnitForm
-from .models import Unit, Condo
+from .models import Unit, Condo, CustomUser
 from .models.condo import CondoImages
 from .models.unit import UnitImages
 from .models.transit_data import BTS_data, MRT_blue_data, MRT_purple_data  
@@ -161,7 +161,7 @@ def upload_unit(request):
     unit_form = UnitForm(request.POST, prefix='unit')
     if unit_form.is_valid():
         this_unit = unit_form.save(commit=False)
-        this_unit.owner = Owner.objects.first()
+        this_unit.owner = CustomUser.objects.first()
         this_unit.save()
 
         for image in request.FILES.getlist('files'):
