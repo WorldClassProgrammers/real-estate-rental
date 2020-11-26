@@ -12,7 +12,7 @@ body {
 }
 
 /* Navbar */
-.login_button {
+#login_button {
     border-radius: 50%;
     height: 45px;
     width: 45px;
@@ -227,7 +227,7 @@ body {
     border: 1px solid #eee;
 }
 
-/* element that contains the map. */
+* element that contains the map. */
 #map {
     height: 100%;
 }

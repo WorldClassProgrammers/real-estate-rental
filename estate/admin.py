@@ -1,12 +1,17 @@
 from django.contrib import admin
 from estate.forms.custom_form import CustomUserCreationForm, CustomUserChangeForm
 from django.contrib.auth.admin import UserAdmin
-from .models import Condo, Unit, Owner, CustomUser
+from .models import Condo, Unit, CustomUser, ContactInfo
 from .models.condo import CondoImages
 from .models.unit import UnitImages
 from django_google_maps import widgets as map_widgets
 from django_google_maps import fields as map_fields
 import json
+
+
+class ContactInfoInline(admin.TabularInline):
+    model = ContactInfo
+    extra = 1
 
 
 class CustomUserAdmin(UserAdmin):
@@ -17,12 +22,29 @@ class CustomUserAdmin(UserAdmin):
         (None, {
             'fields': [
                 'username',
+                'first_name',
+                'last_name',
                 'email',
                 'role',
             ]
         }),
     ]
-    list_display = ['email', 'username','role']
+    # add_fieldsets = [
+    #     (None, {
+    #         'fields': [
+    #             'username',
+    #             'first_name',
+    #             'last_name',
+    #             'email',
+    #             'role',
+    #         ]
+    #     }),
+    # ]
+    add_fieldsets = fieldsets
+
+    search_fields = ['username']
+    inlines = [ContactInfoInline]
+    list_display = ['username', 'email', 'role']
 
 
 class CondoImagesInline(admin.TabularInline):
@@ -116,26 +138,26 @@ class UnitAdmin(admin.ModelAdmin):
                      ]
 
 
-class OwnerAdmin(admin.ModelAdmin):
-    fieldsets = [
-        (None, {
-            'fields': [
-                'name',
-                'email',
-                'line_id',
-                'phone_number',
-            ]
-        }),
-    ]
-    list_display = (
-        'name',
-        'email',
-        'phone_number',
-    )
-    search_fields = ['name']
+# class OwnerAdmin(admin.ModelAdmin):
+#     fieldsets = [
+#         (None, {
+#             'fields': [
+#                 'name',
+#                 'email',
+#                 'line_id',
+#                 'phone_number',
+#             ]
+#         }),
+#     ]
+#     list_display = (
+#         'name',
+#         'email',
+#         'phone_number',
+#     )
+#     search_fields = ['name']
 
 
 admin.site.register(Condo, CondoAdmin)
 admin.site.register(Unit, UnitAdmin)
-admin.site.register(Owner, OwnerAdmin)
+# admin.site.register(Owner, OwnerAdmin)
 admin.site.register(CustomUser, CustomUserAdmin)

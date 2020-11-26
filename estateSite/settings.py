@@ -14,6 +14,7 @@ from pathlib import Path
 from decouple import config
 
 
+
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 
@@ -41,6 +42,16 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django_google_maps',
+    'django.contrib.sites',
+
+
+    'allauth',  
+    'allauth.account',  
+    'allauth.socialaccount',  
+    'allauth.socialaccount.providers.github',
+    # 'allauth.socialaccount.providers.facebook',
+    # 'allauth.socialaccount.providers.openid',
+    'allauth.socialaccount.providers.google',
 ]
 
 MIDDLEWARE = [
@@ -67,6 +78,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'django.template.context_processors.request',
             ],
         },
     },
@@ -137,3 +149,34 @@ STATIC_URL = '/static/'
 AUTH_USER_MODEL = 'estate.CustomUser'
 
 GOOGLE_MAPS_API_KEY = config('GOOGLE_MAPS_API_KEY', default='AIzaSyCO5k3BaMnHoLBabkndpqf2LFUFHOfTP5Q')
+
+
+AUTHENTICATION_BACKENDS = ( 
+	'django.contrib.auth.backends.ModelBackend', 
+	'allauth.account.auth_backends.AuthenticationBackend', 
+)
+
+
+SITE_ID = 1
+
+ACCOUNT_EMAIL_VERIFICATION = 'none'
+
+LOGIN_REDIRECT_URL = 'estate:index'
+
+SOCIALACCOUNT_PROVIDERS =  { 
+                            #     'facebook':
+                            #    {'METHOD': 'oauth2',
+                            #     'SCOPE': ['email'],
+                            #     'AUTH_PARAMS': {'auth_type': 'reauthenticate'},
+                            #     'LOCALE_FUNC': lambda request: 'en_US',
+                            #     'VERSION': 'v2.4'
+                            #     },
+                                'google': 
+                                { 'SCOPE': ['email'],
+                                'AUTH_PARAMS': { 'access_type': 'online' }
+                                },
+                            }
+
+ACCOUNT_FORMS = {
+'signup': 'estate.forms.custom_form.CustomSignupForm',
+}
