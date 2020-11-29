@@ -25,10 +25,10 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = config('SECRET_KEY',default='foobar')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = config('DEBUG', default=False, cast=bool)
+DEBUG = config('DEBUG', default=True, cast=bool)
 
-# ALLOWED_HOSTS = []
-ALLOWED_HOSTS = config('ALLOWED_HOSTS',default='localhost,127.0.0.1').split(',')
+ALLOWED_HOSTS = ['akezurel.pythonanywhere.com']
+# ALLOWED_HOSTS = config('ALLOWED_HOSTS',default='localhost,127.0.0.1').split(',')
 
 
 # Application definition
@@ -45,9 +45,9 @@ INSTALLED_APPS = [
     'django.contrib.sites',
 
 
-    'allauth',  
-    'allauth.account',  
-    'allauth.socialaccount',  
+    'allauth',
+    'allauth.account',
+    'allauth.socialaccount',
     'allauth.socialaccount.providers.github',
     # 'allauth.socialaccount.providers.facebook',
     # 'allauth.socialaccount.providers.openid',
@@ -96,11 +96,15 @@ DATABASES = {
     'default': {
         # 'ENGINE': 'django.db.backends.sqlite3',
         'ENGINE': config('DATABASE_ENGINE',default='django.db.backends.sqlite3'),
+
         # 'NAME': BASE_DIR / 'db.sqlite3',
-        'NAME': config('DATABASE_NAME',default='db.sqlite3'),
-        'USER': config('DATABASE_USER',default='user'),
-        'PASSWORD': config('DATABASE_PWD',default='password'),
-        'HOST': config('DATABASE_HOST',default='localhost'),
+        # 'NAME': config('DATABASE_NAME',default='db.sqlite3'),
+        'NAME': os.path.join(BASE_DIR, 'db.sqlite3')
+
+        # 'USER': config('DATABASE_USER',default='user'),
+        # 'PASSWORD': config('DATABASE_PWD',default='password'),
+        # 'HOST': config('DATABASE_HOST',default='localhost'),
+        # 'HOST': config('DATABASE_HOST',default='akezurel.pythonanywhere.com'),
     }
 }
 
@@ -151,9 +155,9 @@ AUTH_USER_MODEL = 'estate.CustomUser'
 GOOGLE_MAPS_API_KEY = config('GOOGLE_MAPS_API_KEY', default='AIzaSyCO5k3BaMnHoLBabkndpqf2LFUFHOfTP5Q')
 
 
-AUTHENTICATION_BACKENDS = ( 
-	'django.contrib.auth.backends.ModelBackend', 
-	'allauth.account.auth_backends.AuthenticationBackend', 
+AUTHENTICATION_BACKENDS = (
+	'django.contrib.auth.backends.ModelBackend',
+	'allauth.account.auth_backends.AuthenticationBackend',
 )
 
 
@@ -163,7 +167,7 @@ ACCOUNT_EMAIL_VERIFICATION = 'none'
 
 LOGIN_REDIRECT_URL = 'estate:index'
 
-SOCIALACCOUNT_PROVIDERS =  { 
+SOCIALACCOUNT_PROVIDERS =  {
                             #     'facebook':
                             #    {'METHOD': 'oauth2',
                             #     'SCOPE': ['email'],
@@ -171,7 +175,7 @@ SOCIALACCOUNT_PROVIDERS =  {
                             #     'LOCALE_FUNC': lambda request: 'en_US',
                             #     'VERSION': 'v2.4'
                             #     },
-                                'google': 
+                                'google':
                                 { 'SCOPE': ['email'],
                                 'AUTH_PARAMS': { 'access_type': 'online' }
                                 },

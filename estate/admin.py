@@ -29,18 +29,20 @@ class CustomUserAdmin(UserAdmin):
             ]
         }),
     ]
-    # add_fieldsets = [
-    #     (None, {
-    #         'fields': [
-    #             'username',
-    #             'first_name',
-    #             'last_name',
-    #             'email',
-    #             'role',
-    #         ]
-    #     }),
-    # ]
-    add_fieldsets = fieldsets
+    add_fieldsets = [
+        (None, {
+            'fields': [
+                'username',
+                'password1',
+                'password2',
+                'first_name',
+                'last_name',
+                'email',
+                'role',
+            ]
+        }),
+    ]
+    # add_fieldsets = fieldsets
 
     search_fields = ['username']
     inlines = [ContactInfoInline]

@@ -13,7 +13,7 @@ class CustomUser(AbstractUser):
     first_name = models.CharField(max_length=100)
     last_name = models.CharField(max_length=100)
     role = models.PositiveSmallIntegerField(choices=USER_TYPE, default=2, null=True, blank=True)
-    # owner = models.ForeignKey(Owner, default=None, null=True, blank=True, on_delete=models.CASCADE)
+
 
     def __str__(self):
         return f"{self.first_name} {self.last_name}"
@@ -45,6 +45,7 @@ class ContactInfo(models.Model):
                 message="Phone number must be entered in the format: '+999999999'. Up to 15 digits allowed."
             )
             phone_validator(self.information)
+        return True
 
     def __str__(self):
         type_display = dict(self.CONTACT_TYPES)[self.contact_type]
