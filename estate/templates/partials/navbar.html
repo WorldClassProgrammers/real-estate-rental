@@ -12,7 +12,7 @@
     <div class="collapse navbar-collapse" id="navbarNavDropdown">
         <ul class="navbar-nav mr-auto">
             <li class="nav-item active">
-                <a class="nav-link" href="{% url 'estate:index' %}">Home <span class="sr-only">(current)</span></a>
+                <a class="nav-link" href="{% url 'estate:index' %}">Home<span class="sr-only">(current)</span></a>
             </li>
             <li class="nav-item active">
                 <a class="nav-link" href="{% url 'estate:condo_listing' %}">Condos</a>
@@ -23,12 +23,8 @@
         </ul>
         <ul class="navbar-nav ml-auto">
             {% if user.username %}
-            <li class="nav-item">
-                <a class="nav-link" href="###">
-                    <button id="login_button" style="background-color: #e3e3e3;">
-                        {{ user.username }}
-                    </button>
-                </a>
+            <li class="nav-item active" style="margin-top: 8px;">
+                <p class="nav-link">{{ user.username }}</p>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="{% url 'account_logout' %}">
