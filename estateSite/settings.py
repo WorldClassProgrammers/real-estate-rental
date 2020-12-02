@@ -13,23 +13,19 @@ import os
 from pathlib import Path
 from decouple import config
 
-
-
 BASE_DIR = Path(__file__).resolve().parent.parent
-
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = config('SECRET_KEY',default='foobar')
+SECRET_KEY = config('SECRET_KEY', default='foobar')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = config('DEBUG', default=False, cast=bool)
 
 # ALLOWED_HOSTS = []
-ALLOWED_HOSTS = config('ALLOWED_HOSTS',default='localhost,127.0.0.1').split(',')
-
+ALLOWED_HOSTS = config('ALLOWED_HOSTS', default='localhost,127.0.0.1').split(',')
 
 # Application definition
 
@@ -44,10 +40,9 @@ INSTALLED_APPS = [
     'django_google_maps',
     'django.contrib.sites',
 
-
-    'allauth',  
-    'allauth.account',  
-    'allauth.socialaccount',  
+    'allauth',
+    'allauth.account',
+    'allauth.socialaccount',
     'allauth.socialaccount.providers.github',
     # 'allauth.socialaccount.providers.facebook',
     # 'allauth.socialaccount.providers.openid',
@@ -88,7 +83,6 @@ LOGIN_REDIRECT_URL = 'estate:index'
 
 WSGI_APPLICATION = 'estateSite.wsgi.application'
 
-
 # Database
 # https://docs.djangoproject.com/en/3.1/ref/settings/#databases
 
@@ -98,12 +92,11 @@ DATABASES = {
         # 'ENGINE': config('DATABASE_ENGINE',default='django.db.backends.sqlite3'),
         'NAME': BASE_DIR / 'db.sqlite3',
         # 'NAME': config('DATABASE_NAME',default='db.sqlite3'),
-        'USER': config('DATABASE_USER',default='user'),
-        'PASSWORD': config('DATABASE_PWD',default='password'),
-        'HOST': config('DATABASE_HOST',default='localhost'),
+        'USER': config('DATABASE_USER', default='user'),
+        'PASSWORD': config('DATABASE_PWD', default='password'),
+        'HOST': config('DATABASE_HOST', default='localhost'),
     }
 }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/3.1/ref/settings/#auth-password-validators
@@ -122,7 +115,6 @@ AUTH_PASSWORD_VALIDATORS = [
         'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
     },
 ]
-
 
 # Internationalization
 # https://docs.djangoproject.com/en/3.1/topics/i18n/
@@ -150,12 +142,10 @@ AUTH_USER_MODEL = 'estate.CustomUser'
 
 GOOGLE_MAPS_API_KEY = config('GOOGLE_MAPS_API_KEY', default='AIzaSyCO5k3BaMnHoLBabkndpqf2LFUFHOfTP5Q')
 
-
-AUTHENTICATION_BACKENDS = ( 
-	'django.contrib.auth.backends.ModelBackend', 
-	'allauth.account.auth_backends.AuthenticationBackend', 
+AUTHENTICATION_BACKENDS = (
+    'django.contrib.auth.backends.ModelBackend',
+    'allauth.account.auth_backends.AuthenticationBackend',
 )
-
 
 SITE_ID = 1
 
@@ -163,20 +153,20 @@ ACCOUNT_EMAIL_VERIFICATION = 'none'
 
 LOGIN_REDIRECT_URL = 'estate:index'
 
-SOCIALACCOUNT_PROVIDERS =  { 
-                            #     'facebook':
-                            #    {'METHOD': 'oauth2',
-                            #     'SCOPE': ['email'],
-                            #     'AUTH_PARAMS': {'auth_type': 'reauthenticate'},
-                            #     'LOCALE_FUNC': lambda request: 'en_US',
-                            #     'VERSION': 'v2.4'
-                            #     },
-                                'google': 
-                                { 'SCOPE': ['email'],
-                                'AUTH_PARAMS': { 'access_type': 'online' }
-                                },
-                            }
+SOCIALACCOUNT_PROVIDERS = {
+    #     'facebook':
+    #    {'METHOD': 'oauth2',
+    #     'SCOPE': ['email'],
+    #     'AUTH_PARAMS': {'auth_type': 'reauthenticate'},
+    #     'LOCALE_FUNC': lambda request: 'en_US',
+    #     'VERSION': 'v2.4'
+    #     },
+    'google':
+        {'SCOPE': ['email'],
+         'AUTH_PARAMS': {'access_type': 'online'}
+         },
+}
 
 ACCOUNT_FORMS = {
-'signup': 'estate.forms.custom_form.CustomSignupForm',
+    'signup': 'estate.forms.custom_form.CustomSignupForm',
 }

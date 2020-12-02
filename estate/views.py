@@ -27,8 +27,8 @@ def condo(request, condo_id):
     return render(request, 'estate/condo.html', {'condo': condo,
                                                  'api_key': settings.GOOGLE_MAPS_API_KEY,
                                                  'BTS_data': BTS_data,
-                                                 'MRT_blue_data' : MRT_blue_data,
-                                                 'MRT_purple_data' : MRT_purple_data,
+                                                 'MRT_blue_data': MRT_blue_data,
+                                                 'MRT_purple_data': MRT_purple_data,
                                                 })
 
 
@@ -40,7 +40,7 @@ def unit(request, unit_id):
 
 def condo_listing(request):
     condo_listing = Condo.objects.all()
-    paginator = Paginator(condo_listing, 1)
+    paginator = Paginator(condo_listing, 3)
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
     return render(request, 'estate/condo_listing.html', {'condo_listing': condo_listing, 'page_obj': page_obj})
@@ -104,7 +104,7 @@ def search(request):
 
 
     posts = list(chain(condoSet_list, unitSet_list))
-    paginator = Paginator(posts, 1)
+    paginator = Paginator(posts, 3)
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
 
