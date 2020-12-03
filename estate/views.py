@@ -120,15 +120,15 @@ def search(request):
     return render(request, 'estate/search_results.html', context)
 
 
-@login_required
-def upload_owner(request):
-    if request.method == 'POST':
-        form = OwnerForm(request.POST)
-        form.save()
-        return HttpResponseRedirect(reverse('estate:index'))
-    else:
-        form = OwnerForm()
-    return render(request, 'estate/upload_owner.html', {'form': form})
+# @login_required
+# def upload_owner(request):
+#     if request.method == 'POST':
+#         form = OwnerForm(request.POST)
+#         form.save()
+#         return HttpResponseRedirect(reverse('estate:index'))
+#     else:
+#         form = OwnerForm()
+#     return render(request, 'estate/upload_owner.html', {'form': form})
 
 
 @login_required
@@ -161,7 +161,7 @@ def upload_unit(request):
     unit_form = UnitForm(request.POST, prefix='unit')
     if unit_form.is_valid():
         this_unit = unit_form.save(commit=False)
-        this_unit.owner = Owner.objects.first()
+        this_unit.owner = request.user
         this_unit.save()
 
         for image in request.FILES.getlist('files'):
