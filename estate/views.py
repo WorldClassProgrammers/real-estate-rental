@@ -11,7 +11,7 @@ from .forms import CondoForm, UnitForm
 from .models import Unit, Condo, CustomUser
 from .models.condo import CondoImages
 from .models.unit import UnitImages
-from .models.transit_data import BTS_data, MRT_blue_data, MRT_purple_data  
+from .models.transit_data import BTS_data, MRT_blue_data, MRT_purple_data
 
 
 class IndexView(generic.ListView):

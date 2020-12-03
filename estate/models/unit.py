@@ -39,13 +39,14 @@ class Unit(models.Model):
 
     def get_first_image(self):
         return self.unitimages_set.first().image.url.replace('/estate', '', 1)
-    
+
     def get_class_name(self):
         return type(self).__name__
 
 
 def conference_directory_path(instance, filename):
-    return 'estate/static/estate/images/user_upload/unit/unit_id_{0}/{1}'.format(instance.unit.id, filename)
+    # return 'static/estate/images/user_upload/unit/unit_id_{0}/{1}'.format(instance.unit.id, filename)
+    return 'images/user_upload/unit/unit_id_{0}/{1}'.format(instance.unit.id, filename)
 
 
 class UnitImages(models.Model):
