@@ -10,3 +10,4 @@ omit =
     estateSite/*
     estate/migrations/*
     estate\__init__.py
+    estate\tests\*
