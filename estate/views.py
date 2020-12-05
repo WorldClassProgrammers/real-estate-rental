@@ -76,10 +76,8 @@ def search_nearby_bts(request):
         cd_id.append(condo.id)
 
     matrix = gmaps.distance_matrix(origins, destinations, mode="walking")
-    print("11111111", matrix)
     filter_list = []
     for k in range(len(destinations)):
-        # print("22222222", k)
         dist = matrix['rows'][0]['elements'][k]['distance']['value']
         if dist <= 500:  # GT 500 m
             filter_list.append(cd_id[k])
