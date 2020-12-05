@@ -13,13 +13,18 @@ from .models.condo import CondoImages
 from .models.unit import UnitImages
 from .models.transit_data import BTS_data, MRT_blue_data, MRT_purple_data  
 
+import googlemaps
 
-class IndexView(generic.ListView):
-    template_name = 'estate/index.html'
-    condo_list = 'condo_list'
+# class IndexView(generic.ListView):
+#     template_name = 'estate/index.html'
+#     condo_list = 'condo_list'
 
-    def get_queryset(self):
-        return Condo.objects.order_by('name')
+#     def get_queryset(self):
+#         return Condo.objects.order_by('name')
+
+def index(request):
+    condo_list = Condo.objects.order_by('name')
+    return render(request, 'estate/index.html', {'condo_list': condo_list, 'BTS_data': BTS_data})
 
 
 def condo(request, condo_id):
@@ -40,7 +45,7 @@ def unit(request, unit_id):
 
 def condo_listing(request):
     condo_listing = Condo.objects.all()
-    paginator = Paginator(condo_listing, 1)
+    paginator = Paginator(condo_listing, 3)
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
     return render(request, 'estate/condo_listing.html', {'condo_listing': condo_listing, 'page_obj': page_obj})
@@ -52,6 +57,40 @@ def unit_listing(request):
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
     return render(request, 'estate/unit_listing.html', {'unit_listing': unit_listing, 'page_obj': page_obj})
+
+
+def search_nearby_bts(request):
+    res = request.POST['dropdownsearch']
+
+    condoSet_list = Condo.objects.order_by('-name')
+    gmaps = googlemaps.Client(key=settings.GOOGLE_MAPS_API_KEY)
+    latlon = BTS_data[str(res)]
+    lat_lon = latlon.split(',')
+    origins = {"lat": float(lat_lon[0]), "lng": float(lat_lon[1])}
+    print(origins)
+    destinations = []
+    cd_id = []
+    distance_info = {}
+    for condo in condoSet_list:
+        destinations.append(condo.address)
+        cd_id.append(condo.id)
+
+    matrix = gmaps.distance_matrix(origins, destinations, mode="walking")
+    print("11111111", matrix)
+    filter_list = []
+    for k in range(len(destinations)):
+        # print("22222222", k)
+        dist = matrix['rows'][0]['elements'][k]['distance']['value']
+        if dist <= 500:  # GT 500 m
+            filter_list.append(cd_id[k])
+            distance_info.update({Condo.objects.get(id=cd_id[k]).name:dist})
+            # condo_list.append(condoSet_list.filter(pk=cd_id[k]))
+
+    condoSet_list = Condo.objects.filter(id__in=filter_list)
+    # print(condoSet_list)
+    print(distance_info)
+
+    return 'near by bts', condoSet_list, 'POST', Unit.objects.none(), res, distance_info
 
 
 def search_by_amnities(request):
@@ -85,17 +124,26 @@ def search_by_keywords(request):
 
 def search(request):
     unitSet_list = Unit.objects.order_by('-title')
-
+    station = ''
+    dist_info = ''
     if request.method == 'GET':
         if 'search' in request.GET:  # by keywords
             keywords, condoSet_list, unitSet_list, method = search_by_keywords(
                 request)
         else:  # by checkbox fields
+            if 'selectedfield' in request.GET:  # by Amnities
+                keywords, condoSet_list, method, unitSet_list = search_by_amnities(
+                    request)
+            else:  # nearby BTS
+                keywords, condoSet_list, method, unitSet_list, station, dist_info = search_nearby_bts(
+                    request)
+    else:
+        if 'selectedfield' in request.POST:  # by Amnities
             keywords, condoSet_list, method, unitSet_list = search_by_amnities(
                 request)
-    else:
-        keywords, condoSet_list, method, unitSet_list = search_by_amnities(
-            request)
+        else:
+            keywords, condoSet_list, method, unitSet_list, station, dist_info = search_nearby_bts(
+                request)
 
     # if no condo then unit shouldnt be return
     if condoSet_list:
@@ -104,12 +152,14 @@ def search(request):
 
 
     posts = list(chain(condoSet_list, unitSet_list))
-    paginator = Paginator(posts, 1)
+    paginator = Paginator(posts, 3)
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
 
     context = {
         'keywords': keywords,
+        'station': station,
+        'distance_info': dist_info,
         'condo_result': condoSet_list,
         'unit_result': unitSet_list,
         'page_obj': page_obj,
@@ -120,15 +170,15 @@ def search(request):
     return render(request, 'estate/search_results.html', context)
 
 
-@login_required
-def upload_owner(request):
-    if request.method == 'POST':
-        form = OwnerForm(request.POST)
-        form.save()
-        return HttpResponseRedirect(reverse('estate:index'))
-    else:
-        form = OwnerForm()
-    return render(request, 'estate/upload_owner.html', {'form': form})
+# @login_required
+# def upload_owner(request):
+#     if request.method == 'POST':
+#         form = OwnerForm(request.POST)
+#         form.save()
+#         return HttpResponseRedirect(reverse('estate:index'))
+#     else:
+#         form = OwnerForm()
+#     return render(request, 'estate/upload_owner.html', {'form': form})
 
 
 @login_required
@@ -161,12 +211,14 @@ def upload_unit(request):
     unit_form = UnitForm(request.POST, prefix='unit')
     if unit_form.is_valid():
         this_unit = unit_form.save(commit=False)
-        this_unit.owner = Owner.objects.first()
+
+        this_unit.owner = request.user
+
         this_unit.save()
 
         for image in request.FILES.getlist('files'):
             UnitImages.objects.create(unit=this_unit, image=image)
     else:
-        print("==========unit_form_invalid===========", request.POST)
+        pass
 
     return HttpResponseRedirect(reverse('estate:index'))

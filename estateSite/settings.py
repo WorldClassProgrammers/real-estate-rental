@@ -25,7 +25,8 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = config('SECRET_KEY',default='foobar')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = config('DEBUG', default=False, cast=bool)
+# DEBUG = config('DEBUG', default=False, cast=bool)
+DEBUG=True
 
 # ALLOWED_HOSTS = []
 ALLOWED_HOSTS = config('ALLOWED_HOSTS',default='localhost,127.0.0.1').split(',')
@@ -148,7 +149,8 @@ STATIC_URL = '/static/'
 
 AUTH_USER_MODEL = 'estate.CustomUser'
 
-GOOGLE_MAPS_API_KEY = config('GOOGLE_MAPS_API_KEY', default='AIzaSyCO5k3BaMnHoLBabkndpqf2LFUFHOfTP5Q')
+#GOOGLE_MAPS_API_KEY = config('GOOGLE_MAPS_API_KEY', default='AIzaSyCO5k3BaMnHoLBabkndpqf2LFUFHOfTP5Q')
+GOOGLE_MAPS_API_KEY = config('GOOGLE_MAPS_API_KEY', default='AIzaSyBLqctjs8XKM9c0HFMXVdiB3wXYMHg8lg8')
 
 
 AUTHENTICATION_BACKENDS = ( 

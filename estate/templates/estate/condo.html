@@ -36,17 +36,10 @@
                 </div>
             </div>
             <div class="col-md-3">
-                <div class="card mb-3">
-                    <img class="card-img-top"
-                        src="https://upload-os-bbs.mihoyo.com/upload/2020/05/25/1011075/cbc30c247b04d68806f7c44b0837f27a_7762819667912258526.png"
-                        alt="">
-                    <div class="card-body">
-                        <h5 class="card-title">Property Realtor</h5>
-                        <h6 class="text-primary">P.A.I.M.O.N</h6>
-                    </div>
+                <div class="card mb-3" style="min-height: 500px; text-align: center;">
+                    ADVERTISEMENT
+                    FOR FUTURE LISTING
                 </div>
-                <button class="btn-primary btn-block btn-lg" data-toggle="modal" data-target="#inquiryModal">Make An
-                    Inquiry</button>
             </div>
         </div>
     </div>
@@ -57,6 +50,9 @@
             <h5>
                 Description
             </h5>
+        </div>
+        <div class="row"
+            style="margin-right: 10%; padding-left: 4%; margin-top: 2%; margin-bottom: 2%; font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;">
             <p>
                 {{ condo.description }}
             </p>
@@ -105,6 +101,7 @@
 
             <div id="condo_box" class="col-md-6 col-lg-4 mb-4">
                 <div class="card listing-preview shadow-lg">
+                    <a href="{% url 'estate:unit' unit.id %}" style="text-decoration: none;" id="condo_box">
                     <img class="card-img-top" src="../../..{{ unit.get_first_image }}" alt="">
                     <div class="card-img-overlay">
                     </div>
@@ -128,12 +125,13 @@
                                 Size: {{ unit.area }} m²</div>
                         </div>
                     </div>
+                    </a>
                 </div>
                 {% if not unit.still_on_contract %}
-                <a href="{% url 'estate:unit' unit.id %}">
+                <!-- <a href="{% url 'estate:unit' unit.id %}">
                     <div class="overlay">
                     </div>
-                </a>
+                </a> -->
                 {% endif %}
             </div>
 
@@ -187,7 +185,7 @@
                 .addEventListener("change", onChangeHandler);
             document
                 .getElementById("end")
-                .addEventListener("change", onChangeHandler);            
+                .addEventListener("change", onChangeHandler);
 
       } // initmap
       function calculateAndDisplayRoute(directionsService, directionsRenderer) {
@@ -217,16 +215,16 @@
 
 <body>
     <div class="container" id="floating-panel">
-        <b>Search for BTS</b><br>
-        <b>Address: {{ condo.address }} </b><br>
-        <b>Destination BTS: </b>
-        <select id="end">
+        <i class="fas fa-2x fa-search-location"></i> <b>Search the location of BTS around you</b><br><br>
+        <i class="fas fa-map-marker-alt" style="color: red;"></i> <b>Current Address: {{ condo.address }} </b><br><br>
+        <i class="fas fa-2x fa-subway"></i> <b>Destination BTS: </b>
+        <select class="custom-select w-25" id="end">
             {% for key, value in BTS_data.items %}
             <option value="{{value}}">{{key}}</option>
             {% endfor %}
-        </select><br>
-        <b>Mode of Travel: </b>
-        <select id="mode">
+        </select>
+        <i class="fas fa-2x fa-road" style="color: gray;"></i> <b>Mode of Travel: </b>
+        <select class="custom-select w-25" id="mode">
             <option value="DRIVING">Driving</option>
             <option value="WALKING">Walking</option>
             <option value="TRANSIT">Transit</option>

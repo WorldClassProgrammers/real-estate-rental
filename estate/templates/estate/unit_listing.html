@@ -25,6 +25,7 @@
             {% for result in page_obj %}
             <div id="condo_box" class="col-md-6 col-lg-4 mb-4">
                 <div class="card listing-preview shadow-lg">
+                    <a href="{% url 'estate:unit' result.id %}" style="text-decoration: none;" id="condo_box">
                     <img class="card-img-top" src="{{ result.get_first_image }}" alt="">
                     <div class="card-img-overlay">
                     </div>
@@ -48,11 +49,12 @@
                                 Size: {{ result.area }} m²</div>
                         </div>
                     </div>
+                    </a>
                 </div>
-                <a href="{% url 'estate:unit' result.id %}">
+                <!-- <a href="{% url 'estate:unit' result.id %}">
                     <div class="overlay">
                     </div>
-                </a>
+                </a> -->
             </div>
             {% endfor %}
         </div>
