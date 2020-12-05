@@ -11,4 +11,4 @@ class CondoForm(ModelForm):
             'name': TextInput(attrs={'class': 'form-control'}),
             'description': Textarea(attrs={'class': "form-control"}),
             'number_of_floors': NumberInput(attrs={'class': 'form-control'}),
-            }
+        }

@@ -9,8 +9,8 @@ Background
 One of our member family businesses is an apartment rental broker that also wants their own business website. All the data for each house and apartment are also provided for us by our member’s family, so we think it would be an interesting project.
 
 ## How to Setup/Install
-[Instructions](instructions.md)
 
+[Instructions](instructions.md)
 
 ## Features
 
@@ -64,7 +64,7 @@ Mobile application supported
 
 ## Team Members
 
-- Nutta Sittipongpanich  
+- Nutta Sittipongpanich
 - Nanthakarn Limkool
 - Phuwanut Jiamwatthanaloet
 - Sahadporn Charnlertlakha

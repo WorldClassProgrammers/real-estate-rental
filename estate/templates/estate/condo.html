@@ -102,29 +102,29 @@
             <div id="condo_box" class="col-md-6 col-lg-4 mb-4">
                 <div class="card listing-preview shadow-lg">
                     <a href="{% url 'estate:unit' unit.id %}" style="text-decoration: none;" id="condo_box">
-                    <img class="card-img-top" src="../../..{{ unit.get_first_image }}" alt="">
-                    <div class="card-img-overlay">
-                    </div>
-                    <div class="card-body">
-                        <div class="listing-heading text-center">
-                            <h4 class="mb-4 text-grey-darker"
-                                style="font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;">
-                                {{ unit.title }}</h4>
+                        <img class="card-img-top" src="../../..{{ unit.get_first_image }}" alt="">
+                        <div class="card-img-overlay">
                         </div>
-                        <hr>
-                        <div class="row py-2 text-primary">
-                            <div class="col-6">
-                                Unit Number: {{ unit.number }}</div>
-                            <div class="col-6">
-                                Availability: {% if unit.still_on_contract %} No {% else %} Yes {% endif %}</div>
+                        <div class="card-body">
+                            <div class="listing-heading text-center">
+                                <h4 class="mb-4 text-grey-darker"
+                                    style="font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;">
+                                    {{ unit.title }}</h4>
+                            </div>
+                            <hr>
+                            <div class="row py-2 text-primary">
+                                <div class="col-6">
+                                    Unit Number: {{ unit.number }}</div>
+                                <div class="col-6">
+                                    Availability: {% if unit.still_on_contract %} No {% else %} Yes {% endif %}</div>
+                            </div>
+                            <div class="row py-2 text-primary">
+                                <div class="col-6">
+                                    Rent: {{ unit.price_for_rent }} ฿</div>
+                                <div class="col-6">
+                                    Size: {{ unit.area }} m²</div>
+                            </div>
                         </div>
-                        <div class="row py-2 text-primary">
-                            <div class="col-6">
-                                Rent: {{ unit.price_for_rent }} ฿</div>
-                            <div class="col-6">
-                                Size: {{ unit.area }} m²</div>
-                        </div>
-                    </div>
                     </a>
                 </div>
                 {% if not unit.still_on_contract %}
@@ -166,29 +166,30 @@
             const directionsRenderer = new google.maps.DirectionsRenderer();
             let mapOptions =
             {
-                center: new google.maps.LatLng({{ condo.geolocation.lat }},{{ condo.geolocation.lon }}),
-                zoom: 20,
+                center: new google.maps.LatLng({{ condo.geolocation.lat }}, {{ condo.geolocation.lon }
+        }),
+        zoom: 20,
             }
-            map = new google.maps.Map(document.getElementById("map"), mapOptions);
+        map = new google.maps.Map(document.getElementById("map"), mapOptions);
 
-            var point = new google.maps.LatLng({{ condo.geolocation.lat }}, {{ condo.geolocation.lon }});
-            var marker = new google.maps.Marker({
-                position: point,
-                map: map
-            });
-            directionsRenderer.setMap(map);
-            const onChangeHandler = function () {
-                calculateAndDisplayRoute(directionsService, directionsRenderer);
-            };
-            document
-                .getElementById("mode")
-                .addEventListener("change", onChangeHandler);
-            document
-                .getElementById("end")
-                .addEventListener("change", onChangeHandler);
+        var point = new google.maps.LatLng({{ condo.geolocation.lat }}, { { condo.geolocation.lon } });
+        var marker = new google.maps.Marker({
+            position: point,
+            map: map
+        });
+        directionsRenderer.setMap(map);
+        const onChangeHandler = function () {
+            calculateAndDisplayRoute(directionsService, directionsRenderer);
+        };
+        document
+            .getElementById("mode")
+            .addEventListener("change", onChangeHandler);
+        document
+            .getElementById("end")
+            .addEventListener("change", onChangeHandler);
 
       } // initmap
-      function calculateAndDisplayRoute(directionsService, directionsRenderer) {
+        function calculateAndDisplayRoute(directionsService, directionsRenderer) {
             const selectedMode = document.getElementById("mode").value;
             directionsService.route(
                 {
@@ -209,7 +210,7 @@
                     }
                 }
             );
-       } // Cal...Display.
+        } // Cal...Display.
     </script>
 </head>
 

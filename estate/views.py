@@ -1,8 +1,7 @@
 from django.contrib.auth.decorators import login_required
-from django.http import HttpResponse, HttpResponseRedirect
+from django.http import HttpResponseRedirect
 from django.shortcuts import render, get_object_or_404
 from django.urls import reverse
-from django.views import generic
 from itertools import chain
 from django.core.paginator import Paginator
 from django.conf import settings
@@ -15,12 +14,6 @@ from .models.transit_data import BTS_data, MRT_blue_data, MRT_purple_data
 
 import googlemaps
 
-# class IndexView(generic.ListView):
-#     template_name = 'estate/index.html'
-#     condo_list = 'condo_list'
-
-#     def get_queryset(self):
-#         return Condo.objects.order_by('name')
 
 def index(request):
     condo_list = Condo.objects.order_by('name')
@@ -29,12 +22,15 @@ def index(request):
 
 def condo(request, condo_id):
     condo = get_object_or_404(Condo, pk=condo_id)
-    return render(request, 'estate/condo.html', {'condo': condo,
-                                                 'api_key': settings.GOOGLE_MAPS_API_KEY,
-                                                 'BTS_data': BTS_data,
-                                                 'MRT_blue_data' : MRT_blue_data,
-                                                 'MRT_purple_data' : MRT_purple_data,
-                                                })
+    return render( 
+        request, 
+        'estate/condo.html', {
+            'condo': condo,
+            'api_key': settings.GOOGLE_MAPS_API_KEY,
+            'BTS_data': BTS_data,
+            'MRT_blue_data': MRT_blue_data,
+            'MRT_purple_data': MRT_purple_data,
+        })
 
 
 def unit(request, unit_id):
@@ -62,7 +58,7 @@ def unit_listing(request):
 def search_nearby_bts(request):
     res = request.POST['dropdownsearch']
 
-    condoSet_list = Condo.objects.order_by('-name')
+    condo_set_list = Condo.objects.order_by('-name')
     gmaps = googlemaps.Client(key=settings.GOOGLE_MAPS_API_KEY)
     latlon = BTS_data[str(res)]
     lat_lon = latlon.split(',')
@@ -71,7 +67,7 @@ def search_nearby_bts(request):
     destinations = []
     cd_id = []
     distance_info = {}
-    for condo in condoSet_list:
+    for condo in condo_set_list:
         destinations.append(condo.address)
         cd_id.append(condo.id)
 
@@ -82,74 +78,66 @@ def search_nearby_bts(request):
         if dist <= 500:  # GT 500 m
             filter_list.append(cd_id[k])
             distance_info.update({Condo.objects.get(id=cd_id[k]).name:dist})
-            # condo_list.append(condoSet_list.filter(pk=cd_id[k]))
 
-    condoSet_list = Condo.objects.filter(id__in=filter_list)
-    # print(condoSet_list)
-    print(distance_info)
-
-    return 'near by bts', condoSet_list, 'POST', Unit.objects.none(), res, distance_info
+    condo_set_list = Condo.objects.filter(id__in=filter_list)
+    return 'near by bts', condo_set_list, 'POST', Unit.objects.none(), res, distance_info
 
 
 def search_by_amnities(request):
-    condoSet_list = Condo.objects.order_by('-name')
+    condo_set_list = Condo.objects.order_by('-name')
 
     if request.method == 'GET':
         res = request.GET['selectedfield']
         keywords = res.strip('][').split(', ')
         for index, amenity in enumerate(keywords):
-            # remove quotes at begin and end. Somehow strip doesnt work
-            # and update back to keywords.
-
             amenity = amenity[1:-1]
             keywords[index] = amenity
-            condoSet_list = condoSet_list.filter(amenities__icontains=amenity)
+            condo_set_list = condo_set_list.filter(amenities__icontains=amenity)
     else:
         keywords = request.POST.getlist('selectedfield')
         for amenity in keywords:
-            condoSet_list = condoSet_list.filter(amenities__icontains=amenity)
+            condo_set_list = condo_set_list.filter(amenities__icontains=amenity)
 
-    return keywords, condoSet_list, 'POST', Unit.objects.none()
+    return keywords, condo_set_list, 'POST', Unit.objects.none()
 
 
 def search_by_keywords(request):
 
     keywords = request.GET['search']
-    condoSet_list = Condo.objects.filter(name__icontains=keywords)
-    unitSet_list = Unit.objects.filter(title__icontains=keywords)
-    return keywords, condoSet_list, unitSet_list, request.method
+    condo_set_list = Condo.objects.filter(name__icontains=keywords)
+    unit_set_list = Unit.objects.filter(title__icontains=keywords)
+    return keywords, condo_set_list, unit_set_list, request.method
 
 
 def search(request):
-    unitSet_list = Unit.objects.order_by('-title')
+    unit_set_list = Unit.objects.order_by('-title')
     station = ''
     dist_info = ''
     if request.method == 'GET':
         if 'search' in request.GET:  # by keywords
-            keywords, condoSet_list, unitSet_list, method = search_by_keywords(
+            keywords, condo_set_list, unit_set_list, method = search_by_keywords(
                 request)
         else:  # by checkbox fields
             if 'selectedfield' in request.GET:  # by Amnities
-                keywords, condoSet_list, method, unitSet_list = search_by_amnities(
+                keywords, condo_set_list, method, unit_set_list = search_by_amnities(
                     request)
             else:  # nearby BTS
-                keywords, condoSet_list, method, unitSet_list, station, dist_info = search_nearby_bts(
+                keywords, condo_set_list, method, unit_set_list, station, dist_info = search_nearby_bts(
                     request)
     else:
         if 'selectedfield' in request.POST:  # by Amnities
-            keywords, condoSet_list, method, unitSet_list = search_by_amnities(
+            keywords, condo_set_list, method, unit_set_list = search_by_amnities(
                 request)
         else:
-            keywords, condoSet_list, method, unitSet_list, station, dist_info = search_nearby_bts(
+            keywords, condo_set_list, method, unit_set_list, station, dist_info = search_nearby_bts(
                 request)
 
     # if no condo then unit shouldnt be return
-    if condoSet_list:
-        unitSet_list = unitSet_list.filter(
-            still_on_contract=False).exclude(condo__in=condoSet_list)
+    if condo_set_list:
+        unit_set_list = unit_set_list.filter(
+            still_on_contract=False).exclude(condo__in=condo_set_list)
 
-
-    posts = list(chain(condoSet_list, unitSet_list))
+    posts = list(chain(condo_set_list, unit_set_list))
     paginator = Paginator(posts, 3)
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
@@ -158,25 +146,14 @@ def search(request):
         'keywords': keywords,
         'station': station,
         'distance_info': dist_info,
-        'condo_result': condoSet_list,
-        'unit_result': unitSet_list,
+        'condo_result': condo_set_list,
+        'unit_result': unit_set_list,
         'page_obj': page_obj,
         'posts': posts,
         'method': method,
     }
 
     return render(request, 'estate/search_results.html', context)
-
-
-# @login_required
-# def upload_owner(request):
-#     if request.method == 'POST':
-#         form = OwnerForm(request.POST)
-#         form.save()
-#         return HttpResponseRedirect(reverse('estate:index'))
-#     else:
-#         form = OwnerForm()
-#     return render(request, 'estate/upload_owner.html', {'form': form})
 
 
 @login_required
@@ -209,9 +186,7 @@ def upload_unit(request):
     unit_form = UnitForm(request.POST, prefix='unit')
     if unit_form.is_valid():
         this_unit = unit_form.save(commit=False)
-
         this_unit.owner = request.user
-
         this_unit.save()
 
         for image in request.FILES.getlist('files'):
