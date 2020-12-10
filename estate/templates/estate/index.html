@@ -16,17 +16,19 @@
         <button class="btn btn-outline-light my-2 my-sm-0" type="submit">Search</button>
     </form>
     <div class="row" style="margin-top: 8px; width: 100%;">
-        <div class="col-1" style="margin-left: 38%;">
-            <button id="btn_filters" class="btn btn-outline-light my-2 my-sm-0" onclick="openForm()">Select
-                Filters</button>
+        <div class="column" style="width: 50%;">
+            <div style="float: right;">
+            <button id="btn_filters" class="btn btn-outline-light my-2 my-sm-0" onclick="openForm()">
+                Select Filters</button>
+            </div>
         </div>
-        <div class="col-1">
+        <div class="col-1" style="width: 50%;">
             <div class="dropdown">
                 <form action="{% url 'estate:search_results' %}" method="POST" name="dropdownsearch">
                     {% csrf_token %}
                     <button class="btn btn-outline-light dropdown-toggle" type="button" id="dropdownMenuButton"
                         data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        Search NearBy BTS</button>
+                        Search Condo Near BTS</button>
                     <div class="dropdown-menu container" style="min-width: 1100%; margin-left: -450%; margin-top: 100%;"
                         aria-labelledby="dropdownMenuButton">
                         <div class="row">
@@ -113,10 +115,6 @@
                         </div>
                     </a>
                 </div>
-                <!-- <a href="{% url 'estate:condo' condo.id %}">
-                    <div class="overlay">
-                    </div>
-                </a> -->
             </div>
 
             {% endfor %}

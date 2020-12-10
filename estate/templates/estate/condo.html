@@ -23,7 +23,7 @@
         <div class="row" style="margin-left: 1%;">
             <div class="col-lg-9">
                 <!-- Home Main Image -->
-                <img src="{{ condo.get_first_image }}"" alt="" class=" img-main img-fluid mb-3">
+                <img src="{{ condo.get_first_image }}" alt="" class=" img-main img-fluid mb-3">
 
                 <div class="row mb-5 thumbs">
                     {% for img_url in condo.get_images_url  %}
@@ -52,10 +52,8 @@
             </h5>
         </div>
         <div class="row"
-            style="margin-right: 10%; padding-left: 4%; margin-top: 2%; margin-bottom: 2%; font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;">
-            <p>
-                {{ condo.description }}
-            </p>
+            style="word-break: break-all; margin-right: 10%; padding-left: 4%; margin-top: 2%; margin-bottom: 2%; font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;">
+            {{ condo.description }}
         </div>
         <hr style="width: 30%; float: left; margin-left: 15%;">
         <i class="fas fa-ellipsis-h" style="color:gray; padding-left: 4%;"></i>
@@ -81,9 +79,6 @@
         </div>
     </div>
 </section>
-
-<!-- Modal lightbox -->
-<!--  -->
 
 <section id="listings" class="py-4">
     <div class="container">
@@ -128,10 +123,6 @@
                     </a>
                 </div>
                 {% if not unit.still_on_contract %}
-                <!-- <a href="{% url 'estate:unit' unit.id %}">
-                    <div class="overlay">
-                    </div>
-                </a> -->
                 {% endif %}
             </div>
 

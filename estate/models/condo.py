@@ -6,15 +6,14 @@ from django_google_maps import fields as map_fields
 class Condo(models.Model):
     name = models.CharField(max_length=100, unique=True)
     description = models.TextField(max_length=500)
-    number_of_floors = models.IntegerField(default=1)
+    number_of_floors = models.PositiveIntegerField(default=1)
 
     # admin only
     juristic_persons_number = models.TextField(max_length=25)
     common_fee_account = models.TextField(max_length=25)
 
     address = map_fields.AddressField(default=None, null=True, max_length=200)
-    geolocation = map_fields.GeoLocationField(
-        default=None, null=True, max_length=100)
+    geolocation = map_fields.GeoLocationField(default=None, null=True, max_length=100)
 
     AMENITY_TYPES = (
         ('elevator', 'Elevator'),

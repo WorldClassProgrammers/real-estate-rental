@@ -13,12 +13,12 @@ class Unit(models.Model):
     # admin only
     still_on_contract = models.BooleanField(default=False)
 
-    price_for_rent = models.FloatField(default=0)
-    price_for_sell = models.FloatField(default=0)
-    floor_number = models.CharField(max_length=10, default="1")
-    number_of_bedroom = models.IntegerField(default=1)
-    number_of_bathroom = models.IntegerField(default=1)
-    area = models.FloatField(default=0)
+    price_for_rent = models.PositiveIntegerField(default=1)
+    price_for_sell = models.PositiveIntegerField(default=1)
+    floor_number = models.PositiveIntegerField(default=1)
+    number_of_bedroom = models.PositiveIntegerField(default=1)
+    number_of_bathroom = models.PositiveIntegerField(default=1)
+    area = models.PositiveIntegerField(default=1)
 
     def __str__(self):
         """Return the title of the unit."""
@@ -42,7 +42,6 @@ class Unit(models.Model):
 
 
 def conference_directory_path(instance, filename):
-    # return 'static/estate/images/user_upload/unit/unit_id_{0}/{1}'.format(instance.unit.id, filename)
     return 'images/user_upload/unit/unit_id_{0}/{1}'.format(instance.unit.id, filename)
 
 
