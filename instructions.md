@@ -80,7 +80,7 @@ Create or edit the .env file in the ./estateSite directory.
 example of ./estateSite/.env file:
 
 ```python
-DEBUG=True
+DEBUG=False
 ALLOWED_HOSTS=localhost,127.0.0.1
 SECRET_KEY='Your-Secret-Key'
 DATABASE_ENGINE='django.db.backends.sqlite3'
