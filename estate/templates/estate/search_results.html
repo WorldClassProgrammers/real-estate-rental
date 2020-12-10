@@ -20,7 +20,11 @@
                     {% endif %}
                 {% else %}
                     {% if condo_result %}
-                        Search by amenities
+                        {% if keywords == 'near by bts' %}
+                            Search for condo that are within 500 m. of {{ station }}
+                        {% else %}
+                            Search by amenities
+                        {% endif %}
                     {% else %}
                         Search not found
                     {% endif %}
@@ -41,6 +45,7 @@
             {% if result.get_class_name == 'Condo' %}
                 <div id="condo_box" class="col-md-6 col-lg-4 mb-4">
                     <div class="card listing-preview shadow-lg">
+                        <a href="{% url 'estate:condo' result.id %}" style="text-decoration: none;" id="condo_box">
                         <img class="card-img-top"
                             src="{{ result.get_first_image }}"
                             alt="">
@@ -58,22 +63,34 @@
                                     Available Units: {{ result.get_available_units }}</div>
                             </div>
                             <div class="row py-2 text-primary">
-                                <div class="col-6">
-                                    In case more info:</div>
-                                <div class="col-6">
-                                    in the future:</div>
+                                {% if keywords == 'near by bts' %}
+                                    <div class="col">
+                                      {% for key, value in distance_info.items %}
+                                        {%if key == result.name %}
+                                            Distance: {{ value }} m. from {{station}}
+                                        {% endif %}
+                                       {% endfor %}
+                                    </div>
+                                {% else %}
+                                    <div class="col-6">
+                                        In case more info:</div>
+                                    <div class="col-6">
+                                        in the future:</div>
+                                {% endif %}
                             </div>
                         </div>
+                        </a>
                     </div>
-                    <a href="{% url 'estate:condo' result.id %}">
+                    <!-- <a href="{% url 'estate:condo' result.id %}">
                         <div class="overlay">
                         </div>
-                    </a>
+                    </a> -->
                 </div>
             {% elif result.get_class_name == 'Unit' %}
                 {% if not result.condo in condo_result %}
                     <div id="condo_box" class="col-md-6 col-lg-4 mb-4">
                         <div class="card listing-preview shadow-lg">
+                            <a href="{% url 'estate:unit' result.condo.id %}" style="text-decoration: none;" id="condo_box">
                             <img class="card-img-top"
                                 src="{{ result.get_first_image }}"
                                 alt="">
@@ -97,11 +114,12 @@
                                         Size: {{ result.area }} m²</div>
                                 </div>
                             </div>
+                            </a>
                         </div>
-                        <a href="{% url 'estate:unit' result.condo.id %}">
+                        <!-- <a href="{% url 'estate:unit' result.condo.id %}">
                             <div class="overlay">
                             </div>
-                        </a>
+                        </a> -->
                     </div>
                 {% endif %}
             {% endif %}

@@ -6,13 +6,13 @@
         <span class="navbar-toggler-icon"></span>
     </button>
     <a class="navbar-brand" href="{% url 'estate:index' %}" style="width: 11%;">
-        <img src="https://lh5.googleusercontent.com/LTqy9iyos4qDzWSGCQo07UKdp2UO2G40WG_7D2ultfnWHxeo_HGWoyRZp3lbI-wLqhmBXGDS53H6dBcMl6YV=w2880-h992-rw"
+        <img src="https://i.ibb.co/cYCHg3v/Header-LOGO.png"
             alt="logo" width="100%">
     </a>
     <div class="collapse navbar-collapse" id="navbarNavDropdown">
         <ul class="navbar-nav mr-auto">
             <li class="nav-item active">
-                <a class="nav-link" href="{% url 'estate:index' %}">Home <span class="sr-only">(current)</span></a>
+                <a class="nav-link" href="{% url 'estate:index' %}">Home<span class="sr-only">(current)</span></a>
             </li>
             <li class="nav-item active">
                 <a class="nav-link" href="{% url 'estate:condo_listing' %}">Condos</a>
@@ -23,12 +23,8 @@
         </ul>
         <ul class="navbar-nav ml-auto">
             {% if user.username %}
-            <li class="nav-item">
-                <a class="nav-link" href="###">
-                    <button id="login_button" style="background-color: #e3e3e3;">
-                        {{ user.username }}
-                    </button>
-                </a>
+            <li class="nav-item active" style="margin-top: 8px;">
+                <p class="nav-link">{{ user.username }}</p>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="{% url 'account_logout' %}">

@@ -1,4 +1,4 @@
-{% extends 'base.html' %} {% load static %} {% block content %}
+{% extends 'base.html' %} {% load static %} {% block content %} {{condo_form.media}}
 <style>
     #form {
         background-color: aliceblue;
@@ -33,6 +33,13 @@
 </style>
 
 <div class="container">
+    {% if messages %}
+    <ul class="messages">
+        {% for msg in messages %}
+        <h1>{{ msg }}</h1>
+        {% endfor %}
+    </ul>
+    {% endif %}
     <ul id="form">
         <button id="btn_condo" class="btn btn-outline-light my-2 my-sm-0">
             Add condo
@@ -40,9 +47,11 @@
         <button id="btn_unit" class="btn btn-outline-light my-2 my-sm-0">
             Add unit
         </button>
-        <a href="{% url 'estate:index' %}"><button class="btn btn-outline-light my-2 my-sm-0">
+        <a href="{% url 'estate:index' %}">
+            <button class="btn btn-outline-light my-2 my-sm-0">
                 Back to Index
-            </button></a>
+            </button>
+        </a>
 
         <div id="condo_form_fields">
             <h2>ADD CONDO</h2>
@@ -50,7 +59,11 @@
                 {% csrf_token %}
                 {% for field in condo_form %}
                 <div class="form-group">
-                    {{ field.label_tag }} {{ field }}
+                    {{ field.label_tag }}
+                        {% if field.label_tag == "<label>Amenities:</label>" %}
+                        (At least one amenity have to be check to valid the form)
+                        {% endif %}
+                    {{ field }}
                 </div>
                 {% endfor %}
                 <table id="image_fields_condo">

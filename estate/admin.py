@@ -29,18 +29,21 @@ class CustomUserAdmin(UserAdmin):
             ]
         }),
     ]
-    # add_fieldsets = [
-    #     (None, {
-    #         'fields': [
-    #             'username',
-    #             'first_name',
-    #             'last_name',
-    #             'email',
-    #             'role',
-    #         ]
-    #     }),
-    # ]
-    add_fieldsets = fieldsets
+    add_fieldsets = [
+        (None, {
+            'fields': [
+                'username',
+                'password1',
+                'password2',
+                'first_name',
+                'last_name',
+                'email',
+                'role',
+            ]
+        }),
+    ]
+    # add_fieldsets = fieldsets
+
 
     search_fields = ['username']
     inlines = [ContactInfoInline]
@@ -54,13 +57,15 @@ class CondoImagesInline(admin.TabularInline):
 
 class CondoAdmin(admin.ModelAdmin):
     formfield_overrides = {
-        map_fields.AddressField: { 'widget':
-        map_widgets.GoogleMapsAddressWidget(attrs={
-          'data-autocomplete-options': json.dumps({ 'types': ['geocode',
-          'establishment'], 'componentRestrictions': {
-                  }
-              })
-          })
+        map_fields.AddressField: {
+            'widget': map_widgets.GoogleMapsAddressWidget(attrs={
+                'data-autocomplete-options': json.dumps({'types': [
+                    'geocode',
+                    'establishment'
+                ],
+                    'componentRestrictions': {}
+                })
+            })
         },
     }
     fieldsets = [
@@ -128,36 +133,16 @@ class UnitAdmin(admin.ModelAdmin):
         'condo',
         'number',
         'still_on_contract',
-        # 'contract_over',
     )
     list_filter = ['still_on_contract']
-    search_fields = ['condo',
-                     'title',
-                     'number',
-                     'area',
-                     ]
-
-
-# class OwnerAdmin(admin.ModelAdmin):
-#     fieldsets = [
-#         (None, {
-#             'fields': [
-#                 'name',
-#                 'email',
-#                 'line_id',
-#                 'phone_number',
-#             ]
-#         }),
-#     ]
-#     list_display = (
-#         'name',
-#         'email',
-#         'phone_number',
-#     )
-#     search_fields = ['name']
+    search_fields = [
+        'condo',
+        'title',
+        'number',
+        'area',
+    ]
 
 
 admin.site.register(Condo, CondoAdmin)
 admin.site.register(Unit, UnitAdmin)
-# admin.site.register(Owner, OwnerAdmin)
 admin.site.register(CustomUser, CustomUserAdmin)

@@ -23,7 +23,7 @@
         <div class="row" style="margin-left: 1%;">
             <div class="col-lg-9">
                 <!-- Home Main Image -->
-                <img src="{{ condo.get_first_image }}"" alt="" class=" img-main img-fluid mb-3">
+                <img src="{{ condo.get_first_image }}" alt="" class=" img-main img-fluid mb-3">
 
                 <div class="row mb-5 thumbs">
                     {% for img_url in condo.get_images_url  %}
@@ -36,17 +36,10 @@
                 </div>
             </div>
             <div class="col-md-3">
-                <div class="card mb-3">
-                    <img class="card-img-top"
-                        src="https://upload-os-bbs.mihoyo.com/upload/2020/05/25/1011075/cbc30c247b04d68806f7c44b0837f27a_7762819667912258526.png"
-                        alt="">
-                    <div class="card-body">
-                        <h5 class="card-title">Property Realtor</h5>
-                        <h6 class="text-primary">P.A.I.M.O.N</h6>
-                    </div>
+                <div class="card mb-3" style="min-height: 500px; text-align: center;">
+                    ADVERTISEMENT
+                    FOR FUTURE LISTING
                 </div>
-                <button class="btn-primary btn-block btn-lg" data-toggle="modal" data-target="#inquiryModal">Make An
-                    Inquiry</button>
             </div>
         </div>
     </div>
@@ -57,9 +50,10 @@
             <h5>
                 Description
             </h5>
-            <p>
-                {{ condo.description }}
-            </p>
+        </div>
+        <div class="row"
+            style="word-break: break-all; margin-right: 10%; padding-left: 4%; margin-top: 2%; margin-bottom: 2%; font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;">
+            {{ condo.description }}
         </div>
         <hr style="width: 30%; float: left; margin-left: 15%;">
         <i class="fas fa-ellipsis-h" style="color:gray; padding-left: 4%;"></i>
@@ -86,9 +80,6 @@
     </div>
 </section>
 
-<!-- Modal lightbox -->
-<!--  -->
-
 <section id="listings" class="py-4">
     <div class="container">
         <div class="row"
@@ -105,35 +96,33 @@
 
             <div id="condo_box" class="col-md-6 col-lg-4 mb-4">
                 <div class="card listing-preview shadow-lg">
-                    <img class="card-img-top" src="../../..{{ unit.get_first_image }}" alt="">
-                    <div class="card-img-overlay">
-                    </div>
-                    <div class="card-body">
-                        <div class="listing-heading text-center">
-                            <h4 class="mb-4 text-grey-darker"
-                                style="font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;">
-                                {{ unit.title }}</h4>
+                    <a href="{% url 'estate:unit' unit.id %}" style="text-decoration: none;" id="condo_box">
+                        <img class="card-img-top" src="../../..{{ unit.get_first_image }}" alt="">
+                        <div class="card-img-overlay">
                         </div>
-                        <hr>
-                        <div class="row py-2 text-primary">
-                            <div class="col-6">
-                                Unit Number: {{ unit.number }}</div>
-                            <div class="col-6">
-                                Availability: {% if unit.still_on_contract %} No {% else %} Yes {% endif %}</div>
+                        <div class="card-body">
+                            <div class="listing-heading text-center">
+                                <h4 class="mb-4 text-grey-darker"
+                                    style="font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;">
+                                    {{ unit.title }}</h4>
+                            </div>
+                            <hr>
+                            <div class="row py-2 text-primary">
+                                <div class="col-6">
+                                    Unit Number: {{ unit.number }}</div>
+                                <div class="col-6">
+                                    Availability: {% if unit.still_on_contract %} No {% else %} Yes {% endif %}</div>
+                            </div>
+                            <div class="row py-2 text-primary">
+                                <div class="col-6">
+                                    Rent: {{ unit.price_for_rent }} ฿</div>
+                                <div class="col-6">
+                                    Size: {{ unit.area }} m²</div>
+                            </div>
                         </div>
-                        <div class="row py-2 text-primary">
-                            <div class="col-6">
-                                Rent: {{ unit.price_for_rent }} ฿</div>
-                            <div class="col-6">
-                                Size: {{ unit.area }} m²</div>
-                        </div>
-                    </div>
+                    </a>
                 </div>
                 {% if not unit.still_on_contract %}
-                <a href="{% url 'estate:unit' unit.id %}">
-                    <div class="overlay">
-                    </div>
-                </a>
                 {% endif %}
             </div>
 
@@ -163,6 +152,7 @@
     </style>
     <script>
         let map;
+
         function initMap() {
             const directionsService = new google.maps.DirectionsService();
             const directionsRenderer = new google.maps.DirectionsRenderer();
@@ -170,7 +160,8 @@
             {
                 center: new google.maps.LatLng({{ condo.geolocation.lat }},{{ condo.geolocation.lon }}),
                 zoom: 20,
-            }
+//                mapTypeId: google.maps.MapTypeId.ROADMAP
+            } 
             map = new google.maps.Map(document.getElementById("map"), mapOptions);
 
             var point = new google.maps.LatLng({{ condo.geolocation.lat }}, {{ condo.geolocation.lon }});
@@ -217,16 +208,16 @@
 
 <body>
     <div class="container" id="floating-panel">
-        <b>Search for BTS</b><br>
-        <b>Address: {{ condo.address }} </b><br>
-        <b>Destination BTS: </b>
-        <select id="end">
+        <i class="fas fa-2x fa-search-location"></i> <b>Search the location of BTS around you</b><br><br>
+        <i class="fas fa-map-marker-alt" style="color: red;"></i> <b>Current Address: {{ condo.address }} </b><br><br>
+        <i class="fas fa-2x fa-subway"></i> <b>Destination BTS: </b>
+        <select class="custom-select w-25" id="end">
             {% for key, value in BTS_data.items %}
             <option value="{{value}}">{{key}}</option>
             {% endfor %}
-        </select><br>
-        <b>Mode of Travel: </b>
-        <select id="mode">
+        </select>
+        <i class="fas fa-2x fa-road" style="color: gray;"></i> <b>Mode of Travel: </b>
+        <select class="custom-select w-25" id="mode">
             <option value="DRIVING">Driving</option>
             <option value="WALKING">Walking</option>
             <option value="TRANSIT">Transit</option>

@@ -6,7 +6,7 @@ from django_google_maps import fields as map_fields
 class Condo(models.Model):
     name = models.CharField(max_length=100, unique=True)
     description = models.TextField(max_length=500)
-    number_of_floors = models.IntegerField(default=1)
+    number_of_floors = models.PositiveIntegerField(default=1)
 
     # admin only
     juristic_persons_number = models.TextField(max_length=25)
@@ -55,10 +55,7 @@ class Condo(models.Model):
     def get_all_register_unit(self):
         return len(self.get_units())
 
-    # def get_number_images(self):
-    #     return self.condoimages_set.all().count()
-
-    def get_images_url(self): #id base 0
+    def get_images_url(self):
         cond_images = self.condoimages_set.all()
         img_list = []
         for i in range(1, cond_images.count()):
@@ -67,7 +64,6 @@ class Condo(models.Model):
 
     def get_images(self):
         return self.condoimages_set.all()
-        # first().image.url.replace('/estate', '..', 1)
 
     def get_first_image(self):
         return self.condoimages_set.first().image.url.replace('/estate', '', 1)
@@ -75,9 +71,9 @@ class Condo(models.Model):
     def get_class_name(self):
         return type(self).__name__
 
-        
+
 def conference_directory_path(instance, filename):
-    return 'estate/static/estate/images/user_upload/condo/condo_id_{0}/{1}'.format(instance.condo.id, filename)
+    return 'images/user_upload/condo/condo_id_{0}/{1}'.format(instance.condo.id, filename)
 
 
 class CondoImages(models.Model):

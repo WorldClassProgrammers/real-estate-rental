@@ -29,4 +29,4 @@ class UnitForm(ModelForm):
             'number_of_bedroom': NumberInput(attrs={'class': 'form-control'}),
             'number_of_bathroom': NumberInput(attrs={'class': 'form-control'}),
             'area': NumberInput(attrs={'class': 'form-control', 'required': True}),
-            }
+        }

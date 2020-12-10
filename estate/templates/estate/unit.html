@@ -28,7 +28,7 @@
     <div class="row" style="margin-left: 1%;">
         <div class="col-lg-9">
             <!-- Home Main Image -->
-            <img src="{{ unit.get_first_image }}"" alt="" class=" img-main img-fluid mb-3">
+            <img src="{{ unit.get_first_image }}" alt="" class=" img-main img-fluid mb-3">
 
             <div class="row mb-5 thumbs">
                 {% for img_url in unit.get_images_url  %}
@@ -61,7 +61,7 @@
             <ul class="list-group list-group-flush">
                 <li class="list-group-item text-primary">
                     <i class="fas fa-money-check-alt"></i> Rental Price:
-                    <span class="float-right">{{ unit.price_for_rent}}฿</span>
+                    <span class="float-right">{{ unit.price_for_rent }}฿</span>
                 </li>
                 <li class="list-group-item text-primary">
                     <i class="fas fa-bed"></i> Bedrooms:
@@ -93,11 +93,9 @@
                 </li>
                 <li class="list-group-item text-primary">
                     <i class="fas fa-user"></i> Realtor:
-                    <span class="float-right">{{unit.owner}}
+                    <span class="float-right">{{ unit.owner }}
                     </span>
                 </li>
-
-
             </ul>
         </div>
     </div>
@@ -107,9 +105,10 @@
         <h5>
             Description
         </h5>
-        <p>
-            {{ unit.description }}
-        </p>
+    </div>
+    <div class="row"
+        style="word-break: break-all; margin-right: 10%; padding-left: 4%; margin-top: 2%; margin-bottom: 2%; font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;">
+        {{ unit.description }}
     </div>
     <hr style="width: 30%; float: left; margin-left: 15%;">
     <i class="fas fa-ellipsis-h" style="color:gray; padding-left: 4%;"></i>
