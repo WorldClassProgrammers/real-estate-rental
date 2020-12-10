@@ -5,17 +5,46 @@
 {% block head_title %}{% trans "Signup" %}{% endblock %}
 
 {% block content %}
-<h1>{% trans "Sign Up" %}</h1>
 
-<p>{% blocktrans %}Already have an account? Then please <a href="{{ login_url }}">sign in</a>.{% endblocktrans %}</p>
+<style>
+    .oath-container {
+        background: url(https://i.ibb.co/HqQXqWV/Artboard-2.jpg);
+        background-size: cover;
+        background-repeat: no-repeat;
+        text-align: center;
+        padding: 12px;
+        padding-top: 5%;
+        height: 100%;
+        width: 600px;
+    }
 
-<form class="signup" id="signup_form" method="post" action="{% url 'account_signup' %}">
-  {% csrf_token %}
-  {{ form.as_p }}
-  {% if redirect_field_value %}
-  <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
-  {% endif %}
-  <button type="submit">{% trans "Sign Up" %} &raquo;</button>
-</form>
+    .btn-outline-light {
+        margin: 2px;
+        background-color: white;
+        color: #3574bd;
+        border-color: #3574bd;
+    }
+
+    .btn-outline-light:hover {
+        background-color: #3574bd;
+        color: aliceblue;
+    }
+
+    h1 {
+        margin-bottom: 60px;
+    }
+</style>
+
+<div class="container oath-container shadow">
+    <h1>{% trans "Sign Up" %}</h1>
+    <form class="signup" id="signup_form" method="post" action="{% url 'account_signup' %}">
+        {% csrf_token %}
+        {{ form.as_p }}
+        {% if redirect_field_value %}
+        <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
+        {% endif %}
+        <button class="btn btn-outline-light my-2 my-sm-0" type="submit">{% trans "Sign Up" %} &raquo;</button>
+    </form>
+</div>
 
 {% endblock %}

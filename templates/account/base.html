@@ -1,40 +1,41 @@
+{% load static %}
 <!DOCTYPE html>
-<html>
-  <head>
-    <title>{% block head_title %}{% endblock %}</title>
-    {% block extra_head %}
-    {% endblock %}
-  </head>
-  <body>
-    {% block body %}
+<html lang="en">
 
-    {% if messages %}
-    <div>
-      <strong>Messages:</strong>
-      <ul>
-        {% for message in messages %}
-        <li>{{message}}</li>
-        {% endfor %}
-      </ul>
-    </div>
-    {% endif %}
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
 
-    <div>
-      <strong>Menu:</strong>
-      <ul>
-        {% if user.is_authenticated %}
-        <li><a href="{% url 'account_email' %}">Change E-mail</a></li>
-        <li><a href="{% url 'account_logout' %}">Sign Out</a></li>
-        {% else %}
-        <li><a href="{% url 'account_login' %}">Sign In</a></li>
-        <li><a href="{% url 'account_signup' %}">Sign Up</a></li>
-        {% endif %}
-      </ul>
-    </div>
-    {% block content %}
-    {% endblock %}
-    {% endblock %}
-    {% block extra_body %}
-    {% endblock %}
-  </body>
+  <script src="https://kit.fontawesome.com/d4d128948a.js" crossorigin="anonymous"></script>
+
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="{% static 'css/all.css' %}">
+  <!-- Bootstrap -->
+  <link rel="stylesheet" href="{% static 'css/bootstrap.css' %}">
+  <!-- Custom -->
+  <link rel="stylesheet" href="{% static 'estate/style.css' %}">
+  <!-- Light box  -->
+  <link rel="stylesheet" href="{% static 'css/lightbox.min.css' %}">
+
+</head>
+
+<body>
+  <!-- Navbar -->
+  {% include 'partials/navbar.html' %}
+
+  <!-- Main Content -->
+  {% block content %}
+
+  {% endblock %}
+
+  <!-- Footer -->
+  {% include 'partials/footer.html'%}
+
+  <script src="{% static 'js/jquery-3.3.1.min.js' %}"></script>
+  <script src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
+  <script src="{% static 'js/lightbox.min.js' %}"></script>
+  <script src="{% static 'js/main.js' %}"></script>
+
+</body>
+
 </html>
