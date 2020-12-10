@@ -1,3 +1,4 @@
+from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseRedirect
 from django.shortcuts import render, get_object_or_404
@@ -182,7 +183,10 @@ def upload_condo(request):
                 CondoImages.objects.create(condo=this_condo, image=image)
         else:
             CondoImages.objects.create(condo=this_condo, image='https://i.imgur.com/31d1Qdm_d.webp?maxwidth=1520&fidelity=grand')
-
+    else:
+        msg = f"Invalid Input!"
+        messages.error(request, msg)
+        return HttpResponseRedirect(reverse('estate:upload_index'))
     return HttpResponseRedirect(reverse('estate:index'))
 
 
@@ -199,5 +203,8 @@ def upload_unit(request):
                 UnitImages.objects.create(unit=this_unit, image=image)
         else:
             UnitImages.objects.create(unit=this_unit, image='https://i.imgur.com/31d1Qdm_d.webp?maxwidth=1520&fidelity=grand')
-
+    else:
+        msg = f"Invalid Input!"
+        messages.error(request, msg)
+        return HttpResponseRedirect(reverse('estate:upload_index'))
     return HttpResponseRedirect(reverse('estate:index'))
