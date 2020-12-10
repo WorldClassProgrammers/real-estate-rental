@@ -8,7 +8,7 @@ from django.conf import settings
 
 from .forms import CondoForm, UnitForm
 
-from .models import Unit, Condo, CustomUser
+from .models import Unit, Condo
 from .models.condo import CondoImages
 from .models.unit import UnitImages
 from .models.transit_data import BTS_data, MRT_blue_data, MRT_purple_data
@@ -177,8 +177,11 @@ def upload_condo(request):
     if condo_form.is_valid():
         this_condo = condo_form.save()
 
-        for image in request.FILES.getlist('files'):
-            CondoImages.objects.create(condo=this_condo, image=image)
+        if len(request.FILES.getlist('files')) > 0:
+            for image in request.FILES.getlist('files'):
+                CondoImages.objects.create(condo=this_condo, image=image)
+        else:
+            CondoImages.objects.create(condo=this_condo, image='https://i.imgur.com/31d1Qdm_d.webp?maxwidth=1520&fidelity=grand')
 
     return HttpResponseRedirect(reverse('estate:index'))
 
@@ -191,9 +194,10 @@ def upload_unit(request):
         this_unit.owner = request.user
         this_unit.save()
 
-        for image in request.FILES.getlist('files'):
-            UnitImages.objects.create(unit=this_unit, image=image)
-    else:
-        pass
+        if len(request.FILES.getlist('files')) > 0:
+            for image in request.FILES.getlist('files'):
+                UnitImages.objects.create(unit=this_unit, image=image)
+        else:
+            UnitImages.objects.create(unit=this_unit, image='https://i.imgur.com/31d1Qdm_d.webp?maxwidth=1520&fidelity=grand')
 
     return HttpResponseRedirect(reverse('estate:index'))

@@ -23,7 +23,7 @@
         <div class="row" style="margin-left: 1%;">
             <div class="col-lg-9">
                 <!-- Home Main Image -->
-                <img src="{{ condo.get_first_image }}"" alt="" class=" img-main img-fluid mb-3">
+                <img src="{{ condo.get_first_image }}" alt="" class=" img-main img-fluid mb-3">
 
                 <div class="row mb-5 thumbs">
                     {% for img_url in condo.get_images_url  %}
@@ -80,9 +80,6 @@
     </div>
 </section>
 
-<!-- Modal lightbox -->
-<!--  -->
-
 <section id="listings" class="py-4">
     <div class="container">
         <div class="row"
@@ -126,10 +123,6 @@
                     </a>
                 </div>
                 {% if not unit.still_on_contract %}
-                <!-- <a href="{% url 'estate:unit' unit.id %}">
-                    <div class="overlay">
-                    </div>
-                </a> -->
                 {% endif %}
             </div>
 
