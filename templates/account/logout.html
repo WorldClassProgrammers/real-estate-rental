@@ -5,17 +5,48 @@
 {% block head_title %}{% trans "Sign Out" %}{% endblock %}
 
 {% block content %}
-<h1>{% trans "Sign Out" %}</h1>
 
-<p>{% trans 'Are you sure you want to sign out?' %}</p>
+<style>
+  .oath-container {
+    background: url(https://i.ibb.co/HqQXqWV/Artboard-2.jpg);
+    background-size: cover;
+    background-repeat: no-repeat;
+    text-align: center;
+    padding: 12px;
+    padding-top: 5%;
+    height: 100%;
+    width: 600px;
+  }
 
-<form method="post" action="{% url 'account_logout' %}">
-  {% csrf_token %}
-  {% if redirect_field_value %}
-  <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}"/>
-  {% endif %}
-  <button type="submit">{% trans 'Sign Out' %}</button>
-</form>
+  .btn-outline-light {
+    margin: 2px;
+    background-color: white;
+    color: #3574bd;
+    border-color: #3574bd;
+  }
+
+  .btn-outline-light:hover {
+    background-color: #3574bd;
+    color: aliceblue;
+  }
+
+  h1 {
+    margin-bottom: 60px;
+  }
+</style>
+
+<div class="container oath-container shadow">
+  <h1>{% trans "Sign Out" %}</h1>
+  
+  <p>{% trans 'Are you sure you want to sign out?' %}</p>
+  <form method="post" action="{% url 'account_logout' %}">
+    {% csrf_token %}
+    {% if redirect_field_value %}
+    <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
+    {% endif %}
+    <button class="btn btn-outline-light my-2 my-sm-0" type="submit">{% trans 'Sign Out' %}</button>
+  </form>
+</div>
 
 
 {% endblock %}
