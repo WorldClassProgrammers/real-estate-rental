@@ -25,34 +25,36 @@
             {% for result in page_obj %}
             <div id="condo_box" class="col-md-6 col-lg-4 mb-4">
                 <div class="card listing-preview shadow-lg">
-                    <img class="card-img-top" src="{{ result.get_first_image }}" alt="">
-                    <div class="card-img-overlay">
-                    </div>
-                    <div class="card-body">
-                        <div class="listing-heading text-center">
-                            <h4 class="mb-4 text-grey-darker"
-                                style="font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;">
-                                {{ result.name }}</h4>
+                    <a href="{% url 'estate:condo' result.id %}" style="text-decoration: none;" id="condo_box">
+                        <img class="card-img-top" src="{{ result.get_first_image }}" alt="">
+                        <div class="card-img-overlay">
                         </div>
-                        <hr>
-                        <div class="row py-2 text-primary">
-                            <div class="col-6">
-                                Floors: {{ result.number_of_floors }} </div>
-                            <div class="col-6">
-                                Available Units: {{ result.get_available_units }}</div>
+                        <div class="card-body">
+                            <div class="listing-heading text-center">
+                                <h4 class="mb-4 text-grey-darker"
+                                    style="font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;">
+                                    {{ result.name }}</h4>
+                            </div>
+                            <hr>
+                            <div class="row py-2 text-primary">
+                                <div class="col-6">
+                                    Floors: {{ result.number_of_floors }} </div>
+                                <div class="col-6">
+                                    Available Units: {{ result.get_available_units }}</div>
+                            </div>
+                            <div class="row py-2 text-primary">
+                                <div class="col-6">
+                                    In case more info:</div>
+                                <div class="col-6">
+                                    in the future:</div>
+                            </div>
                         </div>
-                        <div class="row py-2 text-primary">
-                            <div class="col-6">
-                                In case more info:</div>
-                            <div class="col-6">
-                                in the future:</div>
-                        </div>
-                    </div>
+                    </a>
                 </div>
-                <a href="{% url 'estate:condo' result.id %}">
+                <!-- <a href="{% url 'estate:condo' result.id %}">
                     <div class="overlay">
                     </div>
-                </a>
+                </a> -->
             </div>
             {% endfor %}
         </div>

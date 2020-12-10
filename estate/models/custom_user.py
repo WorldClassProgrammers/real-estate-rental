@@ -1,7 +1,6 @@
-from django.contrib.auth.models import AbstractUser, BaseUserManager
+from django.contrib.auth.models import AbstractUser
 from django.db import models
 from django.core.validators import validate_email, RegexValidator
-# from .owner import Owner
 
 
 class CustomUser(AbstractUser):
@@ -45,15 +44,8 @@ class ContactInfo(models.Model):
                 message="Phone number must be entered in the format: '+999999999'. Up to 15 digits allowed."
             )
             phone_validator(self.information)
-<<<<<<< HEAD
-
-    def __str__(self):
-        type_display = dict(self.CONTACT_TYPES)[self.contact_type]
-        return f"{type_display}: {self.information}"
-=======
         return True
 
     def __str__(self):
         type_display = dict(self.CONTACT_TYPES)[self.contact_type]
         return f"{type_display}: {self.information}"
->>>>>>> cloud-deployment

@@ -16,9 +16,6 @@ from decouple import config
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-# Quick-start development settings - unsuitable for production
-# See https://docs.djangoproject.com/en/3.1/howto/deployment/checklist/
-
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = config('SECRET_KEY', default='foobar')
 
@@ -42,14 +39,10 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'django_google_maps',
     'django.contrib.sites',
-
-
-    'allauth',
-    'allauth.account',
-    'allauth.socialaccount',
+    'allauth',  
+    'allauth.account',  
+    'allauth.socialaccount',  
     'allauth.socialaccount.providers.github',
-    # 'allauth.socialaccount.providers.facebook',
-    # 'allauth.socialaccount.providers.openid',
     'allauth.socialaccount.providers.google',
 ]
 
@@ -88,7 +81,6 @@ LOGIN_REDIRECT_URL = 'estate:index'
 WSGI_APPLICATION = 'estateSite.wsgi.application'
 
 # Database
-# https://docs.djangoproject.com/en/3.1/ref/settings/#databases
 
 DATABASES = {
     'default': {
@@ -107,7 +99,6 @@ DATABASES = {
 }
 
 # Password validation
-# https://docs.djangoproject.com/en/3.1/ref/settings/#auth-password-validators
 
 AUTH_PASSWORD_VALIDATORS = [
     {
@@ -125,12 +116,10 @@ AUTH_PASSWORD_VALIDATORS = [
 ]
 
 # Internationalization
-# https://docs.djangoproject.com/en/3.1/topics/i18n/
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'Asia/Bangkok'
-# TIME_ZONE = config('TIME_ZONE',default='Asia/Bangkok')
+TIME_ZONE = config('TIME_ZONE',default='Asia/Bangkok')
 
 USE_I18N = True
 
@@ -139,30 +128,23 @@ USE_L10N = True
 USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/3.1/howto/static-files/
 
 STATIC_ROOT = "/home/akezurel/real-estate-rental/estate/static/"
 
 STATIC_URL = '/static/'
 
-# MEDIA_URL = '/images/'
-# MEDIA_ROOT = os.path.join(BASE_DIR, 'images')
-
 MEDIA_URL = '/images/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'images')
-
 
 
 AUTH_USER_MODEL = 'estate.CustomUser'
 
 GOOGLE_MAPS_API_KEY = config('GOOGLE_MAPS_API_KEY', default='AIzaSyCO5k3BaMnHoLBabkndpqf2LFUFHOfTP5Q')
 
-
-AUTHENTICATION_BACKENDS = (
+AUTHENTICATION_BACKENDS = ( 
 	'django.contrib.auth.backends.ModelBackend',
 	'allauth.account.auth_backends.AuthenticationBackend',
 )
-
 
 SITE_ID = 1
 
@@ -170,21 +152,13 @@ ACCOUNT_EMAIL_VERIFICATION = 'none'
 
 LOGIN_REDIRECT_URL = 'estate:index'
 
-
-SOCIALACCOUNT_PROVIDERS =  {
-                            #     'facebook':
-                            #    {'METHOD': 'oauth2',
-                            #     'SCOPE': ['email'],
-                            #     'AUTH_PARAMS': {'auth_type': 'reauthenticate'},
-                            #     'LOCALE_FUNC': lambda request: 'en_US',
-                            #     'VERSION': 'v2.4'
-                            #     },
-                                'google':
-                                { 'SCOPE': ['email'],
-                                'AUTH_PARAMS': { 'access_type': 'online' }
-                                },
-                            }
+SOCIALACCOUNT_PROVIDERS = {
+    'google': {
+        'SCOPE': ['email'],
+        'AUTH_PARAMS': {'access_type': 'online'}
+    },
+}
 
 ACCOUNT_FORMS = {
-'signup': 'estate.forms.custom_form.CustomSignupForm',
+    'signup': 'estate.forms.custom_form.CustomSignupForm',
 }

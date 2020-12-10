@@ -13,7 +13,8 @@ class Condo(models.Model):
     common_fee_account = models.TextField(max_length=25)
 
     address = map_fields.AddressField(default=None, null=True, max_length=200)
-    geolocation = map_fields.GeoLocationField(default=None, null=True, max_length=100)
+    geolocation = map_fields.GeoLocationField(
+        default=None, null=True, max_length=100)
 
     AMENITY_TYPES = (
         ('elevator', 'Elevator'),
@@ -55,10 +56,7 @@ class Condo(models.Model):
     def get_all_register_unit(self):
         return len(self.get_units())
 
-    # def get_number_images(self):
-    #     return self.condoimages_set.all().count()
-
-    def get_images_url(self): #id base 0
+    def get_images_url(self):
         cond_images = self.condoimages_set.all()
         img_list = []
         for i in range(1, cond_images.count()):
@@ -67,7 +65,6 @@ class Condo(models.Model):
 
     def get_images(self):
         return self.condoimages_set.all()
-        # first().image.url.replace('/estate', '..', 1)
 
     def get_first_image(self):
         return self.condoimages_set.first().image.url.replace('/estate', '', 1)

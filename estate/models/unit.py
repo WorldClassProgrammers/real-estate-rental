@@ -1,12 +1,10 @@
 from django.db import models
 from .condo import Condo
-# from .owner import Owner
 from .custom_user import CustomUser
 
 
 class Unit(models.Model):
     condo = models.ForeignKey(Condo, on_delete=models.CASCADE)
-    # owner = models.ForeignKey(Owner, on_delete=models.RESTRICT)
     owner = models.ForeignKey(CustomUser, on_delete=models.RESTRICT)
     number = models.CharField(max_length=10, default="1")
     title = models.CharField(max_length=100)
@@ -14,20 +12,19 @@ class Unit(models.Model):
 
     # admin only
     still_on_contract = models.BooleanField(default=False)
-    # contract_over = models.DateTimeField('contract over')
 
     price_for_rent = models.FloatField(default=0)
     price_for_sell = models.FloatField(default=0)
     floor_number = models.CharField(max_length=10, default="1")
     number_of_bedroom = models.IntegerField(default=1)
     number_of_bathroom = models.IntegerField(default=1)
-    area = models.FloatField(default=0)  # in square meters? -> sure
+    area = models.FloatField(default=0)
 
     def __str__(self):
         """Return the title of the unit."""
         return self.title
 
-    def get_images_url(self):  # id base 0
+    def get_images_url(self):
         unit_images = self.unitimages_set.all()
         img_list = []
         for i in range(1, unit_images.count()):
