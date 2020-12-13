@@ -15,7 +15,8 @@
         padding: 12px;
         padding-top: 5%;
         height: 100%;
-        width: 600px;
+        /* width: 600px; */
+        width: 45%;
     }
 
     .btn-outline-light {
@@ -33,10 +34,20 @@
     h1 {
         margin-bottom: 60px;
     }
+
+    #signup_form {
+        background-color: rgba(128, 219, 241, 0.63);
+        padding-top: 2%;
+        padding-bottom: 2%;
+        border-radius: 2em;
+        border-color: rgb(148, 188, 235);
+        border-style: solid;
+        border-width: 3px;
+    }
 </style>
 
 <div class="container oath-container shadow">
-    <h1>{% trans "Sign Up" %}</h1>
+    <h1><i class="fas fa-user-plus"></i> {% trans "Sign Up" %}</h1>
     <form class="signup" id="signup_form" method="post" action="{% url 'account_signup' %}">
         {% csrf_token %}
         {{ form.as_p }}

@@ -1,7 +1,7 @@
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseRedirect
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404 , redirect
 from django.urls import reverse
 from itertools import chain
 from django.core.paginator import Paginator
@@ -9,13 +9,14 @@ from django.conf import settings
 
 from .forms import CondoForm, UnitForm
 
-from .models import Unit, Condo
+from .models import Unit, Condo, CustomUser, ContactInfo
 from .models.condo import CondoImages
 from .models.unit import UnitImages
 from .models.transit_data import BTS_data, MRT_blue_data, MRT_purple_data
-
+from django.core.mail import send_mail
 
 import googlemaps
+from estateSite.settings import EMAIL_HOST_USER
 
 
 def index(request):
@@ -208,3 +209,28 @@ def upload_unit(request):
         messages.error(request, msg)
         return HttpResponseRedirect(reverse('estate:upload_index'))
     return HttpResponseRedirect(reverse('estate:index'))
+
+def contact(request):
+    if request.method == "POST":
+        unit_id  = request.POST['unit_id']
+        unit     = request.POST['unit_title']
+        name  = request.POST['name']
+        email = request.POST['email']
+        message = request.POST['message']
+        user_id = request.POST['user_id']
+        unit_owner_id = request.POST['unit_owner_id']
+
+        # owner = CustomUser.objects.filter(first_name=unit_owner)
+        owner = get_object_or_404(CustomUser, pk=unit_owner_id)
+
+        # email to inform owner about inquiry made.
+        send_mail(
+            'There has been an inquiry',
+            'There has been an inquiry for a '+ unit + ' unit id ' + unit_id + '. \nFrom '+ email
+            + '\n' + message,
+            EMAIL_HOST_USER,
+            [owner.email], 
+            fail_silently=False
+        )
+        return redirect(reverse('estate:condo', args=[unit_id]))
+

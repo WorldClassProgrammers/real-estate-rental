@@ -15,7 +15,8 @@
     padding: 12px;
     padding-top: 5%;
     height: 100%;
-    width: 600px;
+    /* width: 600px; */
+    width: 45%
   }
 
   .btn-outline-light {
@@ -36,7 +37,7 @@
 </style>
 
 <div class="container oath-container shadow">
-  <h1>{% trans "Sign Out" %}</h1>
+  <h1><i class="fas fa-sign-out-alt"></i> {% trans "Sign Out" %}</h1>
   
   <p>{% trans 'Are you sure you want to sign out?' %}</p>
   <form method="post" action="{% url 'account_logout' %}">

@@ -31,7 +31,9 @@
         margin-bottom: 12px;
     }
 </style>
-
+<head>
+    {{form.media}}
+</head>
 <div class="container">
     {% if messages %}
     <ul class="messages">
@@ -58,13 +60,14 @@
             <form method="POST" enctype="multipart/form-data" action="{% url 'estate:upload_condo' %}">
                 {% csrf_token %}
                 {% for field in condo_form %}
-                <div class="form-group">
-                    {{ field.label_tag }}
-                        {% if field.label_tag == "<label>Amenities:</label>" %}
-                        (At least one amenity have to be check to valid the form)
-                        {% endif %}
-                    {{ field }}
-                </div>
+                    <div class="form-group">
+                        {{ field.label_tag }} 
+                            {% if field.label_tag == "<label>Amenities:</label>" %}
+                            (Select at least one amenity to make the form valid.)
+                            {% endif %}
+                        {{ field }}
+                    </div>
+                        {{ form.as_p }}
                 {% endfor %}
                 <table id="image_fields_condo">
                     <td>Image:</td>
@@ -109,7 +112,11 @@
     </ul>
 </div>
 
-<script>
+<script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCO5k3BaMnHoLBabkndpqf2LFUFHOfTP5Q&callback=initMap&libraries=&v=weekly"
+    defer></script>
+
+<script>    
     condoFields = document.getElementById("condo_form_fields");
     unitFields = document.getElementById("unit_form_fields");
 
@@ -162,6 +169,44 @@
             document.getElementById(id_where).style = 'color: none';
         });
     }
+    
 
+    function initMap() {
+        let geocode;
+        let map;
+        let lat;
+        let lng;
+
+        map = new google.maps.Map(document.getElementById("map_canvas"), {
+        zoom: 18,
+        center: { lat: 13.847818698438438, lng: 100.56961909700063 },
+        });
+        geocoder = new google.maps.Geocoder();
+        document.getElementById("id_condo-address").addEventListener("change", () => {
+        geocodeAddress(geocoder, map);
+        });
+
+        function geocodeAddress(geocoder, resultsMap) {
+            const address = document.getElementById("id_condo-address").value;
+            geocoder.geocode({ address: address }, (results, status) => {
+            if (status === "OK") {
+                resultsMap.setCenter(results[0].geometry.location);
+                new google.maps.Marker({
+                map: resultsMap,
+                position: results[0].geometry.location,
+                });
+                lat = results[0].geometry.location.lat();
+                lng = results[0].geometry.location.lng(); 
+                document.getElementById("id_condo-geolocation").value = lat.toString() + ',' + lng.toString();
+        
+            } else {
+                alert(
+                "Geocode was not successful for the following reason: " + status
+                );
+            }
+            });
+
+        }
+    }
 </script>
 {% endblock %}

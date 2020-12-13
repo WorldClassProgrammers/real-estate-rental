@@ -20,7 +20,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = config('SECRET_KEY', default='foobar')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = config('DEBUG', default=True, cast=bool)
+DEBUG = config('DEBUG', default=False, cast=bool)
 
 
 # ALLOWED_HOSTS = ['akezurel.pythonanywhere.com']
@@ -132,7 +132,7 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 
 STATIC_ROOT = "/home/akezurel/real-estate-rental/estate/static/"
-
+# STATIC_ROOT = os.path.join(BASE_DIR,'static')
 STATIC_URL = '/static/'
 
 MEDIA_URL = '/images/'
@@ -164,3 +164,10 @@ SOCIALACCOUNT_PROVIDERS = {
 ACCOUNT_FORMS = {
     'signup': 'estate.forms.custom_form.CustomSignupForm',
 }
+
+#Email -> gmail
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_HOST_USER = 'Nananda.estate@gmail.com'
+EMAIL_HOST_PASSWORD = config('EMAIL_HOST_PASSWORD', default='password')
+EMAIL_USE_TLS = True

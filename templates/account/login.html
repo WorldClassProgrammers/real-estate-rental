@@ -16,7 +16,7 @@
     padding: 12px;
     padding-top: 5%;
     height: 100%;
-    width: 600px;
+    width: 45%;
   }
 
   .btn-outline-light {
@@ -34,18 +34,63 @@
   h1 {
     margin-bottom: 60px;
   }
+
+  #login_auth {
+        background-color: rgba(128, 219, 241, 0.63);
+        padding-top: 2%;
+        padding-bottom: 2%;
+        border-radius: 2em;
+        border-color: rgb(148, 188, 235);
+        border-style: solid;
+        border-width: 3px;
+  }
+
+  #sign_up_highlight {
+    color: rgb(63, 74, 231);
+    background-color: transparent;
+    padding: 0;
+  }
+  #sign_up_highlight:hover {
+    color: rgb(88, 141, 255);
+  }
+
+  li {
+    list-style-type: none;
+  }
+  .a {
+    background-color: #70a8e7;
+    border-radius: 0.5em;
+    padding-top: 1%;
+    padding-bottom: 1%;
+    padding-left: 30%;
+    padding-right: 30%;
+    line-height: 2.5;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+  }
+  .a:hover {
+    text-decoration: none;
+  }
+
+  #forget_pass {
+    background-color: transparent;
+    padding: 0;
+  }
+  #forget_pass:hover {
+    color: rgb(22, 151, 202);
+  }
 </style>
 
 <div class="container oath-container shadow">
-  <h1>{% trans "Sign In" %}</h1>
+  <h1><i class="fas fa-sign-in-alt"></i> {% trans "Sign In" %}</h1>
 
+  <div id="login_auth">
   {% get_providers as socialaccount_providers %}
   {% if socialaccount_providers %}
 
   <p>
     {% blocktrans with site.name as site_name %}
     Please sign in with one of your existing third party accounts.<br>
-    Or, <a href="{{ signup_url }}">sign up</a>
+    Or, <a href="{{ signup_url }}" id="sign_up_highlight">sign up</a>
     for this site account and sign in below:
     {% endblocktrans %}
     <div class="socialaccount_providers">
@@ -70,8 +115,9 @@
     {% if redirect_field_value %}
     <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
     {% endif %}
-    <a class="button secondaryAction" href="{% url 'account_reset_password' %}">{% trans "Forgot Password?" %}</a>
+    <a class="button secondaryAction" id="forget_pass" href="{% url 'account_reset_password' %}">{% trans "Forgot Password?" %}</a>
     <button class="primaryAction btn btn-outline-light my-2 my-sm-0" type="submit">{% trans "Sign In" %}</button>
   </form>
+  </div>
 </div>
 {% endblock %}
