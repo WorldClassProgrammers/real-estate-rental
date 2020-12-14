@@ -25,8 +25,8 @@ def index(request):
 
 def condo(request, condo_id):
     condo = get_object_or_404(Condo, pk=condo_id)
-    return render( 
-        request, 
+    return render(
+        request,
         'estate/condo.html', {
             'condo': condo,
             'api_key': settings.GOOGLE_MAPS_API_KEY,
@@ -182,7 +182,7 @@ def upload_condo(request):
             for image in request.FILES.getlist('files'):
                 CondoImages.objects.create(condo=this_condo, image=image)
         else:
-            CondoImages.objects.create(condo=this_condo, image='https://i.imgur.com/31d1Qdm_d.webp?maxwidth=1520&fidelity=grand')
+            CondoImages.objects.create(condo=this_condo, image='media/condo_bg.jpg')
     else:
         msg = f"Invalid Input!"
         messages.error(request, msg)
@@ -202,7 +202,7 @@ def upload_unit(request):
             for image in request.FILES.getlist('files'):
                 UnitImages.objects.create(unit=this_unit, image=image)
         else:
-            UnitImages.objects.create(unit=this_unit, image='https://i.imgur.com/31d1Qdm_d.webp?maxwidth=1520&fidelity=grand')
+            UnitImages.objects.create(unit=this_unit, image='media/unit_bg.jpg')
     else:
         msg = f"Invalid Input!"
         messages.error(request, msg)
