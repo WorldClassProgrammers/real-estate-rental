@@ -35,14 +35,23 @@
     {{form.media}}
 </head>
 <div class="container">
-    {% if messages %}
-    <ul class="messages">
-        {% for msg in messages %}
-        <h1>{{ msg }}</h1>
-        {% endfor %}
-    </ul>
-    {% endif %}
-    <ul id="form">
+        <ul id="form">
+            {% if messages %}
+            <ul class="messages">
+                {% for message in messages %}
+                    {% if message.level == DEFAULT_MESSAGE_LEVELS.ERROR %}
+                        <div class="alert alert-danger " role="alert">
+                            {{ message }}
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">×</span>
+                            </button>
+                        </div>
+                    {% else %}
+                {% endif %}
+                {% endfor %}
+            </ul>
+            {% endif %}
+
         <button id="btn_condo" class="btn btn-outline-light my-2 my-sm-0">
             Add condo
         </button>

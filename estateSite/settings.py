@@ -23,7 +23,7 @@ SECRET_KEY = config('SECRET_KEY', default='foobar')
 DEBUG = config('DEBUG', default=False, cast=bool)
 
 
-ALLOWED_HOSTS = ['akezurel.pythonanywhere.com']
+ALLOWED_HOSTS = ['akezurel.pythonanywhere.com', '127.0.0.1']
 # ALLOWED_HOSTS=[]
 # ALLOWED_HOSTS = config('ALLOWED_HOSTS',default='localhost,127.0.0.1').split(',')
 
