@@ -23,8 +23,8 @@ SECRET_KEY = config('SECRET_KEY', default='foobar')
 DEBUG = config('DEBUG', default=True, cast=bool)
 
 
-# ALLOWED_HOSTS = ['akezurel.pythonanywhere.com']
-ALLOWED_HOSTS=[]
+ALLOWED_HOSTS = ['akezurel.pythonanywhere.com']
+# ALLOWED_HOSTS=[]
 # ALLOWED_HOSTS = config('ALLOWED_HOSTS',default='localhost,127.0.0.1').split(',')
 
 
@@ -40,9 +40,9 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'django_google_maps',
     'django.contrib.sites',
-    'allauth',  
-    'allauth.account',  
-    'allauth.socialaccount',  
+    'allauth',
+    'allauth.account',
+    'allauth.socialaccount',
     'allauth.socialaccount.providers.github',
     'allauth.socialaccount.providers.google',
 ]
@@ -143,7 +143,7 @@ AUTH_USER_MODEL = 'estate.CustomUser'
 
 GOOGLE_MAPS_API_KEY = config('GOOGLE_MAPS_API_KEY', default='AIzaSyCO5k3BaMnHoLBabkndpqf2LFUFHOfTP5Q')
 
-AUTHENTICATION_BACKENDS = ( 
+AUTHENTICATION_BACKENDS = (
 	'django.contrib.auth.backends.ModelBackend',
 	'allauth.account.auth_backends.AuthenticationBackend',
 )
