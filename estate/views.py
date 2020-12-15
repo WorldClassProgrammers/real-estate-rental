@@ -40,7 +40,8 @@ def condo(request, condo_id):
 def unit(request, unit_id):
     unit = get_object_or_404(Unit, pk=unit_id)
     condo = Condo.objects.get(name=unit.condo.name)
-    return render(request, 'estate/unit.html', {'condo': condo, 'unit': unit})
+    owner = unit.owner
+    return render(request, 'estate/unit.html', {'condo': condo, 'unit': unit, 'owner': owner})
 
 
 def condo_listing(request):
