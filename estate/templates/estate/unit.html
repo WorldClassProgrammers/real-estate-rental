@@ -42,12 +42,14 @@
         </div>
         <div class="col-md-3">
             <div class="card mb-3">
-                <img class="card-img-top"
-                    src="https://upload-os-bbs.mihoyo.com/upload/2020/05/25/1011075/cbc30c247b04d68806f7c44b0837f27a_7762819667912258526.png"
-                    alt="">
                 <div class="card-body">
-                    <h5 class="card-title">Property Realtor</h5>
-                    <h6 class="text-primary">{{ unit.owner }}</h6>
+                    <div style="text-align: center; color: #09182e;">
+                        <p><i class="far fa-4x fa-user"></i></p>
+                        <h5 class="card-title">Property Realtor</h5>
+                        <hr>
+                    </div>
+                    <h6 class="text-primary">{{ owner }}</h6>
+                    <h8 class="text-secondary">{{owner.email}}</h8>
                 </div>
             </div>
             <button class="btn-primary btn-block btn-lg" data-toggle="modal" data-target="#inquiryModal">Make An
@@ -134,6 +136,51 @@
     </div>
 </div>
 </section>
+  <!-- Inquiry Modal -->
+  <div class="modal fade" id="inquiryModal" role="dialog">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="inquiryModalLabel">Make An Inquiry</h5>
+          <button type="button" class="close" data-dismiss="modal">
+            <span>&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+            
+          <form action="{% url 'estate:contact' %}" method="POST">
+            {% csrf_token %}
+            {% if user.is_authenticated %}
+              <input type="hidden" name="user_id" value="{{ user.id }}">
+            {% else %}
+              <input type="hidden" name="user_id" value="0">
+            {% endif %}
+            <input type="hidden" name="unit_owner_id" value="{{ unit.owner.id  }}">
+            <input type="hidden" name="unit_id" value="{{ unit.number }}">
+            <div class="form-group">
+              <label for="property_name" class="col-form-label">Property:</label>
+              <input type="text" name="unit_title" class="form-control" value="{{ unit.title   }}" >
+            </div>
+            <div class="form-group">
+              <label for="name" class="col-form-label">Name:</label>
+              <input type="text" name="name" class="form-control" {% if user.is_authenticated %} value="{{ user.first_name }} {{ user.last_name }}" {% endif %}  required>
+            </div>
+            <div class="form-group">
+              <label for="email" class="col-form-label">Email:</label>
+              <input type="email" name="email" class="form-control" {% if user.is_authenticated %} value="{{ user.email }}" {% endif %} required>
+            </div>
+
+            <div class="form-group">
+              <label for="message" class="col-form-label">Message:</label>
+              <textarea name="message" class="form-control"></textarea>
+            </div>
+            <hr>
+            <input type="submit" value="Send" class="btn btn-block btn-secondary">
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
 
 
 {% endblock %}

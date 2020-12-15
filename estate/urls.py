@@ -1,3 +1,5 @@
+from django.conf import settings
+from django.conf.urls.static import static
 from django.urls import path
 
 from . import views
@@ -14,4 +16,6 @@ urlpatterns = [
     path('upload/', views.upload_index, name='upload_index'),
     path('upload/condo/', views.upload_condo, name='upload_condo'),
     path('upload/unit/', views.upload_unit, name='upload_unit'),
-]
+    path('contact/', views.contact, name='contact'),
+]  
+
