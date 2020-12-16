@@ -136,6 +136,7 @@ STATIC_ROOT = "/home/akezurel/real-estate-rental/estate/static/"
 STATIC_URL = '/static/'
 
 MEDIA_URL = '/images/'
+# MEDIA_ROOT = "/home/akezurel/real-estate-rental/images/"
 MEDIA_ROOT = os.path.join(BASE_DIR, 'images')
 
 

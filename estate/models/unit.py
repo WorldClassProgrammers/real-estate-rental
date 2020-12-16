@@ -1,6 +1,7 @@
 from django.db import models
 from .condo import Condo
 from .custom_user import CustomUser
+# from estateSite.settings import MEDIA_ROOT , MEDIA_URL
 
 
 class Unit(models.Model):

@@ -1,7 +1,7 @@
 from django.db import models
 from multiselectfield import MultiSelectField
 from django_google_maps import fields as map_fields
-from estateSite.settings import MEDIA_ROOT , MEDIA_URL
+# from estateSite.settings import MEDIA_ROOT , MEDIA_URL
 
 class Condo(models.Model):
     name = models.CharField(max_length=100, unique=True)
