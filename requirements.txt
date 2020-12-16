@@ -6,3 +6,4 @@ coverage>=5.3
 django-google-maps>=0.12.2
 django-allauth>=0.43.0
 googlemaps==4.4.2
+mysqlclient>=2.0.2

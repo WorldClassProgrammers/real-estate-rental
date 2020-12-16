@@ -23,9 +23,9 @@ SECRET_KEY = config('SECRET_KEY', default='foobar')
 DEBUG = config('DEBUG', default=False, cast=bool)
 
 
-ALLOWED_HOSTS = ['akezurel.pythonanywhere.com', '127.0.0.1']
+# ALLOWED_HOSTS = ['akezurel.pythonanywhere.com', '127.0.0.1']
 # ALLOWED_HOSTS=[]
-# ALLOWED_HOSTS = config('ALLOWED_HOSTS',default='localhost,127.0.0.1').split(',')
+ALLOWED_HOSTS = config('ALLOWED_HOSTS',default='localhost,127.0.0.1,akezurel.pythonanywhere.com').split(',')
 
 
 # Application definition
@@ -89,13 +89,14 @@ DATABASES = {
         'ENGINE': config('DATABASE_ENGINE',default='django.db.backends.sqlite3'),
 
         # 'NAME': BASE_DIR / 'db.sqlite3',
-        # 'NAME': config('DATABASE_NAME',default='db.sqlite3'),
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3')
+        'NAME': config('DATABASE_NAME',default='db.sqlite3'),
+        # 'NAME': os.path.join(BASE_DIR, 'db.sqlite3')
 
-        # 'USER': config('DATABASE_USER',default='user'),
-        # 'PASSWORD': config('DATABASE_PWD',default='password'),
+        'USER': config('DATABASE_USER',default='user'),
+        'PASSWORD': config('DATABASE_PWD',default='password'),
         # 'HOST': config('DATABASE_HOST',default='localhost'),
-        # 'HOST': config('DATABASE_HOST',default='akezurel.pythonanywhere.com'),
+        'HOST': config('DATABASE_HOST',default='akezurel.pythonanywhere.com'),
+        'init_command': "SET sql_mode='STRICT_TRANS_TABLES'",
     }
 }
 
