@@ -1,6 +1,7 @@
 # Real Estate Rental
 
 [![Build Status](https://travis-ci.com/ZEZAY/real-estate-rental.svg?branch=master)](https://travis-ci.com/ZEZAY/real-estate-rental)
+[![codecov](https://codecov.io/gh/ZEZAY/real-estate-rental/branch/master/graph/badge.svg?token=B95SVY9XSW)](https://codecov.io/gh/ZEZAY/real-estate-rental)
 
 ## Description
 
