@@ -61,7 +61,11 @@ def unit_listing(request):
 
 
 def search_nearby_bts(request):
-    res = request.POST['dropdownsearch']
+    res = ''
+    try:
+        res = request.POST['dropdownsearch']
+    except Exception:
+        res = 'Nana'
 
     condo_set_list = Condo.objects.order_by('-name')
     gmaps = googlemaps.Client(key=settings.GOOGLE_MAPS_API_KEY)
@@ -92,7 +96,11 @@ def search_by_amnities(request):
     condo_set_list = Condo.objects.order_by('-name')
 
     if request.method == 'GET':
-        res = request.GET['selectedfield']
+        res = ''
+        try:
+            res = request.GET['selectedfield']
+        except Exception:
+            res = ''
         keywords = res.strip('][').split(', ')
         for index, amenity in enumerate(keywords):
             amenity = amenity[1:-1]
@@ -116,6 +124,8 @@ def search_by_keywords(request):
 
 def search(request):
     unit_set_list = Unit.objects.order_by('-title')
+    condoSet_list = Condo.objects.order_by('-name')
+    keywords = ''
     station = ''
     dist_info = ''
     if request.method == 'GET':
@@ -230,7 +240,7 @@ def contact(request):
             'There has been an inquiry for a '+ unit + ' unit id ' + unit_id + '. \nFrom '+ email
             + '\n' + message,
             EMAIL_HOST_USER,
-            [owner.email], 
+            [owner.email],
             fail_silently=False
         )
         return redirect(reverse('estate:condo', args=[unit_id]))

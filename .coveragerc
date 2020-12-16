@@ -11,3 +11,12 @@ omit =
     estate/migrations/*
     estate\__init__.py
     estate\tests\*
+
+[report]
+
+exclude_lines =
+    def clean
+    def __str__
+    def upload_condo
+    def upload_unit
+    def contact
