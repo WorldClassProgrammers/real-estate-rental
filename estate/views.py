@@ -68,7 +68,7 @@ def search_nearby_bts(request):
         res = 'Nana'
 
     condo_set_list = Condo.objects.order_by('-name')
-    gmaps = googlemaps.Client(key=settings.GOOGLE_MAPS_API_KEY)
+    gmaps = googlemaps.Client(key='AIzaSyCO5k3BaMnHoLBabkndpqf2LFUFHOfTP5Q')
     latlon = BTS_data[str(res)]
     lat_lon = latlon.split(',')
     origins = {"lat": float(lat_lon[0]), "lng": float(lat_lon[1])}
