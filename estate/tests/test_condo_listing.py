@@ -27,4 +27,4 @@ class TestCondoListingView(TestCase):
         condo2.save()
         response = self.client.get(reverse('estate:condo_listing'))
         self.assertContains(response, condo.name)
-        self.assertNotContains(response, condo2.name)
+        self.assertContains(response, condo2.name)
