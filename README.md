@@ -62,7 +62,7 @@ Mobile application supported
 ### Project Documents
 
 [Code review](https://docs.google.com/document/d/1plSBYDK-mYTJ-u1JY7BV-esmCcP8XGtpmY4gUwgzB0g/edit?usp=sharing)
-
+[Powerpoint Presentation](https://drive.google.com/file/d/12u_9orDhuJduxVtoih5-zMpXQsWyAmN8/view?usp=sharing)
 ## Team Members
 
 - Nutta Sittipongpanich
