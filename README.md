@@ -63,7 +63,7 @@ Mobile application supported
 
 [Code review](https://docs.google.com/document/d/1plSBYDK-mYTJ-u1JY7BV-esmCcP8XGtpmY4gUwgzB0g/edit?usp=sharing)
 
-[Powerpoint Presentation](https://drive.google.com/file/d/12u_9orDhuJduxVtoih5-zMpXQsWyAmN8/view?usp=sharing)
+[Powerpoint Presentation](https://drive.google.com/file/d/13NBsvKzU62JuGDwS2yay6_AuN9auu3hg/view?usp=sharing)
 
 ## Team Members
 
