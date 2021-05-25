@@ -25,7 +25,7 @@ DEBUG = config('DEBUG', default=False, cast=bool)
 
 # ALLOWED_HOSTS = ['akezurel.pythonanywhere.com', '127.0.0.1']
 # ALLOWED_HOSTS=[]
-ALLOWED_HOSTS = config('ALLOWED_HOSTS',default='localhost,127.0.0.1,akezurel.pythonanywhere.com').split(',')
+ALLOWED_HOSTS = config('ALLOWED_HOSTS',default='localhost,127.0.0.1,akezurel.pythonanywhere.com,kamolthip.herokuapp.com').split(',')
 
 
 # Application definition
