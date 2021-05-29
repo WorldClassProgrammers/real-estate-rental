@@ -10,3 +10,4 @@ mysqlclient>=2.0.2
 django-heroku
 dj-database-url
 psycopg2
+gunicorn
