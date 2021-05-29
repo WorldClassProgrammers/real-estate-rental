@@ -137,14 +137,14 @@ USE_L10N = True
 USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
-
-STATIC_ROOT = "/home/akezurel/real-estate-rental/estate/static/"
+# ====================================================================
+STATIC_ROOT = "/estate/static/"
 # STATIC_ROOT = os.path.join(BASE_DIR,'static')
 STATIC_URL = '/static/'
-
 MEDIA_URL = '/images/'
 # MEDIA_ROOT = "/home/akezurel/real-estate-rental/images/"
 MEDIA_ROOT = os.path.join(BASE_DIR, 'images')
+# ====================================================================
 
 AUTH_USER_MODEL = 'estate.CustomUser'
 
