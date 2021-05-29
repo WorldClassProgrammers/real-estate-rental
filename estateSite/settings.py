@@ -85,8 +85,10 @@ WSGI_APPLICATION = 'estateSite.wsgi.application'
 # Database
 
 
-if os.environ.get('DATABASE_URL'):
-    DATABASES['default'] = dj_database_url.config(default=os.environ['DATABASE_URL'])
+if config('DATABASE_URL'):
+    DATABASES = {
+        'default': dj_database_url.config(default=config('DATABASE_URL'))
+    }
 else:
     DATABASES = {
         'default': {
