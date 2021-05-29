@@ -12,8 +12,8 @@ https://docs.djangoproject.com/en/3.1/ref/settings/
 import os
 from pathlib import Path
 from decouple import config
+import django_heroku
 import dj_database_url
-
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -23,11 +23,10 @@ SECRET_KEY = config('SECRET_KEY', default='foobar')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = config('DEBUG', default=False, cast=bool)
 
-
 # ALLOWED_HOSTS = ['akezurel.pythonanywhere.com', '127.0.0.1']
 # ALLOWED_HOSTS=[]
-ALLOWED_HOSTS = config('ALLOWED_HOSTS',default='localhost,127.0.0.1,akezurel.pythonanywhere.com,kamolthip.herokuapp.com').split(',')
-
+ALLOWED_HOSTS = config('ALLOWED_HOSTS',
+                       default='localhost,127.0.0.1,akezurel.pythonanywhere.com,kamolthip.herokuapp.com').split(',')
 
 # Application definition
 
@@ -84,27 +83,28 @@ WSGI_APPLICATION = 'estateSite.wsgi.application'
 
 # Database
 
-if config('DATABASE_URL'):
-    DATABASES = {
-        'default': dj_database_url.config(default=config('DATABASE_URL'))
-    }
-else:
-    DATABASES = {
-        'default': {
-            # 'ENGINE': 'django.db.backends.sqlite3',
-            'ENGINE': config('DATABASE_ENGINE',default='django.db.backends.sqlite3'),
+DATABASES = {
+    'default': dj_database_url.config(
+        default=config('DATABASE_URL')
+    )
+}
 
-            # 'NAME': BASE_DIR / 'db.sqlite3',
-            'NAME': config('DATABASE_NAME',default='db.sqlite3'),
-            # 'NAME': os.path.join(BASE_DIR, 'db.sqlite3')
-
-            'USER': config('DATABASE_USER',default='user'),
-            'PASSWORD': config('DATABASE_PWD',default='password'),
-            # 'HOST': config('DATABASE_HOST',default='localhost'),
-            'HOST': config('DATABASE_HOST',default='kamolthip.herokuapp.com'),
-            'init_command': "SET sql_mode='STRICT_TRANS_TABLES'",
-        }
-    }
+# DATABASES = {
+#     'default': {
+#         # 'ENGINE': 'django.db.backends.sqlite3',
+#         'ENGINE': config('DATABASE_ENGINE', default='django.db.backends.sqlite3'),
+#
+#         # 'NAME': BASE_DIR / 'db.sqlite3',
+#         'NAME': config('DATABASE_NAME', default='db.sqlite3'),
+#         # 'NAME': os.path.join(BASE_DIR, 'db.sqlite3')
+#
+#         'USER': config('DATABASE_USER', default='user'),
+#         'PASSWORD': config('DATABASE_PWD', default='password'),
+#         # 'HOST': config('DATABASE_HOST',default='localhost'),
+#         'HOST': config('DATABASE_HOST', default='kamolthip.herokuapp.com'),
+#         'init_command': "SET sql_mode='STRICT_TRANS_TABLES'",
+#     }
+# }
 
 # Password validation
 
@@ -128,7 +128,7 @@ AUTH_PASSWORD_VALIDATORS = [
 LANGUAGE_CODE = 'en-us'
 
 # TIME_ZONE = config('TIME_ZONE',default='Asia/Bangkok')
-TIME_ZONE='Asia/Bangkok'
+TIME_ZONE = 'Asia/Bangkok'
 
 USE_I18N = True
 
@@ -146,14 +146,13 @@ MEDIA_URL = '/images/'
 # MEDIA_ROOT = "/home/akezurel/real-estate-rental/images/"
 MEDIA_ROOT = os.path.join(BASE_DIR, 'images')
 
-
 AUTH_USER_MODEL = 'estate.CustomUser'
 
 GOOGLE_MAPS_API_KEY = config('GOOGLE_MAPS_API_KEY', default='AIzaSyCO5k3BaMnHoLBabkndpqf2LFUFHOfTP5Q')
 
 AUTHENTICATION_BACKENDS = (
-	'django.contrib.auth.backends.ModelBackend',
-	'allauth.account.auth_backends.AuthenticationBackend',
+    'django.contrib.auth.backends.ModelBackend',
+    'allauth.account.auth_backends.AuthenticationBackend',
 )
 
 SITE_ID = 1
@@ -173,7 +172,7 @@ ACCOUNT_FORMS = {
     'signup': 'estate.forms.custom_form.CustomSignupForm',
 }
 
-#Email -> gmail
+# Email -> gmail
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
 EMAIL_HOST_USER = 'Nananda.estate@gmail.com'
