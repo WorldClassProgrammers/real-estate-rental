@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/3.1/ref/settings/
 import os
 from pathlib import Path
 from decouple import config
+import dj_database_url
 
 
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -83,22 +84,29 @@ WSGI_APPLICATION = 'estateSite.wsgi.application'
 
 # Database
 
-DATABASES = {
-    'default': {
-        # 'ENGINE': 'django.db.backends.sqlite3',
-        'ENGINE': config('DATABASE_ENGINE',default='django.db.backends.sqlite3'),
-
-        # 'NAME': BASE_DIR / 'db.sqlite3',
-        'NAME': config('DATABASE_NAME',default='db.sqlite3'),
-        # 'NAME': os.path.join(BASE_DIR, 'db.sqlite3')
-
-        'USER': config('DATABASE_USER',default='user'),
-        'PASSWORD': config('DATABASE_PWD',default='password'),
-        # 'HOST': config('DATABASE_HOST',default='localhost'),
-        'HOST': config('DATABASE_HOST',default='akezurel.pythonanywhere.com'),
-        'init_command': "SET sql_mode='STRICT_TRANS_TABLES'",
+if os.environ.get('DATABASE_URL'):
+    DATABASES = {
+        'default': {
+            dj_database_url.config(default=os.environ['DATABASE_URL'])
+        }
     }
-}
+else:
+    DATABASES = {
+        'default': {
+            # 'ENGINE': 'django.db.backends.sqlite3',
+            'ENGINE': config('DATABASE_ENGINE',default='django.db.backends.sqlite3'),
+
+            # 'NAME': BASE_DIR / 'db.sqlite3',
+            'NAME': config('DATABASE_NAME',default='db.sqlite3'),
+            # 'NAME': os.path.join(BASE_DIR, 'db.sqlite3')
+
+            'USER': config('DATABASE_USER',default='user'),
+            'PASSWORD': config('DATABASE_PWD',default='password'),
+            # 'HOST': config('DATABASE_HOST',default='localhost'),
+            'HOST': config('DATABASE_HOST',default='kamolthip.herokuapp.com'),
+            'init_command': "SET sql_mode='STRICT_TRANS_TABLES'",
+        }
+    }
 
 # Password validation
 
