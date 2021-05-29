@@ -8,3 +8,4 @@ django-allauth>=0.43.0
 googlemaps==4.4.2
 mysqlclient>=2.0.2
 dj-database-url
+psycopg2
