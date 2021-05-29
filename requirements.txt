@@ -9,5 +9,5 @@ googlemaps==4.4.2
 # mysqlclient>=2.0.2
 django-heroku
 dj-database-url
-psycopg2
+psycopg2>=2.8.6
 gunicorn
