@@ -1,0 +1,9 @@
+DEBUG=False
+ALLOWED_HOSTS=localhost,127.0.0.1,kamolthip.herokuapp.com
+SECRET_KEY='Your-Secret-Key'
+DATABASE_ENGINE='django.db.backends.sqlite3'
+DATABASE_NAME='db.sqlite3'
+DATABASE_USER='test1'
+DATABASE_PWD='Noneatall'
+DATABASE_HOST='localhost'
+TIME_ZONE='Asia/Bangkok'

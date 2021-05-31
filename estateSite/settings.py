@@ -138,12 +138,19 @@ USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 # ====================================================================
-STATIC_ROOT = "/estate/static/"
-# STATIC_ROOT = os.path.join(BASE_DIR,'static')
+# STATIC_ROOT = "/estate/static/"
+# # STATIC_ROOT = os.path.join(BASE_DIR,'static')
+# STATIC_URL = '/static/'
+# MEDIA_URL = '/images/'
+# # MEDIA_ROOT = "/home/akezurel/real-estate-rental/images/"
+# MEDIA_ROOT = os.path.join(BASE_DIR, 'images')
+# ====================================================================
+# STATIC_ROOT = "/estate/static/"
+# STATIC_URL = '/static/'
+# MEDIA_URL = '/static/'
+# MEDIA_ROOT = os.path.join(BASE_DIR, 'static')
+STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")
 STATIC_URL = '/static/'
-MEDIA_URL = '/images/'
-# MEDIA_ROOT = "/home/akezurel/real-estate-rental/images/"
-MEDIA_ROOT = os.path.join(BASE_DIR, 'images')
 # ====================================================================
 
 AUTH_USER_MODEL = 'estate.CustomUser'
