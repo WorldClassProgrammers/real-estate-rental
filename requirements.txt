@@ -11,3 +11,4 @@ django-heroku
 dj-database-url
 psycopg2>=2.8.6
 gunicorn
+whitenoise
