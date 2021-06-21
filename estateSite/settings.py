@@ -140,6 +140,8 @@ USE_TZ = True
 # ====================================================================
 STATIC_URL = config('STATIC_URL', default='/static/')
 STATIC_ROOT = os.path.join(BASE_DIR, "static")
+
+django_heroku.settings(locals(), staticfiles=False)
 # ====================================================================
 
 AUTH_USER_MODEL = 'estate.CustomUser'
