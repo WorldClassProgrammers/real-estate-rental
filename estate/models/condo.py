@@ -73,7 +73,7 @@ class Condo(models.Model):
 
 
 def conference_directory_path(instance, filename):
-    return 'images/user_upload/condo/condo_id_{0}/{1}'.format(instance.condo.id, filename)
+    return 'estate/static/estate/images/user_upload/condo/condo_id_{0}/{1}'.format(instance.condo.id, filename)
 
 
 class CondoImages(models.Model):

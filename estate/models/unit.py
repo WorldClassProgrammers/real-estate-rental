@@ -43,7 +43,7 @@ class Unit(models.Model):
 
 
 def conference_directory_path(instance, filename):
-    return 'images/user_upload/unit/unit_id_{0}/{1}'.format(instance.unit.id, filename)
+    return 'estate/static/estate/images/user_upload/unit/unit_id_{0}/{1}'.format(instance.unit.id, filename)
 
 
 class UnitImages(models.Model):
