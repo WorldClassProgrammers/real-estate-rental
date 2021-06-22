@@ -21,44 +21,44 @@
                 <a class="nav-link" href="{% url 'estate:unit_listing' %}">Units</a>
             </li>
         </ul>
-        <ul class="navbar-nav ml-auto">
-            {% if user.username %}
-            <li class="nav-item active" style="margin-top: 8px;">
-                <p class="nav-link">{{ user.username }}</p>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="{% url 'account_logout' %}">
-                    <button id="login_button" style="background-color: #b7efd4;">
-                        logout
-                    </button>
-                </a>
-            </li>
-            {% else %}
-            <li class="nav-item">
-                <a class="nav-link" href="{% url 'account_login' %}">
-                    <button id="login_button" style="background-color: #e3e3e3;">
-                        login
-                    </button>
-                </a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="{% url 'account_signup' %}">
-                    <button id="login_button" style="background-color: #b7efd4;">
-                        signup
-                    </button>
-                </a>
-            </li>
-            {% endif %}
-            {% if user.role == 2 %}
-            <li class="nav-item">
-                <a class="nav-link" href="{% url 'estate:upload_index' %}">
-                    <button id="login_button" style="background-color: #cad8ff;">
-                        Post
-                    </button>
-                </a>
-            </li>
-            {% endif %}
-        </ul>
+{#        <ul class="navbar-nav ml-auto">#}
+{#            {% if user.username %}#}
+{#            <li class="nav-item active" style="margin-top: 8px;">#}
+{#                <p class="nav-link">{{ user.username }}</p>#}
+{#            </li>#}
+{#            <li class="nav-item">#}
+{#                <a class="nav-link" href="{% url 'account_logout' %}">#}
+{#                    <button id="login_button" style="background-color: #b7efd4;">#}
+{#                        logout#}
+{#                    </button>#}
+{#                </a>#}
+{#            </li>#}
+{#            {% else %}#}
+{#            <li class="nav-item">#}
+{#                <a class="nav-link" href="{% url 'account_login' %}">#}
+{#                    <button id="login_button" style="background-color: #e3e3e3;">#}
+{#                        login#}
+{#                    </button>#}
+{#                </a>#}
+{#            </li>#}
+{#            <li class="nav-item">#}
+{#                <a class="nav-link" href="{% url 'account_signup' %}">#}
+{#                    <button id="login_button" style="background-color: #b7efd4;">#}
+{#                        signup#}
+{#                    </button>#}
+{#                </a>#}
+{#            </li>#}
+{#            {% endif %}#}
+{#            {% if user.role == 2 %}#}
+{#            <li class="nav-item">#}
+{#                <a class="nav-link" href="{% url 'estate:upload_index' %}">#}
+{#                    <button id="login_button" style="background-color: #cad8ff;">#}
+{#                        Post#}
+{#                    </button>#}
+{#                </a>#}
+{#            </li>#}
+{#            {% endif %}#}
+{#        </ul>#}
     </div>
 </nav>
 
